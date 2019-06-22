@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints"
+
+    android:layout_height="match_parent">
+
+    <com.flyco.roundview.RoundLinearLayout
+        android:layout_margin="@dimen/px100"
+        app:rv_cornerRadius="@dimen/px20"
+        app:rv_backgroundColor="@color/white"
+        android:layout_width="match_parent"
+        android:padding="@dimen/px40"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:text="@string/withdrawal2"
+            android:layout_marginTop="@dimen/px10"
+            android:layout_marginBottom="@dimen/px50"
+            style="@style/Tv15black" />
+
+        <View style="@style/divider_1"/>
+
+        <LinearLayout
+            android:id="@+id/ly_yhk"
+            android:background="?actionBarItemBackground"
+            android:padding="@dimen/px30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:text="@string/yhk"
+                android:layout_weight="1"
+                style="@style/Tv15black" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_yhk"
+                android:layout_width="wrap_content"
+                android:background="@mipmap/mg01"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View style="@style/divider_1"/>
+
+        <LinearLayout
+            android:id="@+id/ly_zfb"
+            android:background="?actionBarItemBackground"
+            android:padding="@dimen/px30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:text="@string/zfb"
+                android:layout_weight="1"
+                style="@style/Tv15black" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_zfb"
+                android:layout_width="wrap_content"
+                android:background="@mipmap/mg01"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View style="@style/divider_1"/>
+
+        <LinearLayout
+            android:id="@+id/ly_wx"
+            android:background="?actionBarItemBackground"
+            android:padding="@dimen/px30"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:text="@string/wx"
+                android:layout_weight="1"
+                style="@style/Tv15black" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:id="@+id/iv_wx"
+                android:background="@mipmap/mg01"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View style="@style/divider_1"/>
+
+        <com.flyco.roundview.RoundTextView
+            android:id="@+id/bt_submit"
+            android:layout_width="wrap_content"
+            android:ems="10"
+            style="@style/RoundBlueTextView"
+            android:layout_marginTop="@dimen/px70"
+            android:layout_marginBottom="@dimen/px30"
+            android:text="@string/submit"
+            app:rv_backgroundColor="@color/red_FF7D78"
+            app:rv_cornerRadius="@dimen/px40" />
+
+    </com.flyco.roundview.RoundLinearLayout>
+
+</android.support.constraint.ConstraintLayout>

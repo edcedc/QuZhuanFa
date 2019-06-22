@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints"
+    android:padding="@dimen/px20"
+    android:layout_height="wrap_content">
+
+    <com.yc.quzhaunfa.weight.CircleImageView
+        android:id="@+id/iv_head"
+        android:src="@mipmap/place_holder_user"
+        android:layout_width="@dimen/px80"
+        android:layout_height="@dimen/px80" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_id"
+        android:layout_marginLeft="@dimen/px20"
+        app:layout_constraintBottom_toTopOf="@id/tv_time"
+        app:layout_constraintTop_toTopOf="@id/iv_head"
+        app:layout_constraintLeft_toRightOf="@id/iv_head"
+        style="@style/Tv12gray"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_income"
+        app:layout_constraintTop_toTopOf="@id/tv_id"
+        app:layout_constraintBottom_toBottomOf="@id/tv_id"
+        app:layout_constraintRight_toRightOf="parent"
+        style="@style/Tv12red"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_time"
+        android:layout_marginLeft="@dimen/px20"
+        app:layout_constraintBottom_toBottomOf="@id/iv_head"
+        app:layout_constraintLeft_toRightOf="@id/iv_head"
+        app:layout_constraintTop_toBottomOf="@id/tv_id"
+        style="@style/Tv12gray"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:text="累计收益"
+        app:layout_constraintTop_toTopOf="@id/tv_time"
+        app:layout_constraintBottom_toBottomOf="@id/tv_time"
+        app:layout_constraintRight_toRightOf="parent"
+        style="@style/Tv12gray"/>
+
+</android.support.constraint.ConstraintLayout>

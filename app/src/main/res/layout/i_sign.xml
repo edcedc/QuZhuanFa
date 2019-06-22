@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingConstraints"
+    android:padding="@dimen/px10"
+    android:background="?selectableItemBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.yc.quzhaunfa.weight.RoundImageView
+        android:id="@+id/iv_img"
+        android:layout_width="@dimen/px184"
+        android:layout_height="@dimen/px118"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/place_holder" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        style="@style/Tv12black"
+        app:layout_constraintLeft_toRightOf="@id/iv_img"
+        android:layout_width="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:ellipsize="none"
+        android:maxLines="2"
+        android:layout_marginLeft="@dimen/px20"
+        app:layout_constraintTop_toTopOf="@id/iv_img"
+        app:layout_constraintBottom_toTopOf="@id/tv_price"  />
+
+    <com.flyco.roundview.RoundTextView
+        android:id="@+id/tv_price"
+        style="@style/Tv12red"
+        android:paddingLeft="@dimen/px10"
+        android:paddingRight="@dimen/px10"
+        android:layout_marginLeft="@dimen/px20"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintLeft_toRightOf="@id/iv_img"
+        app:layout_constraintBottom_toBottomOf="@id/iv_img"
+        android:textSize="@dimen/size20"
+        app:rv_cornerRadius="@dimen/px10"
+        app:rv_strokeColor="@color/red_EF402C"
+        app:rv_strokeWidth="@dimen/px1" />
+
+</android.support.constraint.ConstraintLayout>

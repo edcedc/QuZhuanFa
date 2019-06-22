@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:background="@color/white_f4f4f4"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:background="@mipmap/zcbj01"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/include_top"
+            android:id="@+id/top"/>
+
+        <android.support.v4.widget.NestedScrollView
+            app:layout_constraintTop_toBottomOf="@id/top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/px20"
+                    android:layout_height="wrap_content">
+
+                    <com.yc.quzhaunfa.weight.CircleImageView
+                        android:id="@+id/iv_head"
+                        android:layout_width="@dimen/px120"
+                        android:src="@mipmap/place_holder_user"
+                        android:layout_height="@dimen/px120" />
+
+                    <android.support.v7.widget.AppCompatTextView
+                       style="@style/Tv15black"
+                        android:id="@+id/tv_name"
+                        app:layout_constraintBottom_toTopOf="@id/tv_id"
+                        app:layout_constraintLeft_toRightOf="@id/iv_head"
+                        app:layout_constraintTop_toTopOf="@id/iv_head"
+                        android:layout_marginLeft="@dimen/px20"
+                        android:textColor="@color/white"
+                        android:text="未设置"/>
+
+
+                    <android.support.v7.widget.AppCompatTextView
+                        style="@style/Tv12gray"
+                        android:layout_marginLeft="@dimen/px20"
+                        app:layout_constraintBottom_toBottomOf="@id/iv_head"
+                        app:layout_constraintLeft_toRightOf="@id/iv_head"
+                        app:layout_constraintTop_toBottomOf="@id/tv_name"
+                        android:id="@+id/tv_id"
+                        android:textColor="@color/white"
+                        android:text="ID："/>
+
+                    <com.flyco.roundview.RoundLinearLayout
+                        android:id="@+id/ly_sign"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/px30"
+                        android:paddingRight="@dimen/px30"
+                        android:paddingTop="@dimen/px10"
+                        android:paddingBottom="@dimen/px10"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_name"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_id"
+                        app:rv_cornerRadius="@dimen/px40"
+                        app:rv_backgroundColor="@color/red_EF402C">
+
+                        <android.support.v7.widget.AppCompatTextView
+                            android:id="@+id/tv_sign"
+                            style="@style/Tv12gray"
+                            android:drawablePadding="@dimen/px20"
+                            android:drawableLeft="@mipmap/qd01"
+                            android:textColor="@color/white"
+                            android:text="签到"/>
+
+                    </com.flyco.roundview.RoundLinearLayout>
+
+                    <com.flyco.roundview.RoundLinearLayout
+                        android:id="@+id/ly_income"
+                        android:layout_marginTop="@dimen/px50"
+                        app:layout_constraintTop_toBottomOf="@id/iv_head"
+                        app:rv_backgroundColor="@color/white"
+                        app:rv_cornerRadius="@dimen/px20"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:padding="@dimen/px50"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_weight="1">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/tv_income"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black"
+                                android:textSize="20sp"/>
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_marginTop="@dimen/px20"
+                                style="@style/Tv12gray"
+                                android:text="@string/accumulated_income" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_marginTop="@dimen/px50"
+                            android:layout_marginBottom="@dimen/px50"
+                            android:layout_width="@dimen/px1"
+                            android:background="@color/tab_gray"
+                            android:layout_height="match_parent"/>
+
+                        <LinearLayout
+                            android:padding="@dimen/px50"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center"
+                            android:layout_weight="1">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/tv_balance"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/red_EF402C"
+                                android:textSize="20sp"/>
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:layout_marginTop="@dimen/px20"
+                                style="@style/Tv12gray"
+                                android:text="@string/account_balance" />
+
+                        </LinearLayout>
+
+                    </com.flyco.roundview.RoundLinearLayout>
+
+                    <com.flyco.roundview.RoundFrameLayout
+                        app:layout_constraintTop_toBottomOf="@id/ly_income"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/px40"
+                        android:layout_height="wrap_content"
+                        app:rv_backgroundColor="@color/white"
+                        app:rv_cornerRadius="@dimen/px20">
+
+                        <com.yc.quzhaunfa.weight.WithScrollListView
+                            android:layout_width="match_parent"
+                            android:id="@+id/listView"
+                            android:layout_height="wrap_content"/>
+
+                    </com.flyco.roundview.RoundFrameLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </LinearLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

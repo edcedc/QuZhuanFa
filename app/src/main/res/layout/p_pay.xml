@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingConstraints">
+
+    <com.flyco.roundview.RoundLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/px100"
+        android:orientation="vertical"
+        android:padding="@dimen/px30"
+        app:rv_backgroundColor="@color/white"
+        app:rv_cornerRadius="@dimen/px20">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/px20">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/sc01" />
+
+            <android.support.v7.widget.AppCompatTextView
+                style="@style/Tv15black"
+                android:layout_gravity="center"
+                android:text="@string/input_pay_pwd"
+                android:textColor="@color/black" />
+
+        </FrameLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            style="@style/Tv15black"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/px20"
+            android:text="@string/balance_withdrawal"
+            android:textColor="@color/black" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/px20"
+            android:text="0.0"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+
+        <com.jungly.gridpasswordview.GridPasswordView
+            android:id="@+id/gpv_normal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginBottom="@dimen/px50" />
+
+    </com.flyco.roundview.RoundLinearLayout>
+
+</LinearLayout>

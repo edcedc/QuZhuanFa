@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_top" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:background="@mipmap/y2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.flyco.roundview.RoundTextView
+                    style="@style/Tv12gray"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="@dimen/px40"
+                    android:padding="@dimen/px10"
+                    android:text="@string/invitation_strategy"
+                    android:textColor="@color/white"
+                    app:rv_backgroundColor="@color/red_EF402C"
+                    app:rv_cornerRadius_BL="@dimen/px20"
+                    app:rv_cornerRadius_TL="@dimen/px20" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/px60"
+                        android:background="@mipmap/wan01" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/px30"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:visibility="invisible"
+                            android:id="@+id/ly_apprentice"
+                            android:background="@mipmap/qq02"
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="70dp" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                style="@style/Tv15black"
+                                android:layout_gravity="center"
+                                android:drawableLeft="@mipmap/gjn02"
+                                android:drawableRight="@mipmap/jx20"
+                                android:drawablePadding="@dimen/px20"
+                                android:text="@string/my_income" />
+
+                            <LinearLayout
+                                android:layout_marginLeft="@dimen/px40"
+                                android:layout_marginRight="@dimen/px40"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:padding="@dimen/px20"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <android.support.v7.widget.AppCompatImageView
+                                        android:layout_width="wrap_content"
+                                        android:background="@mipmap/td30"
+                                        android:layout_height="wrap_content" />
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:layout_marginTop="@dimen/px20"
+                                        android:layout_marginBottom="@dimen/px30"
+                                        android:text="@string/my_apprentice"
+                                        style="@style/Tv15black" />
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/tv_apprentice"
+                                        android:textColor="@color/orange_FA7B31"
+                                        android:textSize="@dimen/size40"
+                                        style="@style/Tv15black" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:padding="@dimen/px20"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <android.support.v7.widget.AppCompatImageView
+                                        android:layout_width="wrap_content"
+                                        android:background="@mipmap/gx30"
+                                        android:layout_height="wrap_content" />
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:layout_marginTop="@dimen/px20"
+                                        android:layout_marginBottom="@dimen/px30"
+                                        android:text="@string/contribution"
+                                        style="@style/Tv15black" />
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/tv_contribution"
+                                        android:textColor="@color/orange_FA7B31"
+                                        android:textSize="@dimen/size40"
+                                        style="@style/Tv15black" />
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:padding="@dimen/px20"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <android.support.v7.widget.AppCompatImageView
+                                        android:layout_width="wrap_content"
+                                        android:background="@mipmap/td30"
+                                        android:layout_height="wrap_content" />
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:layout_marginTop="@dimen/px20"
+                                        android:layout_marginBottom="@dimen/px30"
+                                        android:text="@string/yesterday_contribution"
+                                        style="@style/Tv15black" />
+
+                                    <android.support.v7.widget.AppCompatTextView
+                                        android:id="@+id/tv_yesterday_contribution"
+                                        android:textColor="@color/orange_FA7B31"
+                                        android:textSize="@dimen/size40"
+                                        style="@style/Tv15black" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                            <View
+                                style="@style/divider_1"/>
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:visibility="visible"
+                            android:id="@+id/ly_friends"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@mipmap/hng02"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="wrap_content"
+                                android:layout_height="70dp" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                style="@style/Tv15black"
+                                android:layout_gravity="center"
+                                android:drawableLeft="@mipmap/gjn02"
+                                android:drawableRight="@mipmap/jx20"
+                                android:drawablePadding="@dimen/px20"
+                                android:text="@string/invite_friends1" />
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/px40"
+                                android:layout_marginTop="@dimen/px40"
+                                android:layout_marginRight="@dimen/px40"
+                                android:background="@mipmap/bbb02" />
+
+                            <android.support.v7.widget.AppCompatImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/px40"
+                                android:layout_marginTop="@dimen/px40"
+                                android:layout_marginRight="@dimen/px40"
+                                android:background="@mipmap/jmk01" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/px40"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    style="@style/Tv15black"
+                                    android:layout_height="match_parent"
+                                    android:background="@mipmap/dbb02"
+                                    android:gravity="center"
+                                    android:text="@string/invite_friends2"
+                                    android:textColor="@color/white" />
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/tv_income"
+                                    style="@style/Tv15black"
+                                    android:background="@mipmap/dbb01"
+                                    android:gravity="center"
+                                    android:textColor="#BD7C43" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <FrameLayout
+                                android:id="@+id/fy_invite_friends"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="40dp"
+                                android:layout_gravity="right"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/tv_invite_friends"
+                                    style="@style/Tv15black"
+                                    android:layout_gravity="center"
+                                    android:drawableLeft="@mipmap/yqhy01"
+                                    android:drawablePadding="@dimen/px20"
+                                    android:text="@string/invite_friends" />
+
+
+                            </FrameLayout>
+
+                            <FrameLayout
+                                android:id="@+id/fy_my_apprentice"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="40dp"
+                                android:layout_gravity="right"
+                                android:background="@mipmap/hng01"
+                                android:orientation="horizontal">
+
+                                <android.support.v7.widget.AppCompatTextView
+                                    android:id="@+id/tv_my_apprentice"
+                                    style="@style/Tv15black"
+                                    android:layout_gravity="center"
+                                    android:drawableLeft="@mipmap/y3"
+                                    android:drawablePadding="@dimen/px20"
+                                    android:text="@string/my_apprentice" />
+
+
+                            </FrameLayout>
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_invite"
+                        style="@style/Tv15black"
+                        android:layout_gravity="bottom|center"
+                        android:layout_marginBottom="@dimen/px40"
+                        android:background="@mipmap/an60"
+                        android:gravity="center"
+                        android:text="@string/invite_friends3"
+                        android:textColor="#964500"
+                        android:textSize="@dimen/size42" />
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginBottom="@dimen/px40"
+                    android:orientation="vertical">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_wx"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/wx50" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_wxq"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/pyq50" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_zking"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/wx50" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </LinearLayout>
+
+</layout>

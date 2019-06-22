@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/include_top"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:max="100"
+            android:progress="0" />
+
+        <com.yc.quzhaunfa.weight.X5WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+
+        <View
+            style="@style/divider_dropshadow"/>
+
+        <LinearLayout
+            android:padding="@dimen/px20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_forwarding"
+                style="@style/Tv15black"
+                android:layout_weight="1"
+                android:padding="@dimen/px20"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:text="@string/forwarding"/>
+
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/tv_share"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:padding="@dimen/px20"
+                app:rv_cornerRadius="@dimen/px40"
+                app:rv_backgroundColor="@color/red_FF7D78"
+                style="@style/Tv15black"
+                android:text="@string/forwarding1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

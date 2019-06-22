@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <com.flyco.roundview.RoundLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/px40"
+        app:rv_cornerRadius="@dimen/px20"
+        android:layout_margin="@dimen/px100"
+        app:rv_backgroundColor="@color/white"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatTextView
+            android:drawableTop="@mipmap/guz01"
+            android:textColor="@color/black"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/px40"
+            android:textSize="@dimen/size34"
+            android:drawablePadding="@dimen/px60"
+            android:text="@string/forwarding2"
+            style="@style/Tv15black" />
+        
+        <android.support.v7.widget.AppCompatTextView
+            android:text="@string/share_money"
+            android:layout_marginTop="@dimen/px40"
+            android:textColor="@color/orange_FF942F"
+            style="@style/Tv15black" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:text="@string/share_money1"
+            android:layout_marginTop="@dimen/px20"
+            style="@style/Tv12gray" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:text="@string/share_money2"
+            android:layout_marginTop="@dimen/px20"
+            android:textColor="@color/orange_FF942F"
+            style="@style/Tv15black" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:text="@string/share_money3"
+            android:layout_marginTop="@dimen/px20"
+            style="@style/Tv12gray" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:text="@string/share_money4"
+            android:layout_marginTop="@dimen/px20"
+            android:textColor="@color/orange_FF942F"
+            style="@style/Tv15black" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:text="@string/share_money5"
+            android:layout_marginTop="@dimen/px20"
+            style="@style/Tv12gray" />
+
+    </com.flyco.roundview.RoundLinearLayout>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_delete"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:background="@mipmap/gbb01"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

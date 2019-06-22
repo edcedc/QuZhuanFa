@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_top"/>
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/px200"
+            android:layout_marginLeft="@dimen/px60"
+            android:layout_marginRight="@dimen/px60"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_pwd"
+                android:textSize="@dimen/size30"
+                android:inputType="textPassword"
+                android:maxLength="6"
+                android:drawableLeft="@mipmap/mm01"
+                android:padding="@dimen/px40"
+                android:drawablePadding="@dimen/px40"
+                android:hint="@string/input_pay_pwd1"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="wrap_content" />
+
+            <View
+                style="@style/divider_1"/>
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/et_pwd1"
+                android:textSize="@dimen/size30"
+                android:inputType="textPassword"
+                android:maxLength="6"
+                android:drawableLeft="@mipmap/mm01"
+                android:padding="@dimen/px40"
+                android:drawablePadding="@dimen/px40"
+                android:hint="@string/input_pay_pwd1"
+                android:layout_width="match_parent"
+                android:background="@null"
+                android:layout_height="wrap_content" />
+
+            <View
+                style="@style/divider_1"/>
+
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/bt_submit"
+                style="@style/RoundBlueTextView"
+                android:layout_marginLeft="@dimen/px80"
+                android:layout_marginTop="@dimen/px200"
+                android:layout_marginRight="@dimen/px80"
+                android:text="@string/wancehng"
+                app:rv_backgroundColor="@color/red_FF7D78"
+                app:rv_cornerRadius="@dimen/px40" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+</layout>

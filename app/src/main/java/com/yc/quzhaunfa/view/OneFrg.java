@@ -2,6 +2,7 @@ package com.yc.quzhaunfa.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -55,6 +56,13 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
         mB.lyLock.setOnClickListener(this);
         mB.ivIncome.setOnClickListener(this);
         mPresenter.onRequest("");
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                PopupWindowTool.showLogin(act);
+            }
+        }, 2000);
     }
 
     @Override

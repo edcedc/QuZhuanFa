@@ -287,7 +287,7 @@
                         android:background="@mipmap/an60"
                         android:gravity="center"
                         android:text="@string/invite_friends3"
-                        android:textColor="#964500"
+                        android:textColor="@color/orange_964500"
                         android:textSize="@dimen/size42" />
 
                 </LinearLayout>

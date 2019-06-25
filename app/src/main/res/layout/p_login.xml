@@ -1,6 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    tools:ignore="MissingConstraints"
+    android:orientation="vertical"
     android:layout_height="match_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:background="@mipmap/hbbj90"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_marginTop="170dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:orientation="vertical">
+
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_css"
+                android:textSize="25sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="110dp" />
+
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:background="@mipmap/hbgz90"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_login"
+                    android:layout_marginTop="@dimen/px40"
+                    android:layout_marginLeft="@dimen/px20"
+                    android:textColor="@color/white"
+                    style="@style/Tv15black"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_share"
+                    android:layout_marginTop="@dimen/px40"
+                    android:layout_marginLeft="@dimen/px20"
+                    android:textColor="@color/white"
+                    style="@style/Tv15black"/>
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_apprentice"
+                    android:layout_marginTop="@dimen/px40"
+                    android:layout_marginLeft="@dimen/px20"
+                    android:textColor="@color/white"
+                    style="@style/Tv15black"/>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_invite"
+        style="@style/Tv15black"
+        android:background="@mipmap/an60"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="@string/continue_collect"
+        android:textColor="@color/orange_964500"
+        android:textSize="@dimen/size42" />
+
+</LinearLayout>

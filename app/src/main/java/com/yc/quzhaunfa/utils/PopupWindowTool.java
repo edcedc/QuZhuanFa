@@ -1,11 +1,20 @@
 package com.yc.quzhaunfa.utils;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.BackgroundColorSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +48,39 @@ public class PopupWindowTool {
         View wh = LayoutInflater.from(act).inflate(R.layout.p_login, null);
         final WPopupWindow popupWindow = new WPopupWindow(wh);
         popupWindow.showAtLocation(wh, Gravity.CENTER, 0, 0);
+        AppCompatTextView tv_css = wh.findViewById(R.id.tv_css);
+        AppCompatTextView tv_login = wh.findViewById(R.id.tv_login);
+        AppCompatTextView tv_share = wh.findViewById(R.id.tv_share);
+        AppCompatTextView tv_apprentice = wh.findViewById(R.id.tv_apprentice);
+        String str = "恭喜您获得" +
+                "7.01" +
+                "元" + "\n" + "新人红包(可提现）";
+        Spannable sp = new SpannableString(str);
+        sp.setSpan(new ForegroundColorSpan(act.getColor(R.color.red_EF402C)), 5, str.length() - 10, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        sp.setSpan(new AbsoluteSizeSpan(15, true), str.length() - 11, str.length() - 9, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        sp.setSpan(new AbsoluteSizeSpan(20, true), str.length() - 5, str.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        sp.setSpan(new ForegroundColorSpan(act.getColor(R.color.orange_FF942F)), str.length() - 5, str.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        tv_css.setText(sp);
+
+        tv_login.setText("首次登陆APP          +" +
+                "0" +
+                "元            " +
+                "未获得");
+        tv_share.setText("首次分享文章          +" +
+                "0" +
+                "元           " +
+                "未获得");
+        tv_apprentice.setText("首次收徒                  +" +
+                "0" +
+                "元           " +
+                "未获得");
+
+        wh.findViewById(R.id.tv_invite).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
     }
 
     public static void showSign(final Context act, final List<DataBean> listBean, final onSignClickListener listener){
@@ -71,9 +113,7 @@ public class PopupWindowTool {
     }
 
     public interface onSignClickListener{
-
         void onClick(List<DataBean> listBean, SignAdapter adapter);
-
     }
 
 

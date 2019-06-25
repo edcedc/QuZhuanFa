@@ -119,7 +119,6 @@ dependencies {
     //轮播图
     implementation 'com.youth.banner:banner:1.4.10'
 
-    //最新版本
 
     //MVP架构
     implementation 'com.hannesdorfmann.mosby:mvp:2.0.1'

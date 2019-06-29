@@ -13,11 +13,12 @@ public interface AddBankContract {
 
     interface View extends IBaseView {
 
+        void onSaveBank();
     }
 
     abstract class Presenter extends BasePresenter<View> {
 
-        public abstract void addBnak(String bankNum, String openBank, String name, String userId, String userBank, boolean checked);
+        public abstract void addBnak(String bankNum, String openBank, String userName, String userCard, String phone, boolean checked, String id);
     }
 
 }

@@ -9,6 +9,7 @@ import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.base.BaseFragment;
 import com.yc.quzhaunfa.base.BasePresenter;
 import com.yc.quzhaunfa.base.IBaseView;
+import com.yc.quzhaunfa.controller.UIHelper;
 import com.yc.quzhaunfa.databinding.FMainBinding;
 import com.yc.quzhaunfa.weight.buttonBar.BottomBar;
 import com.yc.quzhaunfa.weight.buttonBar.BottomBarTab;
@@ -62,9 +63,11 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
             @Override
             public void onTabSelected(int position, int prePosition) {
                 if (position == SECOND){
-//                    if (!isUserLogin())return;
+//                    UIHelper.startApprenticeFrg(MainFrg.this);
+                }else {
                 }
                 showHideFragment(mFragments[position], mFragments[prePosition]);
+
             }
 
             @Override

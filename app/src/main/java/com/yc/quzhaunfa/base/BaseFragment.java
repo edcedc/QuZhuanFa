@@ -52,12 +52,12 @@ import com.yc.quzhaunfa.event.PayInEvent;
 import com.yc.quzhaunfa.utils.TUtil;
 import com.yc.quzhaunfa.utils.pay.PayResult;
 import com.yc.quzhaunfa.weight.GridDividerItemDecoration;
+import com.yc.quzhaunfa.weight.LoadingLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
-import ezy.ui.layout.LoadingLayout;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
@@ -95,6 +95,8 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
     private TwinklingRefreshLayout refreshLayout;
     protected int pagerNumber = 1;//网络请求默认第一页
 
+    private LoadingLayout vLoading;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         LogUtils.d("onCreateView");
@@ -117,7 +119,7 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
         }
         initParms(bundle);
         initView(rootView);
-
+        vLoading = view.findViewById(R.id.loadinglayout);
         return attachToSwipeBack(rootView);
     }
 
@@ -158,14 +160,6 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
     }
 
 
-    public void showLoading() {
-        ((BaseActivity)act).showLoading();
-    }
-
-    public void hideLoading() {
-        ((BaseActivity)act).hideLoading();
-    }
-
     public void onError(Throwable e, String errorName) {
         errorText(e, errorName);
     }
@@ -187,8 +181,26 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
     }
 
 
-
+    private final int handler_load = 0;
+    private final int handler_hide = 1;
+    private final int handler_empty = 2;
+    private final int handler_error = 3;
+    private final int handler_no_network = 4;
+    private final int handler_loadData = 5;
+    private final int handler_success = 6;
     private final int SDK_PAY_FLAG = 7;
+
+    private ProgressDialog dialog;
+
+    public void showLoading() {
+        mHandler.sendEmptyMessage(handler_load);
+    }
+
+    public void hideLoading() {
+        mHandler.sendEmptyMessage(handler_hide);
+    }
+
+
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -212,16 +224,48 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
                         showToast("支付取消");
                     }
                     break;
+                case handler_load:
+                    if (dialog != null && dialog.isShowing()) return;
+                    dialog = new ProgressDialog(act);
+                    dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                    dialog.setMessage("请求网络中...");
+                    dialog.show();
+                    break;
+                case handler_hide:
+                    if (dialog != null && dialog.isShowing()) {
+                        dialog.dismiss();
+                    }
+                    if (vLoading != null) {
+                        vLoading.showContent();
+                    }
+                    break;
+                case handler_empty:
+                    if (vLoading != null) {
+                        vLoading.showEmpty();
+                    }
+                    break;
+                case handler_error:
+                    if (vLoading != null) {
+                        vLoading.showError();
+                    }
+                    break;
+                case handler_loadData:
+                    if (vLoading != null) {
+                        vLoading.showLoading();
+                    }
+                    break;
             }
         }
     };
 
     public void showLoadDataing() {
-        ((BaseActivity)act).showLoadDataing();
+        mHandler.sendEmptyMessage(handler_loadData);
     }
 
     public void showLoadEmpty() {
-        ((BaseActivity)act).showLoadEmpty();
+        mHandler.sendEmptyMessage(handler_empty);
     }
 
     private void showError(){

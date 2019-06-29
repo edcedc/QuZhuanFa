@@ -1,9 +1,12 @@
 package com.yc.quzhaunfa.view.act;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.umeng.socialize.UMShareAPI;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.base.BaseActivity;
+import com.yc.quzhaunfa.utils.cache.ShareIsLoginCache;
 import com.yc.quzhaunfa.view.DetailsFrg;
 import com.yc.quzhaunfa.view.LoginFrg;
 
@@ -33,8 +36,15 @@ public class LoginAct extends BaseActivity {
 
     @Override
     protected void initView() {
+        ShareIsLoginCache.getInstance(act).save(true);
         if (findFragment(LoginFrg.class) == null) {
             loadRootFragment(R.id.fl_container, LoginFrg.newInstance());
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
     }
 }

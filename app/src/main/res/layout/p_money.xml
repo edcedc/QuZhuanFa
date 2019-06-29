@@ -34,29 +34,29 @@
 
         <android.support.v7.widget.AppCompatTextView
             android:text="@string/share_money1"
-            android:layout_marginTop="@dimen/px20"
+            android:layout_marginTop="@dimen/px10"
             style="@style/Tv12gray" />
 
         <android.support.v7.widget.AppCompatTextView
             android:text="@string/share_money2"
-            android:layout_marginTop="@dimen/px20"
+            android:layout_marginTop="@dimen/px10"
             android:textColor="@color/orange_FF942F"
             style="@style/Tv15black" />
 
         <android.support.v7.widget.AppCompatTextView
             android:text="@string/share_money3"
-            android:layout_marginTop="@dimen/px20"
+            android:layout_marginTop="@dimen/px10"
             style="@style/Tv12gray" />
 
         <android.support.v7.widget.AppCompatTextView
             android:text="@string/share_money4"
-            android:layout_marginTop="@dimen/px20"
+            android:layout_marginTop="@dimen/px10"
             android:textColor="@color/orange_FF942F"
             style="@style/Tv15black" />
 
         <android.support.v7.widget.AppCompatTextView
             android:text="@string/share_money5"
-            android:layout_marginTop="@dimen/px20"
+            android:layout_marginTop="@dimen/px10"
             style="@style/Tv12gray" />
 
     </com.flyco.roundview.RoundLinearLayout>

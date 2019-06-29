@@ -51,14 +51,11 @@ public abstract class NewsCallback<T> extends AbsCallback<T> {
         Type rawType = ((ParameterizedType) type).getRawType();
         if (rawType == BaseResponseBean.class) {
             BaseResponseBean gankResponse = Convert.fromJson(jsonReader, type);
-            if (gankResponse.code == 1) {
+            if (gankResponse.code == Code.CODE_SUCCESS) {
                 response.close();
-                //noinspection unchecked
                 return (T) gankResponse;
             }else if (gankResponse.code == 0){
-//                ToastUtils.showShort(gankResponse.desc);
                 response.close();
-                //noinspection unchecked
                 return (T) gankResponse;
             } else if (gankResponse.code == 2){
                 response.close();

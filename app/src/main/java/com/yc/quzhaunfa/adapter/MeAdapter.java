@@ -54,6 +54,8 @@ public class MeAdapter extends BaseListViewAdapter<DataBean> {
         viewHolder.tvName.setText(bean.getName());
         viewHolder.ivBack.setVisibility(isImg == true ? View.VISIBLE : View.GONE);
 
+        viewHolder.tvContent.setText(bean.getContent());
+
         if (listBean.size() - 1 == position){
             viewHolder.view.setVisibility(View.GONE);
         }else {
@@ -71,6 +73,7 @@ public class MeAdapter extends BaseListViewAdapter<DataBean> {
 
         ImageView ivImg;
         TextView tvName;
+        TextView tvContent;
         View view;
         View ivBack;
 
@@ -79,6 +82,7 @@ public class MeAdapter extends BaseListViewAdapter<DataBean> {
             tvName = itemView.findViewById(R.id.tv_name);
             view = itemView.findViewById(R.id.view);
             ivBack = itemView.findViewById(R.id.iv_back);
+            tvContent = itemView.findViewById(R.id.tv_content);
         }
     }
 

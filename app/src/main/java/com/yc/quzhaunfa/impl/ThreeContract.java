@@ -2,6 +2,9 @@ package com.yc.quzhaunfa.impl;
 
 import com.yc.quzhaunfa.base.BasePresenter;
 import com.yc.quzhaunfa.base.IBaseView;
+import com.yc.quzhaunfa.bean.DataBean;
+
+import java.util.List;
 
 /**
  * Created by wb  yyc
@@ -13,10 +16,16 @@ public interface ThreeContract {
 
     interface View extends IBaseView {
 
+        void setData(List<DataBean> list);
+
+        void onTodayYesterdayALl(DataBean bean);
     }
 
     abstract class Presenter extends BasePresenter<View> {
 
+        public abstract void getUserList();
+
+        public abstract void getTodayYesterdayALl();
     }
 
 }

@@ -19,6 +19,8 @@ import com.yc.quzhaunfa.utils.CountDownTimerUtils;
  */
 public class RetrievePwdFrg extends BaseFragment<RetrievePwdPresenter, FRetrieveBinding> implements RetrievePwdContract.View, View.OnClickListener {
 
+    private int type;
+
     @Override
     public void initPresenter() {
         mPresenter.init(this);
@@ -26,7 +28,7 @@ public class RetrievePwdFrg extends BaseFragment<RetrievePwdPresenter, FRetrieve
 
     @Override
     protected void initParms(Bundle bundle) {
-
+        type = bundle.getInt("type");
     }
 
     @Override
@@ -36,7 +38,7 @@ public class RetrievePwdFrg extends BaseFragment<RetrievePwdPresenter, FRetrieve
 
     @Override
     protected void initView(View view) {
-        setTitle(getString(R.string.register));
+        setTitle(type == 0 ? getString(R.string.register) : getString(R.string.bind_phone));
         mB.tvCode.setOnClickListener(this);
         mB.btSubmit.setOnClickListener(this);
     }
@@ -47,13 +49,18 @@ public class RetrievePwdFrg extends BaseFragment<RetrievePwdPresenter, FRetrieve
     }
 
     @Override
+    public void onRetrievePwd() {
+        pop();
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_code:
-                mPresenter.code(mB.etPhone.getText().toString());
+                mPresenter.code(mB.etPhone.getText().toString(), type);
                 break;
             case R.id.bt_submit:
-                mPresenter.login(mB.etPhone.getText().toString(), mB.etCode.getText().toString(), mB.etPwd.getText().toString(), mB.etPwd1.getText().toString());
+                mPresenter.login(mB.etPhone.getText().toString(), mB.etCode.getText().toString(), mB.etPwd.getText().toString(), mB.etPwd1.getText().toString(), type);
                 break;
         }
     }

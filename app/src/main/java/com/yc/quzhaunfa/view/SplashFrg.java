@@ -96,25 +96,31 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
         mB.banner.setImages(images)
                 .setImageLoader(new GlideImageLoader())
                 .setOnBannerListener(this)
-                .setBannerAnimation(DefaultTransformer.class).start();
-        mB.banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                .setBannerAnimation(DefaultTransformer.class);
 
-            }
+        if (!ShareIsLoginCache.getInstance(act).getIsLogin()){
+            mB.banner.start();
+            mB.banner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
-            @Override
-            public void onPageSelected(int position) {
-                if (position == images.size() - 1) {
-                    handler.sendEmptyMessageDelayed(mHandle_permission, 1000);
                 }
-            }
 
-            @Override
-            public void onPageScrollStateChanged(int state) {
+                @Override
+                public void onPageSelected(int position) {
+                    if (position == images.size() - 1) {
+                        handler.sendEmptyMessageDelayed(mHandle_permission, 1000);
+                    }
+                }
 
-            }
-        });
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+        }else {
+            handler.sendEmptyMessageDelayed(mHandle_permission, 1000);
+        }
     }
 
     private Handler handler = new Handler() {
@@ -226,17 +232,17 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
      * 权限都成功
      */
     private void setPermissionOk() {
-        String sessionId = ShareSessionIdCache.getInstance(act).getSessionId();
+        /*String sessionId = ShareSessionIdCache.getInstance(act).getSessionId();
         if (!StringUtils.isEmpty(sessionId)) {
-
+            UIHelper.startMainAct();
         } else {
-
-        }
+            UIHelper.startLoginAct();
+        }*/
         startNext();
     }
 
     private void startNext() {
-        UIHelper.startMainAct();
+        UIHelper.startLoginAct();
         ActivityUtils.finishAllActivities();
     }
 

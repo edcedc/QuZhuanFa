@@ -14,13 +14,15 @@ public interface RetrievePwdContract {
     interface View extends IBaseView {
 
         void onCode();
+
+        void onRetrievePwd();
     }
 
     abstract class Presenter extends BasePresenter<View> {
 
-        public abstract void code(String phone);
+        public abstract void code(String phone, int type);
 
-        public abstract void login(String phone, String code, String pwd, String pwd1);
+        public abstract void login(String phone, String code, String pwd, String pwd1, int type);
     }
 
 }

@@ -3,6 +3,7 @@ package com.yc.quzhaunfa.base;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -29,6 +30,7 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.socialize.UMShareAPI;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.utils.Constants;
 import com.yc.quzhaunfa.utils.TUtil;
@@ -85,7 +87,8 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
         initParms(bundle);
 
         initView();
-        vLoading = LoadingLayout.wrap(act);
+//        vLoading = LoadingLayout.wrap(act);
+        vLoading = findViewById(R.id.loading);
 
         api = WXAPIFactory.createWXAPI(act, Constants.WX_APPID);
     }
@@ -419,4 +422,7 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
         }
         return false;
     }
+
+
+
 }

@@ -44,7 +44,7 @@ import java.util.List;
 
 public class PopupWindowTool {
 
-    public static void showLogin(final Context act){
+    public static void showLogin(final Context act, DataBean bean){
         View wh = LayoutInflater.from(act).inflate(R.layout.p_login, null);
         final WPopupWindow popupWindow = new WPopupWindow(wh);
         popupWindow.showAtLocation(wh, Gravity.CENTER, 0, 0);
@@ -52,8 +52,51 @@ public class PopupWindowTool {
         AppCompatTextView tv_login = wh.findViewById(R.id.tv_login);
         AppCompatTextView tv_share = wh.findViewById(R.id.tv_share);
         AppCompatTextView tv_apprentice = wh.findViewById(R.id.tv_apprentice);
+        double priceAll = 0;
+        if (bean.getLogin() == 0){
+            tv_login.setText("首次登陆APP          +" +
+                    bean.getLoginPrice() +
+                    "元            " +
+                    "未获得");
+            tv_login.setTextColor(act.getColor(R.color.orange_FFB502));
+        }else {
+            priceAll += bean.getLoginPrice();
+            tv_login.setText("首次登陆APP          +" +
+                    bean.getLoginPrice() +
+                    "元            " +
+                    "已获得");
+            tv_login.setTextColor(act.getColor(R.color.white));
+        }
+        if (bean.getShare() == 0){
+            tv_share.setText("首次分享文章          +" +
+                    bean.getSharePrice() +
+                    "元           " +
+                    "未获得");
+            tv_share.setTextColor(act.getColor(R.color.orange_FFB502));
+        }else {
+            priceAll += bean.getSharePrice();
+            tv_share.setText("首次分享文章          +" +
+                    bean.getSharePrice() +
+                    "元           " +
+                    "已获得");
+            tv_share.setTextColor(act.getColor(R.color.white));
+        }
+        if (bean.getShare() == 0){
+            tv_apprentice.setText("首次收徒                  +" +
+                    bean.getSharePrice() +
+                    "元           " +
+                    "未获得");
+            tv_apprentice.setTextColor(act.getColor(R.color.orange_FFB502));
+        }else {
+            priceAll += bean.getApprenticePrice();
+            tv_apprentice.setText("首次收徒                  +" +
+                    bean.getSharePrice() +
+                    "元           " +
+                    "已获得");
+            tv_apprentice.setTextColor(act.getColor(R.color.white));
+        }
         String str = "恭喜您获得" +
-                "7.01" +
+                priceAll +
                 "元" + "\n" + "新人红包(可提现）";
         Spannable sp = new SpannableString(str);
         sp.setSpan(new ForegroundColorSpan(act.getColor(R.color.red_EF402C)), 5, str.length() - 10, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
@@ -61,21 +104,7 @@ public class PopupWindowTool {
         sp.setSpan(new AbsoluteSizeSpan(20, true), str.length() - 5, str.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         sp.setSpan(new ForegroundColorSpan(act.getColor(R.color.orange_FF942F)), str.length() - 5, str.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         tv_css.setText(sp);
-
-        tv_login.setText("首次登陆APP          +" +
-                "0" +
-                "元            " +
-                "未获得");
-        tv_share.setText("首次分享文章          +" +
-                "0" +
-                "元           " +
-                "未获得");
-        tv_apprentice.setText("首次收徒                  +" +
-                "0" +
-                "元           " +
-                "未获得");
-
-        wh.findViewById(R.id.tv_invite).setOnClickListener(new View.OnClickListener() {
+        wh.findViewById(R.id.bt_submit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 popupWindow.dismiss();
@@ -146,7 +175,7 @@ public class PopupWindowTool {
             public View getView(FlowLayout parent, int position, DataBean bean) {
                 View view = View.inflate(act, R.layout.i_home_flow, null);
                 TextView tvText = view.findViewById(R.id.tv_text);
-                tvText.setText("标题" + position);
+                tvText.setText(bean.getClassName());
                 return view;
             }
         });

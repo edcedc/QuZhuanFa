@@ -8,19 +8,28 @@ import android.view.View;
 
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.gyf.immersionbar.ImmersionBar;
+import com.lzy.okgo.model.Response;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.adapter.MyPagerAdapter;
 import com.yc.quzhaunfa.base.BaseFragment;
 import com.yc.quzhaunfa.base.BaseListContract;
 import com.yc.quzhaunfa.base.BaseListPresenter;
 import com.yc.quzhaunfa.base.BasePresenter;
+import com.yc.quzhaunfa.bean.BaseResponseBean;
 import com.yc.quzhaunfa.bean.DataBean;
+import com.yc.quzhaunfa.callback.Code;
+import com.yc.quzhaunfa.controller.CloudApi;
 import com.yc.quzhaunfa.controller.UIHelper;
 import com.yc.quzhaunfa.databinding.FOneBinding;
 import com.yc.quzhaunfa.utils.PopupWindowTool;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 
 public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> implements BaseListContract.View, View.OnClickListener{
@@ -55,14 +64,52 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
         mB.ivAdd.setOnClickListener(this);
         mB.lyLock.setOnClickListener(this);
         mB.ivIncome.setOnClickListener(this);
-        mPresenter.onRequest("");
+        mPresenter.onRequest(CloudApi.articleGetArticleClass);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                PopupWindowTool.showLogin(act);
-            }
-        }, 2000);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                PopupWindowTool.showLogin(act);
+//            }
+//        }, 2000);
+        onProfitOne();
+    }
+
+    private void onProfitOne() {
+        CloudApi.getUserOne()
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable){
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(final Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    PopupWindowTool.showLogin(act, baseResponseBeanResponse.body().result);
+                                }
+                            }, 5000);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        OneFrg.this.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
     @Override
@@ -103,9 +150,10 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
         String[] strings = new String[list.size()];
         for (int i = 0; i < list.size(); i++){
             DataBean bean = list.get(i);
-            strings[i] = "标题 " + i;
+            strings[i] = bean.getClassName();
             HomeChildFrg frg = new HomeChildFrg();
             Bundle bundle = new Bundle();
+            bundle.putString("id", bean.getClassId());
             frg.setArguments(bundle);
             mFragments.add(frg);
         }
@@ -123,8 +171,5 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
             }
         });
     }
-
-
-
 
 }

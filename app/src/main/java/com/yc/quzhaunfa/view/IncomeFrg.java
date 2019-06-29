@@ -11,6 +11,7 @@ import com.yc.quzhaunfa.base.BaseFragment;
 import com.yc.quzhaunfa.base.BaseListContract;
 import com.yc.quzhaunfa.base.BaseListPresenter;
 import com.yc.quzhaunfa.bean.DataBean;
+import com.yc.quzhaunfa.controller.CloudApi;
 import com.yc.quzhaunfa.databinding.BRecyclerBinding;
 
 import java.util.ArrayList;
@@ -56,13 +57,13 @@ public class IncomeFrg extends BaseFragment<BaseListPresenter, BRecyclerBinding>
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onRequest(pagerNumber = 1, "");
+                mPresenter.onRequest(pagerNumber = 1, CloudApi.userGetBalanceList);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                mPresenter.onRequest(pagerNumber += 1, "");
+                mPresenter.onRequest(pagerNumber += 1, CloudApi.userGetBalanceList);
             }
         });
     }

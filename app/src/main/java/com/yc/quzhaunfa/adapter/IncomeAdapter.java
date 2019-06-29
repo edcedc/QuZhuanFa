@@ -28,9 +28,37 @@ public class IncomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
     @Override
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.tv_title.setText("首次分享文章奖励");
-        viewHolder.tv_time.setText("9小时前");
-        viewHolder.tv_state.setText("+10");
+        DataBean bean = listBean.get(position);
+        String str = null;
+        switch (bean.getType()){
+            case 1:
+                str = "每日签到";
+                break;
+            case 2:
+                str = "首次分享";
+                break;
+            case 4:
+                str = "首次登录";
+                break;
+            case 8:
+                str = "绑定手机";
+                break;
+            case 16:
+                str = "文章被阅读";
+                break;
+            case 32:
+                str = "下级文章被阅读";
+                break;
+            case 64:
+                str = "下下级文章被阅读";
+                break;
+            case 128:
+                str = "首次收徒";
+                break;
+        }
+        viewHolder.tv_title.setText(str);
+        viewHolder.tv_time.setText(bean.getCreateTime());
+        viewHolder.tv_state.setText((bean.getBalanceType() == 1 ? "+" : "-") + bean.getBalance());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

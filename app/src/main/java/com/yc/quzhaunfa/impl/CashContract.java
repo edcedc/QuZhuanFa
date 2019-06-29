@@ -2,6 +2,7 @@ package com.yc.quzhaunfa.impl;
 
 import com.yc.quzhaunfa.base.BasePresenter;
 import com.yc.quzhaunfa.base.IBaseView;
+import com.yc.quzhaunfa.bean.DataBean;
 
 /**
  * Created by wb  yyc
@@ -17,6 +18,7 @@ public interface CashContract {
 
     abstract class Presenter extends BasePresenter<View> {
 
+        public abstract void cash(DataBean bankBean, double balance);
     }
 
 }

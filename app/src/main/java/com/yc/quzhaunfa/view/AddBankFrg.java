@@ -3,11 +3,16 @@ package com.yc.quzhaunfa.view;
 import android.os.Bundle;
 import android.view.View;
 
+import com.google.gson.Gson;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.base.BaseFragment;
+import com.yc.quzhaunfa.bean.DataBean;
 import com.yc.quzhaunfa.databinding.FAddBankBinding;
+import com.yc.quzhaunfa.event.BankInEvent;
 import com.yc.quzhaunfa.impl.AddBankContract;
 import com.yc.quzhaunfa.presenter.AddBankPresenter;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by wb  yyc
@@ -18,6 +23,10 @@ import com.yc.quzhaunfa.presenter.AddBankPresenter;
  */
 public class AddBankFrg extends BaseFragment<AddBankPresenter, FAddBankBinding> implements AddBankContract.View{
 
+    private DataBean bean;
+    private String id;
+    private int position;
+
     @Override
     public void initPresenter() {
         mPresenter.init(this);
@@ -25,7 +34,9 @@ public class AddBankFrg extends BaseFragment<AddBankPresenter, FAddBankBinding> 
 
     @Override
     protected void initParms(Bundle bundle) {
-
+        bean = new Gson().fromJson(bundle.getString("bean"), DataBean.class);
+        id = bundle.getString("id");
+        position = bundle.getInt("position");
     }
 
     @Override
@@ -36,11 +47,26 @@ public class AddBankFrg extends BaseFragment<AddBankPresenter, FAddBankBinding> 
     @Override
     protected void initView(View view) {
         setTitle(getString(R.string.add_bank));
+        if (bean != null){
+            mB.etBankNum.setText(bean.getBankNum());
+            mB.etOpenBank.setText(bean.getBankDeposit());
+            mB.etUserName.setText(bean.getName());
+            mB.etId.setText(bean.getUserCard());
+            mB.etVerificationBank.setText(bean.getPhoneNum());
+        }
         mB.btSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mPresenter.addBnak(mB.etBankNum.getText().toString(), mB.etOpenBank.getText().toString(), mB.etUserName.getText().toString(), mB.etId.getText().toString(), mB.etVerificationBank.getText().toString(), mB.cbSubmit.isChecked());
+                mPresenter.addBnak(mB.etBankNum.getText().toString(), mB.etOpenBank.getText().toString(),
+                        mB.etUserName.getText().toString(), mB.etId.getText().toString(),
+                        mB.etVerificationBank.getText().toString(), mB.cbSubmit.isChecked(), id);
             }
         });
+    }
+
+    @Override
+    public void onSaveBank() {
+        EventBus.getDefault().post(new BankInEvent(0, null));
+        pop();
     }
 }

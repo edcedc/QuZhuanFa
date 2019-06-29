@@ -80,8 +80,8 @@ public class InitializeService extends IntentService {
     private void initShare() {
         UMConfigure.init(this, Constants.ShareID, "Umeng", UMConfigure.DEVICE_TYPE_PHONE,null);
         PlatformConfig.setWeixin(Constants.WX_APPID, Constants.WX_SECRER);
-        PlatformConfig.setQQZone(Constants.QQ_APPID, Constants.QQ_SECRET);
-        PlatformConfig.setSinaWeibo(Constants.WB_APPID, Constants.WB_SECRET, "https://api.weibo.com/oauth5/default.html");
+//        PlatformConfig.setQQZone(Constants.QQ_APPID, Constants.QQ_SECRET);
+//        PlatformConfig.setSinaWeibo(Constants.WB_APPID, Constants.WB_SECRET, "https://api.weibo.com/oauth5/default.html");
         //设置LOG开关，默认为false
         UMConfigure.setLogEnabled(true);
         MobclickAgent.setPageCollectionMode(MobclickAgent.PageMode.AUTO);

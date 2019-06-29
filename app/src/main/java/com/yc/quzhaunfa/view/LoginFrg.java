@@ -5,8 +5,12 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.umeng.socialize.UMAuthListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.adapter.MyPagerAdapter;
 import com.yc.quzhaunfa.base.BaseFragment;
@@ -15,10 +19,13 @@ import com.yc.quzhaunfa.databinding.FLoginBinding;
 import com.yc.quzhaunfa.impl.LoginContract;
 import com.yc.quzhaunfa.presenter.LoginPresenter;
 import com.yc.quzhaunfa.utils.CountDownTimerUtils;
+import com.yc.quzhaunfa.utils.ShareTool;
 import com.yc.quzhaunfa.utils.TabEntity;
+import com.yc.quzhaunfa.utils.cache.SharedAccount;
 import com.yc.quzhaunfa.view.act.HtmlAct;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Created by wb  yyc
@@ -55,17 +62,21 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
 
     @Override
     protected void initView(View view) {
-        setTitle(getString(R.string.login));
-        view.findViewById(R.id.top_view).setVisibility(View.GONE);
-        view.findViewById(R.id.title_bar).setBackgroundColor(act.getColor(R.color.transparent));
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        toolbar.setBackgroundColor(act.getColor(R.color.transparent));
+        setTitleTransparent(getString(R.string.login), true);
 
         mB.tvCode.setOnClickListener(this);
         mB.btSubmit.setOnClickListener(this);
         mB.tvCopy.setOnClickListener(this);
         mB.tvWenti.setOnClickListener(this);
         mB.tvRetrieve.setOnClickListener(this);
+        mB.ivWx.setOnClickListener(this);
+
+        String mobile = SharedAccount.getInstance(act).getMobile();
+        String pwd = SharedAccount.getInstance(act).getPwd();
+        if (!StringUtils.isEmpty(mobile) && !StringUtils.isEmpty(pwd)){
+            mB.etPhone.setText(mobile);
+            mB.etPwd.setText(pwd);
+        }
 
         ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
         String[] strings = {getString(R.string.login), getString(R.string.register)};
@@ -83,12 +94,13 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
                     mB.gpRegister.setVisibility(View.GONE);
                     mB.gpLogin.setVisibility(View.VISIBLE);
                     mB.tvRetrieve.setVisibility(View.VISIBLE);
-
+                    mB.lyPwd.setVisibility(View.VISIBLE);
                 }else {
                     setTitle(getString(R.string.register));
                     mB.lyCode.setVisibility(View.VISIBLE);
                     mB.gpRegister.setVisibility(View.VISIBLE);
                     mB.tvRetrieve.setVisibility(View.INVISIBLE);
+                    mB.lyPwd.setVisibility(View.GONE);
                     mB.gpLogin.setVisibility(View.GONE);
                 }
             }
@@ -112,7 +124,30 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
                 UIHelper.startHtmlAct(HtmlAct.REGISTER_PROTOCOL);
                 break;
             case R.id.tv_retrieve:
-                UIHelper.startRetrievePwdFrg(this);
+                UIHelper.startRetrievePwdFrg(this, 0);
+                break;
+            case R.id.iv_wx:
+                ShareTool.getInstance().Authorization(act, new UMAuthListener() {
+                    @Override
+                    public void onStart(SHARE_MEDIA share_media) {
+                        LogUtils.e("onStart");
+                    }
+
+                    @Override
+                    public void onComplete(SHARE_MEDIA share_media, int i, Map<String, String> map) {
+                        LogUtils.e("onComplete");
+                    }
+
+                    @Override
+                    public void onError(SHARE_MEDIA share_media, int i, Throwable throwable) {
+                        LogUtils.e(throwable.getMessage());
+                    }
+
+                    @Override
+                    public void onCancel(SHARE_MEDIA share_media, int i) {
+                        LogUtils.e("onCancel");
+                    }
+                });
                 break;
         }
     }
@@ -122,4 +157,9 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
         new CountDownTimerUtils(act, 60000, 1000, mB.tvCode).start();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        ShareTool.getInstance().release(act);
+    }
 }

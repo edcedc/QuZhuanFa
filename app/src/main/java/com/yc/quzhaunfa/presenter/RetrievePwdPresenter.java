@@ -2,8 +2,17 @@ package com.yc.quzhaunfa.presenter;
 
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.lzy.okgo.model.Response;
 import com.yc.quzhaunfa.R;
+import com.yc.quzhaunfa.bean.BaseResponseBean;
+import com.yc.quzhaunfa.callback.Code;
+import com.yc.quzhaunfa.controller.CloudApi;
 import com.yc.quzhaunfa.impl.RetrievePwdContract;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by wb  yyc
@@ -14,7 +23,7 @@ import com.yc.quzhaunfa.impl.RetrievePwdContract;
 public class RetrievePwdPresenter extends RetrievePwdContract.Presenter{
 
     @Override
-    public void code(String phone) {
+    public void code(String phone, int type) {
         if (StringUtils.isEmpty(phone)){
             showToast(act.getString(R.string.error_phone1));
             return;
@@ -23,11 +32,48 @@ public class RetrievePwdPresenter extends RetrievePwdContract.Presenter{
             showToast(act.getString(R.string.error_phone));
             return;
         }
-        mView.onCode();
-    }
+
+        if (type == 0){
+            type = 2;
+        }else {
+            type = 8;
+        }
+
+        CloudApi.getCode(phone, type)
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        mView.showLoading();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            mView.onCode();
+                        }
+                        showToast(baseResponseBeanResponse.body().description);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });    }
 
     @Override
-    public void login(String phone, String code, String pwd, String pwd1) {
+    public void login(String phone, String code, String pwd, String pwd1, int type) {
         if (StringUtils.isEmpty(phone)){
             showToast(act.getString(R.string.error_phone1));
             return;
@@ -53,6 +99,45 @@ public class RetrievePwdPresenter extends RetrievePwdContract.Presenter{
             return;
         }
 
+        String url;
+        if (type == 0){
+            url = CloudApi.userRetrievePwd;
+        }else {
+            url = CloudApi.userBingPhone;
+        }
+
+        CloudApi.retrievePwd(phone, code, pwd, url)
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        mView.showLoading();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Observer<Response<BaseResponseBean>>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                mView.addDisposable(d);
+            }
+
+            @Override
+            public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
+                if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                    mView.onRetrievePwd();
+                }
+                showToast(baseResponseBeanResponse.body().description);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                mView.onError(e);
+            }
+
+            @Override
+            public void onComplete() {
+                mView.hideLoading();
+            }
+        });
 
 
     }

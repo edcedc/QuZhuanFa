@@ -12,7 +12,9 @@ import android.text.style.AbsoluteSizeSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.widget.TextView;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.adapter.ApprenticeAdapter;
 import com.yc.quzhaunfa.adapter.HomeChildAdapter;
@@ -21,6 +23,8 @@ import com.yc.quzhaunfa.bean.DataBean;
 import com.yc.quzhaunfa.databinding.FThreeBinding;
 import com.yc.quzhaunfa.impl.ThreeContract;
 import com.yc.quzhaunfa.presenter.ThreePresenter;
+import com.yc.quzhaunfa.utils.PopupWindowTool;
+import com.yc.quzhaunfa.view.bottom.ShareBottomFrg;
 import com.yc.quzhaunfa.weight.LinearDividerItemDecoration;
 
 import java.util.ArrayList;
@@ -37,12 +41,25 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
 
     private List<DataBean> listBean = new ArrayList<>();
     private ApprenticeAdapter adapter;
+    private ShareBottomFrg shareBottomFrg;
 
     public static ThreeFrg newInstance() {
         Bundle args = new Bundle();
         ThreeFrg fragment = new ThreeFrg();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private boolean isRequest = true;
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        if (isRequest){
+            isRequest = true;
+            mPresenter.getUserList();
+            mPresenter.getTodayYesterdayALl();
+        }
     }
 
     @Override
@@ -63,24 +80,22 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
     @Override
     protected void initView(View view) {
         setTitle(getString(R.string.apprentice), false);
+        view.findViewById(R.id.title_bar).setBackgroundColor(act.getColor(R.color.white));
+        view.findViewById(R.id.toolbar).setBackgroundColor(act.getColor(R.color.white));
+        TextView top_title = view.findViewById(R.id.top_title);
+        top_title.setTextColor(act.getColor(R.color.tab_black));
+        ImmersionBar.with(this).statusBarDarkFont(true).init();
+
         mB.fyInviteFriends.setOnClickListener(this);
         mB.fyMyApprentice.setOnClickListener(this);
+        mB.tvInvite.setOnClickListener(this);
+        shareBottomFrg = new ShareBottomFrg();
 
-        mB.tvIncome.setText(Html.fromHtml("好友共计帮我赚了<font color='#FF3A22'><big>" + "188" +
-                "</big></font>"+ "元"));
-
-        listBean.add(new DataBean());
-        listBean.add(new DataBean());
-        listBean.add(new DataBean());
         if (adapter == null) {
-            adapter = new ApprenticeAdapter(act, listBean);
+            adapter = new ApprenticeAdapter(act, this, listBean);
         }
         mB.recyclerView.setAdapter(adapter);
         setRecyclerViewType(mB.recyclerView);
-
-        mB.tvApprentice.setText("3");
-        mB.tvContribution.setText("0.06");
-        mB.tvYesterdayContribution.setText("0.06");
     }
 
     @Override
@@ -106,6 +121,24 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
                 mB.fyInviteFriends.setBackgroundResource(R.mipmap.qq01);
                 mB.fyMyApprentice.setBackgroundResource(0);
                 break;
+            case R.id.tv_invite:
+                shareBottomFrg.show(getChildFragmentManager(), "dialog");
+                break;
         }
+    }
+
+    @Override
+    public void setData(List<DataBean> list) {
+        listBean.addAll(list);
+        adapter.notifyDataSetChanged();
+        mB.tvApprentice.setText(listBean.size() + "");
+    }
+
+    @Override
+    public void onTodayYesterdayALl(DataBean bean) {
+        mB.tvContribution.setText(bean.getNow() + "");
+        mB.tvYesterdayContribution.setText(bean.getYesDay() + "");
+        mB.tvIncome.setText(Html.fromHtml("好友共计帮我赚了<font color='#FF3A22'><big>" + bean.getAll() +
+                "</big></font>"+ "元"));
     }
 }

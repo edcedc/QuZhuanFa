@@ -13,7 +13,7 @@ public class Constants {
 
    public static final int day_min = 86400;//一天秒数
 
-   public static final String ShareID = "5c46aafff1f556746800074b";
+   public static final String ShareID = "5d15847e3fc1954d6e000ebc";
    public static final String WX_APPID = "wx374c2b9226424da8";
    public static final String WX_SECRER = "a9b45b184245c6456902023fd0805dde";
    public static final String QQ_APPID = "1106499610";

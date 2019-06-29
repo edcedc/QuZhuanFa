@@ -1,13 +1,21 @@
 package com.yc.quzhaunfa.presenter;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.lzy.okgo.model.Response;
 import com.yc.quzhaunfa.R;
+import com.yc.quzhaunfa.base.User;
 import com.yc.quzhaunfa.bean.BaseResponseBean;
 import com.yc.quzhaunfa.callback.Code;
 import com.yc.quzhaunfa.controller.CloudApi;
+import com.yc.quzhaunfa.controller.UIHelper;
 import com.yc.quzhaunfa.impl.LoginContract;
+import com.yc.quzhaunfa.utils.cache.ShareSessionIdCache;
+import com.yc.quzhaunfa.utils.cache.SharedAccount;
+import com.yc.quzhaunfa.view.act.LoginAct;
+
+import org.json.JSONObject;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -31,7 +39,38 @@ public class LoginPresenter extends LoginContract.Presenter{
             showToast(act.getString(R.string.error_phone));
             return;
         }
-        mView.onCode();
+        CloudApi.getCode(phone, 1)
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        mView.showLoading();
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            mView.onCode();
+                        }
+                        showToast(baseResponseBeanResponse.body().description);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
     }
 
     @Override
@@ -44,13 +83,44 @@ public class LoginPresenter extends LoginContract.Presenter{
             showToast(act.getString(R.string.error_phone));
             return;
         }
-        if (StringUtils.isEmpty(pwd)){
-            showToast(act.getString(R.string.please_pwd3));
-            return;
-        }
+
         if (mPosition == 0){
+            if (StringUtils.isEmpty(pwd)){
+                showToast(act.getString(R.string.please_pwd3));
+                return;
+            }
+            CloudApi.login(phone, pwd)
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(Disposable disposable) throws Exception {
+                            mView.showLoading();
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<JSONObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            mView.addDisposable(d);
+                        }
 
+                        @Override
+                        public void onNext(JSONObject jsonObject) {
+                            if (jsonObject.optInt("code") == Code.CODE_SUCCESS){
+                                login(jsonObject);
+                            }
+                            showToast(jsonObject.optString("description"));
+                        }
 
+                        @Override
+                        public void onError(Throwable e) {
+                            mView.onError(e);
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            mView.hideLoading();
+                        }
+                    });
         }else {
             if (StringUtils.isEmpty(code)){
                 showToast(act.getString(R.string.error_phone1));
@@ -60,8 +130,51 @@ public class LoginPresenter extends LoginContract.Presenter{
                 showToast(act.getString(R.string.error_1));
                 return;
             }
+            CloudApi.register(phone, code)
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(Disposable disposable) throws Exception {
+                            mView.showLoading();
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<JSONObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            mView.addDisposable(d);
+                        }
 
+                        @Override
+                        public void onNext(JSONObject jsonObject) {
+                            if (jsonObject.optInt("code") == Code.CODE_SUCCESS){
+                                login(jsonObject);
+                            }
+                            showToast(jsonObject.optString("description"));
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            mView.onError(e);
+                        }
+
+                        @Override
+                        public void onComplete() {
+                            mView.hideLoading();
+                        }
+                    });
         }
+    }
+
+    private void login(JSONObject jsonObject){
+        JSONObject data = jsonObject.optJSONObject("result");
+        JSONObject user = data.optJSONObject("user");
+        ShareSessionIdCache.getInstance(act).save(data.optString("token"));
+        ShareSessionIdCache.getInstance(act).saveUserId(user.optString("userId"));
+        SharedAccount.getInstance(act).save(data.optString("phoneNum"), data.optString("password"));
+        User.getInstance().setUserObj(user);
+        User.getInstance().setLogin(true);
+        UIHelper.startMainAct();
+        ActivityUtils.finishActivity(LoginAct.class);
     }
 
 }

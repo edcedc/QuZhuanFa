@@ -3,9 +3,12 @@ package com.yc.quzhaunfa.controller;
 import android.os.Bundle;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.google.gson.Gson;
 import com.yc.quzhaunfa.MainActivity;
 import com.yc.quzhaunfa.base.BaseFragment;
+import com.yc.quzhaunfa.bean.DataBean;
 import com.yc.quzhaunfa.view.AddBankFrg;
+import com.yc.quzhaunfa.view.ApprenticeFrg;
 import com.yc.quzhaunfa.view.BankFrg;
 import com.yc.quzhaunfa.view.CashFrg;
 import com.yc.quzhaunfa.view.ContactFrg;
@@ -14,10 +17,12 @@ import com.yc.quzhaunfa.view.MainFrg;
 import com.yc.quzhaunfa.view.PayPwdFrg;
 import com.yc.quzhaunfa.view.RetrievePwdFrg;
 import com.yc.quzhaunfa.view.SetFrg;
+import com.yc.quzhaunfa.view.ThreeFrg;
 import com.yc.quzhaunfa.view.act.DetailsAct;
 import com.yc.quzhaunfa.view.act.HtmlAct;
 import com.yc.quzhaunfa.view.act.LoginAct;
 import com.yc.quzhaunfa.view.act.MakeMoneyAct;
+import com.yc.quzhaunfa.weight.buttonBar.BottomBar;
 
 
 /**
@@ -40,6 +45,17 @@ public final class UIHelper {
     public static void startIncomeFrg(BaseFragment root){
         IncomeFrg frg = new IncomeFrg();
         Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+
+    /**
+     *  徒弟详情
+     */
+    public static void startApprenticeDescFrg(BaseFragment root, DataBean bean){
+        ApprenticeFrg frg = new ApprenticeFrg();
+        Bundle bundle = new Bundle();
+        bundle.putString("bean", new Gson().toJson(bean));
         frg.setArguments(bundle);
         ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
     }
@@ -91,11 +107,16 @@ public final class UIHelper {
     /**
      *  找回密码
      */
-    public static void startRetrievePwdFrg(BaseFragment root){
+    public static void startRetrievePwdFrg(BaseFragment root, int type){
         RetrievePwdFrg frg = new RetrievePwdFrg();
         Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
         frg.setArguments(bundle);
-        root.start(frg);
+        if (type == 0){
+            root.start(frg);
+        }else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
     }
 
     /**
@@ -152,16 +173,29 @@ public final class UIHelper {
     }
 
     /**
-     *  添加银行卡
+     *  添加/更新银行卡
      * @param root
+     * @param position
      */
-    public static void startAddBnakFrg(BaseFragment root) {
+    public static void startAddBnakFrg(BaseFragment root, DataBean bean, int position) {
         AddBankFrg frg = new AddBankFrg();
         Bundle bundle = new Bundle();
+        if (bean != null){
+            bundle.putString("id", bean.getBankId() + "");
+        }
+        bundle.putInt("position", position);
+        bundle.putString("bean", new Gson().toJson(bean));
         frg.setArguments(bundle);
         root.start(frg);
     }
 
-
-
+    /**
+     *  收徒
+     */
+    public static void startApprenticeFrg(BaseFragment root) {
+        ThreeFrg frg = ThreeFrg.newInstance();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        root.start(frg);
+    }
 }

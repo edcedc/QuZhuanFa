@@ -15,6 +15,7 @@ import com.yc.quzhaunfa.databinding.FHomeBinding;
 import com.yc.quzhaunfa.impl.HomeChildContract;
 import com.yc.quzhaunfa.presenter.HomeChildPresenter;
 import com.yc.quzhaunfa.utils.GlideImageLoader;
+import com.yc.quzhaunfa.utils.PopupWindowTool;
 import com.yc.quzhaunfa.weight.LinearDividerItemDecoration;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
@@ -22,6 +23,8 @@ import com.youth.banner.transformer.DefaultTransformer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import ezy.ui.layout.LoadingLayout;
 
 /**
  * Created by wb  yyc
@@ -37,6 +40,18 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
     private HomeChildAdapter adapter;
 
     private List<DataBean> listBanner = new ArrayList<>();
+
+    private boolean isRequest = true;
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        if (isRequest){
+            isRequest = false;
+            showLoadDataing();
+            mB.refreshLayout.startRefresh();
+        }
+    }
 
     @Override
     public void initPresenter() {
@@ -62,22 +77,23 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
         mB.recyclerView.setAdapter(adapter);
         setRecyclerViewType(mB.recyclerView);
         mB.recyclerView.addItemDecoration(new LinearDividerItemDecoration(act, DividerItemDecoration.VERTICAL,  2));
-        showLoadDataing();
-        mB.refreshLayout.startRefresh();
+        mPresenter.onProfitOne();
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onRequest(pagerNumber = 1, "");
-                mPresenter.onBanner("");
+                mPresenter.onRequest(pagerNumber = 1, id);
             }
 
             @Override
             public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
                 super.onLoadMore(refreshLayout);
-                mPresenter.onRequest(pagerNumber += 1, "");
+                mPresenter.onRequest(pagerNumber += 1, id);
             }
         });
+
     }
+
+
 
     @Override
     public void setRefreshLayoutMode(int totalRow) {
@@ -93,9 +109,22 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
     @Override
     public void setData(Object data) {
         List<DataBean> list = (List<DataBean>) data;
-        if (pagerNumber == 1) {
+        if (pagerNumber == 0) {
             listBean.clear();
             mB.refreshLayout.finishRefreshing();
+
+            DataBean bean = list.get(list.size() - 1);
+            listBanner.clear();
+            listBanner.addAll(list);
+            List<String> list1 = new ArrayList<>();
+            List<String> imgs = new ArrayList<>();
+            imgs.add(bean.getImage());
+            list1.add(bean.getTitle());
+            mB.banner.setImages(imgs)
+                    .setBannerTitles(list1)
+                    .setImageLoader(new GlideImageLoader())
+                    .setOnBannerListener(this)
+                    .setBannerAnimation(DefaultTransformer.class).start();
         } else {
             mB.refreshLayout.finishLoadmore();
         }
@@ -105,19 +134,11 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
 
     @Override
     public void setBanner(List<DataBean> list) {
-        listBanner.clear();
-        listBanner.addAll(list);
-        List<String> list1 = new ArrayList<>();
-        List<String> imgs = new ArrayList<>();
-        for (int i = 0;i < list.size();i++){
-            imgs.add("http://wx1.sinaimg.cn/mw600/0076BSS5ly1g42uyoi7uej30iz0sg77s.jpg");
-            list1.add("失眠最怕这种菜，农村到处有，每天吃一点...");
-        }
-        mB.banner.setImages(imgs)
-                .setBannerTitles(list1)
-                .setImageLoader(new GlideImageLoader())
-                .setOnBannerListener(this)
-                .setBannerAnimation(DefaultTransformer.class).start();
+
+    }
+
+    @Override
+    public void setProfitOne(DataBean result) {
     }
 
     @Override

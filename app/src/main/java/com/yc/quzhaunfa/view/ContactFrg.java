@@ -40,8 +40,8 @@ public class ContactFrg extends BaseFragment<BasePresenter, FContactBinding> {
         mB.tvQq.setText("商务合作QQ：" +
                 "497107373 ");
         String str="工作时间：<font color='#FF0000'><small>周一至周五10:00~18:00</small></font>";
-        mB.tvTime.setTextSize(15);
-        mB.tvTime.setText(Html.fromHtml(str));
+        mB.tvTitle.setTextSize(15);
+        mB.tvTitle.setText(Html.fromHtml(str));
         mB.tvCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

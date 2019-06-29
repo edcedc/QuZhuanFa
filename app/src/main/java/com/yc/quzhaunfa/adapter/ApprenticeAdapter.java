@@ -7,9 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.yc.quzhaunfa.R;
+import com.yc.quzhaunfa.base.BaseFragment;
 import com.yc.quzhaunfa.base.BaseRecyclerviewAdapter;
 import com.yc.quzhaunfa.bean.DataBean;
+import com.yc.quzhaunfa.controller.CloudApi;
+import com.yc.quzhaunfa.controller.UIHelper;
 import com.yc.quzhaunfa.utils.GlideLoadingUtils;
 import com.yc.quzhaunfa.weight.CircleImageView;
 
@@ -22,22 +26,30 @@ import java.util.List;
  * Time: 21:29
  */
 public class ApprenticeAdapter extends BaseRecyclerviewAdapter<DataBean> {
-    public ApprenticeAdapter(Context act, List<DataBean> listBean) {
-        super(act, listBean);
+
+    public ApprenticeAdapter(Context act, BaseFragment root, List<DataBean> listBean) {
+        super(act, root, listBean);
     }
 
     @Override
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        DataBean bean = listBean.get(position);
+        final DataBean bean = listBean.get(position);
 
-        GlideLoadingUtils.load(act, "https://wx2.sinaimg.cn/mw690/a285b845ly1g47v6lysc6j20ut0u040h.jpg", viewHolder.iv_head);
+        GlideLoadingUtils.load(act, CloudApi.SERVLET_IMG_URL + bean.getHead(), viewHolder.iv_head, true);
+
         viewHolder.tv_id.setText("ID：" +
-                "719932");
+                bean.getUserId());
         viewHolder.tv_income.setText("+" +
-                "1.19");
+                bean.getBalanceAll());
         viewHolder.tv_time.setText("注册时间：" +
-                "2019-06-12");
+                bean.getCreateTime());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UIHelper.startApprenticeDescFrg(root, bean);
+            }
+        });
     }
 
     @Override

@@ -1,21 +1,23 @@
 package com.yc.quzhaunfa.view;
 
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.view.View;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.adapter.BankAdapter;
-import com.yc.quzhaunfa.adapter.HomeChildAdapter;
 import com.yc.quzhaunfa.base.BaseFragment;
+import com.yc.quzhaunfa.base.BaseListContract;
+import com.yc.quzhaunfa.base.BaseListPresenter;
 import com.yc.quzhaunfa.bean.DataBean;
+import com.yc.quzhaunfa.controller.CloudApi;
 import com.yc.quzhaunfa.controller.UIHelper;
 import com.yc.quzhaunfa.databinding.FBankBinding;
-import com.yc.quzhaunfa.impl.BankContract;
-import com.yc.quzhaunfa.presenter.BankPresenter;
-import com.yc.quzhaunfa.weight.LinearDividerItemDecoration;
+import com.yc.quzhaunfa.event.BankInEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +29,7 @@ import java.util.List;
  * Time: 18:02
  *  银行卡
  */
-public class BankFrg extends BaseFragment<BankPresenter, FBankBinding> implements BankContract.View, View.OnClickListener {
+public class BankFrg extends BaseFragment<BaseListPresenter, FBankBinding> implements BaseListContract.View, View.OnClickListener {
 
     private List<DataBean> listBean = new ArrayList<>();
     private BankAdapter adapter;
@@ -52,25 +54,33 @@ public class BankFrg extends BaseFragment<BankPresenter, FBankBinding> implement
         setTitle(getString(R.string.me_bank));
         mB.btSubmit.setOnClickListener(this);
         if (adapter == null) {
-            adapter = new BankAdapter(act, listBean);
+            adapter = new BankAdapter(act, this, listBean);
         }
         mB.recyclerView.setAdapter(adapter);
         setRecyclerViewType(mB.recyclerView);
         showLoadDataing();
         mB.refreshLayout.startRefresh();
+        mB.refreshLayout.setEnableLoadmore(true);
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onRequest(pagerNumber = 1);
-            }
-
-            @Override
-            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                super.onLoadMore(refreshLayout);
-                mPresenter.onRequest(pagerNumber += 1);
+                mPresenter.onRequest(CloudApi.userGetBankList);
             }
         });
+        EventBus.getDefault().register(this);
     }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void BankInEvent(BankInEvent event){
+        mB.refreshLayout.startRefresh();
+    }
+
 
     @Override
     public void setRefreshLayoutMode(int totalRow) {
@@ -79,13 +89,8 @@ public class BankFrg extends BaseFragment<BankPresenter, FBankBinding> implement
 
     @Override
     public void setData(Object data) {
+        listBean.clear();
         List<DataBean> list = (List<DataBean>) data;
-        if (pagerNumber == 1) {
-            listBean.clear();
-            mB.refreshLayout.finishRefreshing();
-        } else {
-            mB.refreshLayout.finishLoadmore();
-        }
         listBean.addAll(list);
         adapter.notifyDataSetChanged();
     }
@@ -100,7 +105,7 @@ public class BankFrg extends BaseFragment<BankPresenter, FBankBinding> implement
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.bt_submit:
-                UIHelper.startAddBnakFrg(this);
+                UIHelper.startAddBnakFrg(this, null, 0);
                 break;
         }
     }

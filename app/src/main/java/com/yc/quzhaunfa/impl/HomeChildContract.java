@@ -18,6 +18,8 @@ public interface HomeChildContract {
 
 
         void setBanner(List<DataBean> list);
+
+        void setProfitOne(DataBean result);
     }
 
      abstract class Presenter extends BasePresenter<View> {
@@ -26,7 +28,8 @@ public interface HomeChildContract {
 
         public abstract void onRequest(int pagerNumber, String id);
 
-    }
+         public abstract void onProfitOne();
+     }
 
 
 }

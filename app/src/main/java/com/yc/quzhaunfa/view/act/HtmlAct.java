@@ -4,17 +4,29 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.gyf.immersionbar.ImmersionBar;
+import com.lzy.okgo.model.Response;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.base.BaseActivity;
 import com.yc.quzhaunfa.base.BasePresenter;
+import com.yc.quzhaunfa.bean.BaseResponseBean;
+import com.yc.quzhaunfa.bean.DataBean;
+import com.yc.quzhaunfa.callback.Code;
+import com.yc.quzhaunfa.controller.CloudApi;
 import com.yc.quzhaunfa.databinding.AHtmlBinding;
+import com.yc.quzhaunfa.utils.cache.ShareSessionIdCache;
 
 import org.json.JSONObject;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * 作者：yc on 2018/7/25.
@@ -29,7 +41,7 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
     private String url;
 
     public static final int PRIVACY_PROTOCOL = 1;//隐私协议
-    public static final int REGISTER_PROTOCOL = 2;//注册协议
+    public static final int REGISTER_PROTOCOL = 4;//注册协议
 
     @Override
     public void initPresenter() {mPresenter.init(this);
@@ -62,12 +74,49 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
                 setTitle("广告");
                 break;
         }
-        mB.webView.loadUrl("https://mbd.baidu.com/newspage/data/landingsuper?context=%7B%22nid%22%3A%22news_10480665791014585474%22%7D&n_type=0&p_from=1");
+        CloudApi.commonQueryAPPAgreement(type)
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().result;
+                            if (data != null){
+                                mB.webView.loadUrl(CloudApi.SERVLET_URL + "#/H5?articleId=" +
+                                        data.getContent() +
+                                        "&userId=" +
+                                        ShareSessionIdCache.getInstance(act).getUserId());
+
+                            }
+                        }else {
+                            act.finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
         mB.webView.setInitialScale(100);
         mB.webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
+                LogUtils.e(url);
                 return true;
             }
 
@@ -98,50 +147,6 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
             return true;
         }
         return super.onKeyDown(keyCode, event);
-    }
-
-
-    private void getHtmlUrl(){
-        /*CloudApi.commonQueryAPPAgreement()
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                    }
-                })
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        addDisposable(d);
-                    }
-
-                    @Override
-                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
-                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
-                            DataBean data = baseResponseBeanResponse.body().data;
-                            if (data != null){
-                                String url = null;
-                                switch (type){
-                                    case 0:
-                                        url = data.getRegistration_protocol();
-                                        break;
-                                }
-                                mB.webView.loadDataWithBaseURL(null, url, "text/html", "utf-8", null);
-                            }
-                        }else {
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        HtmlAct.this.onError(e);
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });*/
     }
 
     @Override

@@ -109,7 +109,7 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
     @Override
     public void setData(Object data) {
         List<DataBean> list = (List<DataBean>) data;
-        if (pagerNumber == 0) {
+        if (pagerNumber == 1) {
             listBean.clear();
             mB.refreshLayout.finishRefreshing();
 
@@ -118,7 +118,7 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
             listBanner.addAll(list);
             List<String> list1 = new ArrayList<>();
             List<String> imgs = new ArrayList<>();
-            imgs.add(bean.getImage());
+            imgs.add(bean.getPic());
             list1.add(bean.getTitle());
             mB.banner.setImages(imgs)
                     .setBannerTitles(list1)

@@ -38,12 +38,8 @@ public class SignAdapter extends BaseRecyclerviewAdapter<DataBean> {
         viewHolder.tv_title.setText(bean.getTitle());
         viewHolder.tv_price.setText(bean.getPrice() +
                 "分/阅读");
-        String pic = bean.getPic();
-        if (!StringUtils.isEmpty(pic)){
-            GlideLoadingUtils.load(act, pic, viewHolder.iv_img);
-        }else {
-            GlideLoadingUtils.load(act, CloudApi.SERVLET_IMG_URL + bean.getHead(), viewHolder.iv_img, true);
-        }
+        GlideLoadingUtils.load(act, bean.getPic(), viewHolder.iv_img);
+
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

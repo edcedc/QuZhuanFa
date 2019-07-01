@@ -10,6 +10,7 @@ import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.base.BaseFragment;
 import com.yc.quzhaunfa.base.BasePresenter;
 import com.yc.quzhaunfa.databinding.FContactBinding;
+import com.yc.quzhaunfa.weight.ClipboardUtils;
 
 /**
  * Created by wb  yyc
@@ -46,8 +47,7 @@ public class ContactFrg extends BaseFragment<BasePresenter, FContactBinding> {
             @Override
             public void onClick(View view) {
                 // 得到剪贴板管理器
-                ClipboardManager cmb = (ClipboardManager) act.getSystemService(Context.CLIPBOARD_SERVICE);
-                cmb.setText(mB.tvWxNum.getText().toString());
+                ClipboardUtils.copyText(mB.tvWxNum.getText().toString());
                 showToast("复制成功");
             }
         });

@@ -39,9 +39,9 @@ public class ApprenticeAdapter extends BaseRecyclerviewAdapter<DataBean> {
         GlideLoadingUtils.load(act, CloudApi.SERVLET_IMG_URL + bean.getHead(), viewHolder.iv_head, true);
 
         viewHolder.tv_id.setText("ID：" +
-                bean.getUserId());
+                bean.getUserName());
         viewHolder.tv_income.setText("+" +
-                bean.getBalanceAll());
+                bean.getBalance());
         viewHolder.tv_time.setText("注册时间：" +
                 bean.getCreateTime());
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -42,12 +42,8 @@ public class HomeChildAdapter extends BaseRecyclerviewAdapter<DataBean> {
         viewHolder.tv_read.setText("阅读：" +
                 bean.getForwardNum());
 
-        String pic = bean.getPic();
-        if (!StringUtils.isEmpty(pic)){
-            GlideLoadingUtils.load(act, pic, viewHolder.iv_img);
-        }else {
-            GlideLoadingUtils.load(act, CloudApi.SERVLET_IMG_URL + bean.getHead(), viewHolder.iv_img, true);
-        }
+        GlideLoadingUtils.load(act, bean.getPic(), viewHolder.iv_img);
+
         viewHolder.iv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

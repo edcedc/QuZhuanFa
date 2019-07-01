@@ -56,7 +56,8 @@ public class MakeMoneyFrg extends BaseFragment<BasePresenter, FMakeBinding> {
         for (int i = 0; i < strings.length; i++){
             MakeMoneyChildFrg frg = new MakeMoneyChildFrg();
             Bundle bundle = new Bundle();
-            bundle.putString("url", "https://www.baidu.com/");
+            int type = i == 0 ? 1 : 2;
+            bundle.putString("type", type + "");
             frg.setArguments(bundle);
             mFragments.add(frg);
         }

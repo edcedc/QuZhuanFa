@@ -63,17 +63,12 @@ public class ApprenticeFrg extends BaseFragment<ApprenticePresenter, FApprentice
         setRecyclerViewType(mB.recyclerView);
         showLoadDataing();
         mB.refreshLayout.startRefresh();
+        mB.refreshLayout.setEnableLoadmore(false);
         mPresenter.onIncome(bean.getUserId());
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
                 mPresenter.onRequest(pagerNumber = 1, bean.getUserId());
-            }
-
-            @Override
-            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
-                super.onLoadMore(refreshLayout);
-                mPresenter.onRequest(pagerNumber += 1, bean.getUserId());
             }
         });
     }
@@ -92,12 +87,8 @@ public class ApprenticeFrg extends BaseFragment<ApprenticePresenter, FApprentice
     @Override
     public void setData(Object data) {
         List<DataBean> list = (List<DataBean>) data;
-        if (pagerNumber == 1) {
-            listBean.clear();
-            mB.refreshLayout.finishRefreshing();
-        } else {
-            mB.refreshLayout.finishLoadmore();
-        }
+        listBean.clear();
+        mB.refreshLayout.finishRefreshing();
         listBean.addAll(list);
         adapter.notifyDataSetChanged();
     }

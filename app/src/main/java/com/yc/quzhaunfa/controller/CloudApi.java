@@ -30,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 public class CloudApi {
 
     private static final String url =
-            "10.0.0.138:8080";
+            "10.0.0.143:8080";
 
 
     public static final String SERVLET_URL = "http://" + url + "/forward/";
@@ -52,11 +52,11 @@ public class CloudApi {
     /**
      * 银行卡列表
      */
-    public static final String userGetBankList = "user/getBankList";
+    public static final String userGetBankList = "bank/getBankList";
     /**
      * 收入明细
      */
-    public static final String userGetBalanceList = "user/getBalanceList";
+    public static final String userGetBalanceList = "userBalance/getBalanceList";
 
     /**
      * 收入明细
@@ -73,6 +73,21 @@ public class CloudApi {
                     }
                 })
                 .adapt(new ObservableResponse<BaseResponseBean<BaseListBean<DataBean>>>())
+                .subscribeOn(Schedulers.io());
+    }
+    /**
+     * 徒弟收入明细
+     */
+    public static Observable<Response<BaseResponseBean<List<DataBean>>>> userApprenticeBalanceList(String userId) {
+        return OkGo.<BaseResponseBean<List<DataBean>>>get(SERVLET_URL + "userBalance/getApprenticesDetail")
+                .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
+                .params("levelUserId", userId)
+                .converter(new NewsCallback<BaseResponseBean<List<DataBean>>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<List<DataBean>>> response) {
+                    }
+                })
+                .adapt(new ObservableResponse<BaseResponseBean<List<DataBean>>>())
                 .subscribeOn(Schedulers.io());
     }
 
@@ -129,9 +144,9 @@ public class CloudApi {
      */
     public static String userSignList = "sign/signList";
     /**
-     * 获取用户列表
+     * 获取徒弟列表
      */
-    public static String userGetUserList = "user/getApprenticeList";
+    public static String userGetUserList = "userBalance/getApprentices";
 
     /**
      * 找回密码
@@ -178,7 +193,7 @@ public class CloudApi {
      * 提现
      */
     public static Observable<Response<BaseResponseBean>> userSaveUserCash(DataBean bankBean, double balance) {
-        return OkGo.<BaseResponseBean>post(SERVLET_URL + "user/saveUserCash")
+        return OkGo.<BaseResponseBean>post(SERVLET_URL + "userBalance/saveUserCash")
                 .params("bankId", bankBean.getBankId())
                 .params("balance", balance)
                 .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
@@ -193,9 +208,20 @@ public class CloudApi {
      * 获取用户首次记录
      */
     public static Observable<Response<BaseResponseBean<DataBean>>> getUserOne() {
-        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "user/getUserOne")
+        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "userBalance/getUserOne")
                 .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
                 .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .converter(new JsonConvert<BaseResponseBean<DataBean>>() {
+                })
+                .adapt(new ObservableResponse<BaseResponseBean<DataBean>>())
+                .subscribeOn(Schedulers.io());
+    }
+    /**
+     * 各种协议
+     */
+    public static Observable<Response<BaseResponseBean<DataBean>>> commonQueryAPPAgreement(int type) {
+        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "agreement/getAgreement")
+                .params("type", type)
                 .converter(new JsonConvert<BaseResponseBean<DataBean>>() {
                 })
                 .adapt(new ObservableResponse<BaseResponseBean<DataBean>>())
@@ -206,7 +232,7 @@ public class CloudApi {
      * 获取徒弟今昨日收益
      */
     public static Observable<Response<BaseResponseBean<DataBean>>> getApprenticeToy(String userId) {
-        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "user/getUserOne")
+        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "userBalance/getUpTodayYesterday")
                 .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
                 .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
                 .params("pupiUserId", userId)
@@ -222,7 +248,7 @@ public class CloudApi {
     public static Observable<Response<BaseResponseBean>> saveBank(String bankId, String bankName,
                                                                   String name, String bankDeposit,
                                                                   String phoneNum, String bankNum, String userCard) {
-        return OkGo.<BaseResponseBean>post(SERVLET_URL + "user/saveBank")
+        return OkGo.<BaseResponseBean>post(SERVLET_URL + "bank/saveBank")
                 .params("bankId", bankId)
                 .params("bankName", bankName)
                 .params("name", name)
@@ -260,7 +286,7 @@ public class CloudApi {
      * 获取今日/昨日/总收益
      */
     public static Observable<Response<BaseResponseBean<DataBean>>> getTodayYesterdayALl() {
-        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "user/getTodayYesterdayALl")
+        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "userBalance/getTodayYesterdayALl")
                 .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
                 .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
                 .converter(new JsonConvert<BaseResponseBean<DataBean>>() {

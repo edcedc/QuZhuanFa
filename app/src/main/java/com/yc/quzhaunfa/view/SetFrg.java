@@ -3,6 +3,7 @@ package com.yc.quzhaunfa.view;
 import android.os.Bundle;
 import android.view.View;
 
+import com.blankj.utilcode.util.CacheUtils;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.base.BaseFragment;
 import com.yc.quzhaunfa.base.BasePresenter;
@@ -41,6 +42,8 @@ public class SetFrg extends BaseFragment<BasePresenter, FSetBinding> implements 
         mB.lyContact.setOnClickListener(this);
         mB.lyReminder.setOnClickListener(this);
         mB.lyClear.setOnClickListener(this);
+        long cache = CacheUtils.getInstance().getCacheSize();
+        mB.tvClear.setText(cache + "");
     }
 
     @Override
@@ -56,7 +59,9 @@ public class SetFrg extends BaseFragment<BasePresenter, FSetBinding> implements 
 
                 break;
             case R.id.ly_clear:
-
+                CacheUtils.getInstance().clear();
+                showToast("清除成功");
+                mB.tvClear.setText("0MB");
                 break;
         }
     }

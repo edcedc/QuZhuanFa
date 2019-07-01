@@ -23,6 +23,7 @@ import com.yc.quzhaunfa.utils.ShareTool;
 import com.yc.quzhaunfa.utils.TabEntity;
 import com.yc.quzhaunfa.utils.cache.SharedAccount;
 import com.yc.quzhaunfa.view.act.HtmlAct;
+import com.yc.quzhaunfa.weight.ClipboardUtils;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -148,6 +149,10 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
                         LogUtils.e("onCancel");
                     }
                 });
+                break;
+            case R.id.tv_copy:
+                ClipboardUtils.copyText(mB.tvWxNum.getText().toString());
+                showToast("复制成功");
                 break;
         }
     }

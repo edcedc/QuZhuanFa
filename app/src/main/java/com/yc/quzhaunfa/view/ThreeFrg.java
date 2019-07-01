@@ -20,6 +20,7 @@ import com.yc.quzhaunfa.adapter.ApprenticeAdapter;
 import com.yc.quzhaunfa.adapter.HomeChildAdapter;
 import com.yc.quzhaunfa.base.BaseFragment;
 import com.yc.quzhaunfa.bean.DataBean;
+import com.yc.quzhaunfa.controller.UIHelper;
 import com.yc.quzhaunfa.databinding.FThreeBinding;
 import com.yc.quzhaunfa.impl.ThreeContract;
 import com.yc.quzhaunfa.presenter.ThreePresenter;
@@ -56,7 +57,7 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
     public void onSupportVisible() {
         super.onSupportVisible();
         if (isRequest){
-            isRequest = true;
+//            isRequest = true;
             mPresenter.getUserList();
             mPresenter.getTodayYesterdayALl();
         }
@@ -89,6 +90,7 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
         mB.fyInviteFriends.setOnClickListener(this);
         mB.fyMyApprentice.setOnClickListener(this);
         mB.tvInvite.setOnClickListener(this);
+        mB.tvInvitation.setOnClickListener(this);
         shareBottomFrg = new ShareBottomFrg();
 
         if (adapter == null) {
@@ -124,11 +126,15 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
             case R.id.tv_invite:
                 shareBottomFrg.show(getChildFragmentManager(), "dialog");
                 break;
+            case R.id.tv_invitation:
+                UIHelper.startMakeMoneyAct();
+                break;
         }
     }
 
     @Override
     public void setData(List<DataBean> list) {
+        listBean.clear();
         listBean.addAll(list);
         adapter.notifyDataSetChanged();
         mB.tvApprentice.setText(listBean.size() + "");

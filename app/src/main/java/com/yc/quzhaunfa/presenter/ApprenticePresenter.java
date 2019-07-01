@@ -25,35 +25,26 @@ public class ApprenticePresenter extends ApprenticeContract.Presenter{
 
     @Override
     public void onRequest(int pagerNumber, String userId) {
-        CloudApi.userGetBalanceList(pagerNumber, userId)
+        CloudApi.userApprenticeBalanceList(userId)
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) {
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<BaseResponseBean<BaseListBean<DataBean>>>>() {
+                .subscribe(new Observer<Response<BaseResponseBean<List<DataBean>>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         mView.addDisposable(d);
                     }
 
                     @Override
-                    public void onNext(Response<BaseResponseBean<BaseListBean<DataBean>>> baseResponseBeanResponse) {
-                        mView.hideLoading();
+                    public void onNext(Response<BaseResponseBean<List<DataBean>>> baseResponseBeanResponse) {
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
-                            BaseListBean<DataBean> data = baseResponseBeanResponse.body().result;
+                            List<DataBean> data = baseResponseBeanResponse.body().result;
                             if (data != null){
-                                List<DataBean> list = data.getList();
-                                if (list != null && list.size() != 0){
-                                    mView.setData(list);
-                                    mView.setRefreshLayoutMode(data.getTotalCount());
-                                }else {
-                                    mView.showLoadEmpty();
-                                }
+                                mView.setData(data);
                             }
-                        }else {
-                            mView.showLoadEmpty();
                         }
                     }
 
@@ -64,7 +55,7 @@ public class ApprenticePresenter extends ApprenticeContract.Presenter{
 
                     @Override
                     public void onComplete() {
-
+                        mView.hideLoading();
                     }
                 });
     }

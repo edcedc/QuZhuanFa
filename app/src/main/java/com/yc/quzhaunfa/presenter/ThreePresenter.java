@@ -43,7 +43,6 @@ public class ThreePresenter extends ThreeContract.Presenter {
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
                             List<DataBean> result = baseResponseBeanResponse.body().result;
                             mView.setData(result);
-                            mView.setData(result);
                         }
                     }
 

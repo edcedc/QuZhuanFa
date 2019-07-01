@@ -52,7 +52,10 @@
                     <com.flyco.roundview.RoundTextView
                         app:rv_cornerRadius="@dimen/px40"
                         app:rv_backgroundColor="@color/red_EF402C"
-                        android:padding="@dimen/px10"
+                        android:paddingLeft="@dimen/px15"
+                        android:paddingRight="@dimen/px15"
+                        android:paddingTop="@dimen/px5"
+                        android:paddingBottom="@dimen/px5"
                         style="@style/Tv12gray"
                         android:layout_marginLeft="@dimen/px20"
                         app:layout_constraintBottom_toBottomOf="@id/iv_head"

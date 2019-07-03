@@ -14,6 +14,8 @@ public interface LoginContract {
     interface View extends IBaseView {
 
         void onCode();
+
+        void setWxNum(String content);
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -21,6 +23,8 @@ public interface LoginContract {
         public abstract void code(String phone);
 
         public abstract void login(String phone, String code, String pwd, boolean checked, int mPosition);
+
+        public abstract void getAgreement();
     }
 
 }

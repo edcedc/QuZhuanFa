@@ -96,7 +96,6 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
                                         data.getContent() +
                                         "&userId=" +
                                         ShareSessionIdCache.getInstance(act).getUserId());
-
                             }
                         }else {
                             act.finish();

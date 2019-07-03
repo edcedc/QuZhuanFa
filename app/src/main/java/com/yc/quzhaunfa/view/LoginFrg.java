@@ -71,6 +71,7 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
         mB.tvWenti.setOnClickListener(this);
         mB.tvRetrieve.setOnClickListener(this);
         mB.ivWx.setOnClickListener(this);
+        mPresenter.getAgreement();
 
         String mobile = SharedAccount.getInstance(act).getMobile();
         String pwd = SharedAccount.getInstance(act).getPwd();
@@ -160,6 +161,11 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
     @Override
     public void onCode() {
         new CountDownTimerUtils(act, 60000, 1000, mB.tvCode).start();
+    }
+
+    @Override
+    public void setWxNum(String content) {
+        mB.tvWxNum.setText(content);
     }
 
     @Override

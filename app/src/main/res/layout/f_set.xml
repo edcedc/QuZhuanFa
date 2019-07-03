@@ -69,6 +69,7 @@
                 style="@style/divider_1"/>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ly_reminder"
                 android:background="?selectableItemBackground"
                 android:padding="@dimen/px40"

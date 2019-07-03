@@ -30,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
 public class CloudApi {
 
     private static final String url =
-            "10.0.0.143:8080";
+            "10.0.0.138:8080";
 
 
     public static final String SERVLET_URL = "http://" + url + "/forward/";
@@ -216,12 +216,13 @@ public class CloudApi {
                 .adapt(new ObservableResponse<BaseResponseBean<DataBean>>())
                 .subscribeOn(Schedulers.io());
     }
+
     /**
      * 各种协议
      */
     public static Observable<Response<BaseResponseBean<DataBean>>> commonQueryAPPAgreement(int type) {
-        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "agreement/getAgreement")
-                .params("type", type)
+        return OkGo.<BaseResponseBean<DataBean>>get(SERVLET_URL + "agreement/getAgrList")
+                .params("agreementType", type)
                 .converter(new JsonConvert<BaseResponseBean<DataBean>>() {
                 })
                 .adapt(new ObservableResponse<BaseResponseBean<DataBean>>())

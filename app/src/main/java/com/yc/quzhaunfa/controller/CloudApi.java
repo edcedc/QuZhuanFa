@@ -107,10 +107,11 @@ public class CloudApi {
     /**
      * 注册
      */
-    public static Observable<JSONObject> register(String mobile, String code) {
+    public static Observable<JSONObject> register(String mobile, String code, String invitation) {
         return OkGo.<JSONObject>post(SERVLET_URL + "user/register")
                 .params("phone", mobile)
                 .params("code", code)
+                .params("userCode", invitation)
                 .converter(new JsonConvert<JSONObject>() {
                 })
                 .adapt(new ObservableBody<JSONObject>())

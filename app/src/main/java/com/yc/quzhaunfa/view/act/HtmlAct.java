@@ -60,9 +60,6 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
 
     @Override
     protected void initView() {
-        ImmersionBar.with(this)
-                .transparentBar()
-                .init();
         switch (type){
             case PRIVACY_PROTOCOL:
                 setTitle("隐私协议");

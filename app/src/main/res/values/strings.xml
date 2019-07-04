@@ -51,6 +51,7 @@
     <string name="input_phone" translatable="false">请输入手机号码</string>
     <string name="input_code" translatable="false">请输入验证码</string>
     <string name="input_pwd" translatable="false">请输入密码</string>
+    <string name="input_invitation" translatable="false">请输入邀请码</string>
     <string name="login1" translatable="false">立即登录</string>
     <string name="retrieve_pwd" translatable="false">找回密码</string>
     <string name="three_login" translatable="false">第三方登录</string>

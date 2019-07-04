@@ -4,85 +4,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingConstraints">
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.NestedScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
-        <android.support.v7.widget.AppCompatImageView
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/zcbj01" />
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
-        <include
-            android:id="@+id/top"
-            layout="@layout/include_top" />
-
-        <com.flyco.roundview.RoundLinearLayout
-            android:id="@+id/layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px40"
-            android:layout_marginTop="@dimen/px100"
-            android:layout_marginRight="@dimen/px40"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/top"
-            app:rv_backgroundColor="@color/white"
-            app:rv_cornerRadius="@dimen/px20"
-            app:rv_strokeColor="@color/red_FF7D78"
-            app:rv_strokeWidth="@dimen/px1">
-
-            <com.flyco.tablayout.CommonTabLayout
-                android:id="@+id/tb_layout"
+            <android.support.v7.widget.AppCompatImageView
                 android:layout_width="match_parent"
-                android:layout_height="48dp"
-                app:tl_indicator_color="@color/red_EF402C"
-                app:tl_indicator_width_equal_title="true"
-                android:layout_marginBottom="@dimen/px20"
-                app:tl_tab_padding="15dp"
-                app:tl_divider_width="@dimen/px1"
-                app:tl_divider_color="@color/tab_gray"
-                app:tl_tab_space_equal="true"
-                app:tl_textSelectColor="@color/red_EF402C"
-                app:tl_textUnselectColor="@color/tab_black"
-                app:tl_textsize="14sp" />
+                android:layout_height="wrap_content"
+                android:background="@mipmap/zcbj01" />
 
-            <LinearLayout
+            <include
+                android:id="@+id/top"
+                layout="@layout/include_top" />
+
+            <com.flyco.roundview.RoundLinearLayout
+                android:id="@+id/layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/px40"
+                android:layout_marginTop="@dimen/px50"
                 android:layout_marginRight="@dimen/px40"
-                android:gravity="center|left"
-                android:orientation="horizontal"
-                android:padding="@dimen/px20">
-
-                <android.support.v7.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/px20"
-                    android:background="@mipmap/sjh01" />
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/et_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:hint="@string/input_phone"
-                    android:inputType="phone"
-                    android:maxLength="11"
-                    android:padding="@dimen/px20"
-                    android:textSize="@dimen/size30" />
-
-            </LinearLayout>
-
-            <View style="@style/divider_1" />
-
-            <LinearLayout
-                android:id="@+id/ly_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                app:layout_constraintTop_toBottomOf="@id/top"
+                app:rv_backgroundColor="@color/white"
+                app:rv_cornerRadius="@dimen/px20"
+                app:rv_strokeColor="@color/red_FF7D78"
+                app:rv_strokeWidth="@dimen/px1">
+
+                <com.flyco.tablayout.CommonTabLayout
+                    android:id="@+id/tb_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginBottom="@dimen/px20"
+                    app:tl_divider_color="@color/tab_gray"
+                    app:tl_divider_width="@dimen/px1"
+                    app:tl_indicator_color="@color/red_EF402C"
+                    app:tl_indicator_width_equal_title="true"
+                    app:tl_tab_padding="15dp"
+                    app:tl_tab_space_equal="true"
+                    app:tl_textSelectColor="@color/red_EF402C"
+                    app:tl_textUnselectColor="@color/tab_black"
+                    app:tl_textsize="14sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -97,225 +65,301 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/px20"
-                        android:background="@mipmap/yzm01" />
+                        android:background="@mipmap/sjh01" />
 
                     <android.support.v7.widget.AppCompatEditText
-                        android:id="@+id/et_code"
-                        android:layout_width="0dp"
+                        android:id="@+id/et_phone"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:background="@null"
-                        android:hint="@string/input_code"
+                        android:hint="@string/input_phone"
                         android:inputType="phone"
                         android:maxLength="11"
                         android:padding="@dimen/px20"
                         android:textSize="@dimen/size30" />
 
-                    <com.flyco.roundview.RoundTextView
-                        android:id="@+id/tv_code"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/px20"
-                        android:paddingRight="@dimen/px20"
-                        android:gravity="center"
-                        android:paddingTop="@dimen/px10"
-                        android:paddingBottom="@dimen/px10"
-                        android:text="获取验证码"
-                        android:textSize="@dimen/px24"
-                        android:textColor="@color/red_FF7D78"
-                        app:rv_cornerRadius="@dimen/px40"
-                        app:rv_strokeColor="@color/red_FF7D78"
-                        app:rv_strokeWidth="@dimen/px1" />
-
                 </LinearLayout>
 
                 <View style="@style/divider_1" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ly_pwd"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/ly_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/px40"
-                    android:layout_marginRight="@dimen/px40"
-                    android:gravity="center|left"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/px20">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/px20"
-                        android:background="@mipmap/mm01" />
-
-                    <android.support.v7.widget.AppCompatEditText
-                        android:id="@+id/et_pwd"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:hint="@string/input_pwd"
-                        android:inputType="textPassword"
-                        android:padding="@dimen/px20"
-                        android:textSize="@dimen/size30" />
+                        android:layout_marginLeft="@dimen/px40"
+                        android:layout_marginRight="@dimen/px40"
+                        android:gravity="center|left"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/px20">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/px20"
+                            android:background="@mipmap/yzm01" />
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/et_code"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="@string/input_code"
+                            android:inputType="phone"
+                            android:maxLength="11"
+                            android:padding="@dimen/px20"
+                            android:textSize="@dimen/size30" />
+
+                        <com.flyco.roundview.RoundTextView
+                            android:id="@+id/tv_code"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/px20"
+                            android:paddingTop="@dimen/px10"
+                            android:paddingRight="@dimen/px20"
+                            android:paddingBottom="@dimen/px10"
+                            android:text="获取验证码"
+                            android:textColor="@color/red_FF7D78"
+                            android:textSize="@dimen/px24"
+                            app:rv_cornerRadius="@dimen/px40"
+                            app:rv_strokeColor="@color/red_FF7D78"
+                            app:rv_strokeWidth="@dimen/px1" />
+
+                    </LinearLayout>
+
+                    <View style="@style/divider_1" />
 
                 </LinearLayout>
 
-                <View style="@style/divider_1" />
+                <LinearLayout
+                    android:id="@+id/ly_pwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px40"
+                        android:layout_marginRight="@dimen/px40"
+                        android:gravity="center|left"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/px20">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/px20"
+                            android:background="@mipmap/mm01" />
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/et_pwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:hint="@string/input_pwd"
+                            android:inputType="textPassword"
+                            android:padding="@dimen/px20"
+                            android:textSize="@dimen/size30" />
+
+                    </LinearLayout>
+
+                    <View style="@style/divider_1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ly_invitation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/px40"
+                        android:layout_marginRight="@dimen/px40"
+                        android:gravity="center|left"
+                        android:orientation="horizontal"
+                        android:padding="@dimen/px20">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/px20"
+                            android:background="@mipmap/mm01"
+                            android:visibility="invisible" />
+
+                        <android.support.v7.widget.AppCompatEditText
+                            android:id="@+id/et_invitation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:hint="@string/input_invitation"
+                            android:inputType="text"
+                            android:padding="@dimen/px20"
+                            android:textSize="@dimen/size30" />
+
+                    </LinearLayout>
+
+                    <View style="@style/divider_1" />
+
+                </LinearLayout>
+
+                <com.flyco.roundview.RoundTextView
+                    android:id="@+id/bt_submit"
+                    style="@style/RoundBlueTextView"
+                    android:layout_marginLeft="@dimen/px40"
+                    android:layout_marginTop="@dimen/px50"
+                    android:layout_marginRight="@dimen/px40"
+                    android:text="@string/login1"
+                    app:rv_backgroundColor="@color/red_FF7D78"
+                    app:rv_cornerRadius="@dimen/px40" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:id="@+id/tv_retrieve"
+                    style="@style/Tv12red"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/px20"
+                    android:padding="@dimen/px20"
+                    android:text="@string/retrieve_pwd" />
+
+            </com.flyco.roundview.RoundLinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ly_agreement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px80"
+                android:layout_marginTop="@dimen/px40"
+                android:orientation="horizontal"
+                app:layout_constraintLeft_toLeftOf="@id/layout"
+                app:layout_constraintTop_toBottomOf="@id/layout">
+
+                <CheckBox
+                    android:id="@+id/cb_submit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:button="@drawable/cb_select"
+                    android:paddingLeft="@dimen/px20"
+                    android:text="我已阅读"
+                    android:textColor="@color/tab_gray"
+                    android:textSize="@dimen/px24" />
+
+                <TextView
+                    android:id="@+id/tv_agreement"
+                    style="@style/Tv12red"
+                    android:text="《用户注册协议》" />
 
             </LinearLayout>
 
             <com.flyco.roundview.RoundTextView
-                android:id="@+id/bt_submit"
-                style="@style/RoundBlueTextView"
-                android:layout_marginLeft="@dimen/px40"
-                android:layout_marginTop="@dimen/px50"
-                android:layout_marginRight="@dimen/px40"
-                android:text="@string/login1"
-                app:rv_backgroundColor="@color/red_FF7D78"
-                app:rv_cornerRadius="@dimen/px40" />
-
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/tv_retrieve"
-                style="@style/Tv12red"
-                android:layout_gravity="right"
-                android:layout_margin="@dimen/px20"
-                android:padding="@dimen/px20"
-                android:text="@string/retrieve_pwd" />
-
-        </com.flyco.roundview.RoundLinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ly_agreement"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px80"
-            android:layout_marginTop="@dimen/px40"
-            android:orientation="horizontal"
-            app:layout_constraintLeft_toLeftOf="@id/layout"
-            app:layout_constraintTop_toBottomOf="@id/layout">
-
-            <CheckBox
-                android:id="@+id/cb_submit"
+                android:id="@+id/tv_wx_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@null"
-                android:button="@drawable/cb_select"
-                android:paddingLeft="@dimen/px20"
-                android:text="我已阅读"
+                android:layout_marginBottom="@dimen/px40"
+                android:paddingLeft="@dimen/px30"
+                android:paddingTop="@dimen/px10"
+                android:paddingRight="@dimen/px30"
+                android:paddingBottom="@dimen/px10"
                 android:textColor="@color/tab_gray"
-                android:textSize="@dimen/px24" />
+                android:textSize="@dimen/size30"
+                app:layout_constraintBottom_toTopOf="@id/tv_wenti"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/tv_copy"
+                app:rv_backgroundColor="@color/red_FFECEB" />
 
-            <TextView
-                android:id="@+id/tv_agreement"
-                style="@style/Tv12red"
-                android:text="《用户注册协议》" />
-
-        </LinearLayout>
-
-        <com.flyco.roundview.RoundTextView
-            android:id="@+id/tv_wx_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/px40"
-            android:paddingLeft="@dimen/px30"
-            android:paddingTop="@dimen/px10"
-            android:paddingRight="@dimen/px30"
-            android:paddingBottom="@dimen/px10"
-            android:textSize="@dimen/size30"
-            android:text="@string/wx_num"
-            android:textColor="@color/tab_gray"
-            app:layout_constraintBottom_toTopOf="@id/tv_wenti"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/tv_copy"
-            app:rv_backgroundColor="@color/red_FFECEB" />
-
-        <com.flyco.roundview.RoundTextView
-            android:id="@+id/tv_copy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/px40"
-            android:paddingLeft="@dimen/px30"
-            android:paddingTop="@dimen/px10"
-            android:paddingRight="@dimen/px30"
-            android:paddingBottom="@dimen/px10"
-            android:text="@string/copy"
-            android:textColor="@color/white"
-            android:textSize="@dimen/size30"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/tv_wenti"
-            app:layout_constraintLeft_toRightOf="@id/tv_wx_num"
-            app:layout_constraintRight_toRightOf="parent"
-            app:rv_backgroundColor="@color/red_FF7D78"
-            app:rv_cornerRadius="@dimen/px10" />
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/tv_wenti"
-            style="@style/Tv12gray"
-            android:paddingBottom="@dimen/px60"
-            android:text="@string/wenti"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <android.support.constraint.Group
-            android:id="@+id/gp_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:constraint_referenced_ids="ly_agreement, tv_copy, tv_wx_num, tv_wenti" />
-
-        <LinearLayout
-            android:id="@+id/ly_three"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/px100"
-            android:layout_marginRight="@dimen/px100"
-            android:layout_marginBottom="@dimen/px50"
-            android:gravity="center"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/iv_wx">
-
-            <View
-                style="@style/divider_1"
-                android:layout_width="0dp"
-                android:layout_weight="1" />
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/tv_copy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/px40"
+                android:paddingLeft="@dimen/px30"
+                android:paddingTop="@dimen/px10"
+                android:paddingRight="@dimen/px30"
+                android:paddingBottom="@dimen/px10"
+                android:text="@string/copy"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size30"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tv_wenti"
+                app:layout_constraintLeft_toRightOf="@id/tv_wx_num"
+                app:layout_constraintRight_toRightOf="parent"
+                app:rv_backgroundColor="@color/red_FF7D78"
+                app:rv_cornerRadius="@dimen/px10" />
 
             <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_wenti"
                 style="@style/Tv12gray"
-                android:text="@string/three_login" />
+                android:paddingBottom="@dimen/px60"
+                android:text="@string/wenti"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
 
-            <View
-                style="@style/divider_1"
-                android:layout_width="0dp"
-                android:layout_weight="1" />
+            <android.support.constraint.Group
+                android:id="@+id/gp_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="ly_agreement, tv_copy, tv_wx_num, tv_wenti" />
 
-        </LinearLayout>
+            <LinearLayout
+                android:id="@+id/ly_three"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/px100"
+                android:layout_marginRight="@dimen/px100"
+                android:layout_marginBottom="@dimen/px50"
+                android:gravity="center"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@id/iv_wx">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/iv_wx"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/px80"
-            android:background="@mipmap/wx01"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
+                <View
+                    style="@style/divider_1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1" />
 
-        <android.support.constraint.Group
-            android:id="@+id/gp_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:constraint_referenced_ids="iv_wx, ly_three"
-            tools:ignore="NotSibling" />
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/Tv12gray"
+                    android:text="@string/three_login" />
 
+                <View
+                    style="@style/divider_1"
+                    android:layout_width="0dp"
+                    android:layout_weight="1" />
 
-    </android.support.constraint.ConstraintLayout>
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_wx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/px80"
+                android:background="@mipmap/wx01"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <android.support.constraint.Group
+                android:id="@+id/gp_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="iv_wx, ly_three"
+                tools:ignore="NotSibling" />
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </layout>

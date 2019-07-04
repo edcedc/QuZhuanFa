@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.base.BaseFragment;
 import com.yc.quzhaunfa.base.BaseRecyclerviewAdapter;
@@ -43,7 +44,7 @@ public class ApprenticeAdapter extends BaseRecyclerviewAdapter<DataBean> {
         viewHolder.tv_income.setText("+" +
                 bean.getBalance());
         viewHolder.tv_time.setText("注册时间：" +
-                bean.getCreateTime());
+                TimeUtils.millis2String(Long.valueOf(bean.getCreateTime())));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -1,11 +1,9 @@
 package com.yc.quzhaunfa.view;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.View;
-
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.model.Response;
@@ -22,10 +20,8 @@ import com.yc.quzhaunfa.controller.CloudApi;
 import com.yc.quzhaunfa.controller.UIHelper;
 import com.yc.quzhaunfa.databinding.FOneBinding;
 import com.yc.quzhaunfa.utils.PopupWindowTool;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -66,12 +62,6 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
         mB.ivIncome.setOnClickListener(this);
         mPresenter.onRequest(CloudApi.articleGetArticleClass);
 
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                PopupWindowTool.showLogin(act);
-//            }
-//        }, 2000);
         onProfitOne();
     }
 

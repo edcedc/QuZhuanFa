@@ -7,8 +7,10 @@ import android.view.View;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.bumptech.glide.Glide;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.gyf.immersionbar.ImmersionBar;
 import com.umeng.socialize.UMAuthListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.quzhaunfa.R;
@@ -64,13 +66,14 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
     @Override
     protected void initView(View view) {
         setTitleTransparent(getString(R.string.login), true);
-
+        ImmersionBar.with(this).navigationBarColor(R.color.red_FF7D78);
         mB.tvCode.setOnClickListener(this);
         mB.btSubmit.setOnClickListener(this);
         mB.tvCopy.setOnClickListener(this);
         mB.tvWenti.setOnClickListener(this);
         mB.tvRetrieve.setOnClickListener(this);
         mB.ivWx.setOnClickListener(this);
+        mB.tvAgreement.setOnClickListener(this);
         mPresenter.getAgreement();
 
         String mobile = SharedAccount.getInstance(act).getMobile();
@@ -97,6 +100,7 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
                     mB.gpLogin.setVisibility(View.VISIBLE);
                     mB.tvRetrieve.setVisibility(View.VISIBLE);
                     mB.lyPwd.setVisibility(View.VISIBLE);
+                    mB.lyInvitation.setVisibility(View.GONE);
                 }else {
                     setTitle(getString(R.string.register));
                     mB.lyCode.setVisibility(View.VISIBLE);
@@ -104,6 +108,7 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
                     mB.tvRetrieve.setVisibility(View.INVISIBLE);
                     mB.lyPwd.setVisibility(View.GONE);
                     mB.gpLogin.setVisibility(View.GONE);
+                    mB.lyInvitation.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -120,7 +125,7 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
                 mPresenter.code(mB.etPhone.getText().toString());
                 break;
             case R.id.bt_submit:
-                mPresenter.login(mB.etPhone.getText().toString(), mB.etCode.getText().toString(), mB.etPwd.getText().toString(), mB.cbSubmit.isChecked(), mPosition);
+                mPresenter.login(mB.etPhone.getText().toString(), mB.etCode.getText().toString(), mB.etPwd.getText().toString(), mB.etInvitation.getText().toString(), mB.cbSubmit.isChecked(), mPosition);
                 break;
             case R.id.tv_agreement:
                 UIHelper.startHtmlAct(HtmlAct.REGISTER_PROTOCOL);

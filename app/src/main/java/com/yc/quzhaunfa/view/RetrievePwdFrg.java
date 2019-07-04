@@ -38,7 +38,7 @@ public class RetrievePwdFrg extends BaseFragment<RetrievePwdPresenter, FRetrieve
 
     @Override
     protected void initView(View view) {
-        setTitle(type == 0 ? getString(R.string.register) : getString(R.string.bind_phone));
+        setTitle(type == 0 ? getString(R.string.retrieve_pwd) : getString(R.string.bind_phone));
         mB.tvCode.setOnClickListener(this);
         mB.btSubmit.setOnClickListener(this);
     }

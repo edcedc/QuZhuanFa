@@ -2,6 +2,7 @@ package com.yc.quzhaunfa.presenter;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.RegexUtils;
+import com.blankj.utilcode.util.ScreenUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.lzy.okgo.model.Response;
 import com.yc.quzhaunfa.R;
@@ -75,7 +76,7 @@ public class LoginPresenter extends LoginContract.Presenter{
     }
 
     @Override
-    public void login(String phone, String code, String pwd, boolean checked, int mPosition) {
+    public void login(String phone, String code, String pwd, String invitation, boolean checked, int mPosition) {
         if (StringUtils.isEmpty(phone)){
             showToast(act.getString(R.string.error_phone1));
             return;
@@ -123,15 +124,15 @@ public class LoginPresenter extends LoginContract.Presenter{
                         }
                     });
         }else {
-            if (StringUtils.isEmpty(code)){
-                showToast(act.getString(R.string.error_phone1));
+            if (StringUtils.isEmpty(code) || StringUtils.isEmpty(phone) || StringUtils.isEmpty(invitation)){
+                showToast(act.getString(R.string.error_));
                 return;
             }
             if (!checked){
                 showToast(act.getString(R.string.error_1));
                 return;
             }
-            CloudApi.register(phone, code)
+            CloudApi.register(phone, code, invitation)
                     .doOnSubscribe(new Consumer<Disposable>() {
                         @Override
                         public void accept(Disposable disposable) throws Exception {

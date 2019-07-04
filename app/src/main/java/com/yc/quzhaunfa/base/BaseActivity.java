@@ -26,6 +26,7 @@ import com.alipay.sdk.app.PayTask;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.gyf.immersionbar.ImmersionBar;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -96,7 +97,11 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
     protected abstract void initPresenter();
 
     protected void setSofia(boolean isFullScreen) {
+        if (!isFullScreen){
+            ImmersionBar.with(this).statusBarColor(R.color.red_FF7D78).init();
+        }else {
 
+        }
     }
 
     protected abstract int bindLayout();
@@ -132,7 +137,6 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
         mAppCompatActivity.setSupportActionBar(toolbar);
         mAppCompatActivity.getSupportActionBar().setTitle("");
         if (isBack){
-            toolbar.setNavigationIcon(R.mipmap.close);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

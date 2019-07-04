@@ -128,7 +128,7 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
 
     protected void setSofia(boolean isFullScreen) {
         if (!isFullScreen){
-            ImmersionBar.with(this).navigationBarColor(R.color.red_EF402C);
+//            ImmersionBar.with(this).statusBarColor(R.color.red_FF7D78).init();
         }else {
 
         }

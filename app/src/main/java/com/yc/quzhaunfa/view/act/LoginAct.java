@@ -3,6 +3,7 @@ package com.yc.quzhaunfa.view.act;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.umeng.socialize.UMShareAPI;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.base.BaseActivity;
@@ -37,6 +38,7 @@ public class LoginAct extends BaseActivity {
     @Override
     protected void initView() {
         ShareIsLoginCache.getInstance(act).save(true);
+
         if (findFragment(LoginFrg.class) == null) {
             loadRootFragment(R.id.fl_container, LoginFrg.newInstance());
         }

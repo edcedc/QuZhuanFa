@@ -79,7 +79,7 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.iv_head:
-                UIHelper.startLoginAct();
+//                UIHelper.startLoginAct();
                 break;
             case R.id.ly_sign:
                 mPresenter.sign();

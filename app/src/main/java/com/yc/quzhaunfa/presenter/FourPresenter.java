@@ -145,7 +145,7 @@ public class FourPresenter extends FourContract.Presenter{
                             onRequest();
                         }
                         mView.onSign();
-                        showToast(baseResponseBeanResponse.body().description);
+//                        showToast(baseResponseBeanResponse.body().description);
                     }
 
                     @Override

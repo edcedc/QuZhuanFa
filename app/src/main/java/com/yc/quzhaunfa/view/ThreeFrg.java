@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.gyf.immersionbar.ImmersionBar;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
+import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.adapter.ApprenticeAdapter;
 import com.yc.quzhaunfa.adapter.HomeChildAdapter;
@@ -57,9 +59,8 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
     public void onSupportVisible() {
         super.onSupportVisible();
         if (isRequest){
-//            isRequest = true;
-            mPresenter.getUserList();
-            mPresenter.getTodayYesterdayALl();
+            isRequest = true;
+            mB.refreshLayout.startRefresh();
         }
     }
 
@@ -98,6 +99,14 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
         }
         mB.recyclerView.setAdapter(adapter);
         setRecyclerViewType(mB.recyclerView);
+        mB.refreshLayout.setEnableLoadmore(false);
+        setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                mPresenter.getUserList();
+                mPresenter.getTodayYesterdayALl();
+            }
+        });
     }
 
     @Override
@@ -134,6 +143,7 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
 
     @Override
     public void setData(List<DataBean> list) {
+        mB.refreshLayout.finishRefreshing();
         listBean.clear();
         listBean.addAll(list);
         adapter.notifyDataSetChanged();

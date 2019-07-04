@@ -2,6 +2,7 @@ package com.yc.quzhaunfa.view.act;
 
 import android.os.Bundle;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.yc.quzhaunfa.R;
 import com.yc.quzhaunfa.base.BaseActivity;
 import com.yc.quzhaunfa.view.DetailsFrg;
@@ -34,6 +35,7 @@ public class DetailsAct extends BaseActivity {
 
     @Override
     protected void initView() {
+        ImmersionBar.with(this).statusBarColor(R.color.red_FF7D78).init();
         DetailsFrg frg = DetailsFrg.newInstance();
         if (findFragment(DetailsFrg.class) == null) {
             Bundle bundle = new Bundle();

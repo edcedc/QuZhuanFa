@@ -64,7 +64,7 @@
     <style name="title_bar">
         <item name="android:layout_height">20dp</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:background">@color/red_EF402C</item>
+        <item name="android:background">@color/red_FF7D78</item>
     </style>
 
     <style name="myTransparent">

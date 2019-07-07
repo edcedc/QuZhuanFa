@@ -17,7 +17,7 @@
             android:max="100"
             android:progress="0" />
 
-        <com.yc.quzhaunfa.weight.X5WebView
+        <com.yc.quzhuanfa.weight.X5WebView
             android:id="@+id/webView"
             android:layout_width="match_parent"
             android:layout_height="0dp"

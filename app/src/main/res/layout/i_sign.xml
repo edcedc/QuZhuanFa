@@ -8,7 +8,7 @@
     android:background="?selectableItemBackground"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.yc.quzhaunfa.weight.RoundImageView
+    <com.yc.quzhuanfa.weight.RoundImageView
         android:id="@+id/iv_img"
         android:layout_width="@dimen/px184"
         android:layout_height="@dimen/px118"

@@ -15,7 +15,7 @@
 
     <!--parent设置为启动页的theme-->
     <style name="AppTheme.customeTheme" parent="AppTheme">
-        <item name="android:windowBackground">@mipmap/ic_launcher</item>
+        <item name="android:windowBackground">@mipmap/qdy01</item>
         <!-- AppCompatEditText默认状态状态设置底线颜色 -->
         <item name="colorControlNormal">#3F51b5</item>
         <!-- AppCompatEditText选择的底线颜色 -->

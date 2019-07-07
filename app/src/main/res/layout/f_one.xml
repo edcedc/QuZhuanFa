@@ -89,7 +89,7 @@
 
             </LinearLayout>
 
-            <com.yc.quzhaunfa.weight.NoScrollViewPager
+            <com.yc.quzhuanfa.weight.NoScrollViewPager
                 android:id="@+id/viewPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

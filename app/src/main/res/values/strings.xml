@@ -105,6 +105,7 @@
     <string name="invite_friends2" translatable="false">好友\n帮挣</string>
     <string name="invite_friends3" translatable="false">一键邀请好友</string>
     <string name="apprentice" translatable="false">收徒</string>
+    <string name="apprentice1" translatable="false">二维码收徒</string>
     <string name="my_income" translatable="false">我的总收入</string>
     <string name="contribution" translatable="false">今日贡献</string>
     <string name="yesterday_contribution" translatable="false">昨日贡献</string>

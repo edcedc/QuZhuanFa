@@ -32,7 +32,7 @@
                     android:padding="@dimen/px20"
                     android:layout_height="wrap_content">
 
-                    <com.yc.quzhaunfa.weight.CircleImageView
+                    <com.yc.quzhuanfa.weight.CircleImageView
                         android:id="@+id/iv_head"
                         android:layout_width="@dimen/px120"
                         android:src="@mipmap/place_holder_user"

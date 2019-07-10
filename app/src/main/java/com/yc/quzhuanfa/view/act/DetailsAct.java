@@ -19,6 +19,9 @@ public class DetailsAct extends BaseActivity {
 
     private String id;
     private int type;
+    private String title;
+    private String image;
+    private String className;
 
     @Override
     protected void initPresenter() {
@@ -34,6 +37,9 @@ public class DetailsAct extends BaseActivity {
     protected void initParms(Bundle bundle) {
         id = bundle.getString("id");
         type = bundle.getInt("type");
+        title = bundle.getString("title");
+        image = bundle.getString("image");
+        className = bundle.getString("className");
     }
 
     @Override
@@ -43,6 +49,9 @@ public class DetailsAct extends BaseActivity {
         if (findFragment(DetailsFrg.class) == null) {
             Bundle bundle = new Bundle();
             bundle.putString("id", id);
+            bundle.putString("title", title);
+            bundle.putString("image", image);
+            bundle.putString("className", className);
             bundle.putInt("type", type);
             frg.setArguments(bundle);
             loadRootFragment(R.id.fl_container, frg);

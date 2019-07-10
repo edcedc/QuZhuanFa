@@ -64,10 +64,11 @@
 
             <android.support.v7.widget.AppCompatTextView
                 android:padding="@dimen/px20"
+                android:visibility="gone"
                 android:text="每次提现最低100元"
                 style="@style/Tv15black" />
 
-            <android.support.v7.widget.AppCompatEditText
+            <android.support.v7.widget.AppCompatTextView
                 android:id="@+id/et_price"
                 android:padding="@dimen/px20"
                 android:background="@null"
@@ -91,19 +92,28 @@
                     style="@style/Tv15gray" />
 
                 <android.support.v7.widget.AppCompatTextView
+                    android:visibility="gone"
                     android:id="@+id/tv_full_withdrawa1"
                     android:text="@string/full_withdrawal"
                     style="@style/Tv15red" />
 
             </LinearLayout>
 
+            <com.yc.quzhuanfa.weight.WithScrollGridView
+                android:id="@+id/gridview"
+                android:horizontalSpacing="@dimen/px20"
+                android:verticalSpacing="@dimen/px20"
+                android:layout_width="match_parent"
+                android:numColumns="3"
+                android:layout_height="wrap_content"/>
+
             <com.flyco.roundview.RoundTextView
                 android:id="@+id/bt_submit"
                 style="@style/RoundBlueTextView"
                 android:layout_marginLeft="@dimen/px40"
-                android:layout_marginTop="@dimen/px150"
+                android:layout_marginTop="@dimen/px100"
                 android:layout_marginRight="@dimen/px40"
-                android:layout_marginBottom="@dimen/px150"
+                android:layout_marginBottom="@dimen/px50"
                 android:text="@string/withdrawal1"
                 app:rv_backgroundColor="@color/red_FF7D78"
                 app:rv_cornerRadius="@dimen/px40" />

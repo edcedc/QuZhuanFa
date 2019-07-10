@@ -50,7 +50,7 @@ public class SetFrg extends BaseFragment<BasePresenter, FSetBinding> implements 
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.ly_privacy:
-                UIHelper.startHtmlAct(HtmlAct.PRIVACY_PROTOCOL);
+                UIHelper.startHtmlAct(HtmlAct.REGISTER);
                 break;
             case R.id.ly_contact:
                 UIHelper.startContactFrg(this, 1);

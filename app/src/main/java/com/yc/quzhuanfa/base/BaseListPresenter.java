@@ -41,14 +41,15 @@ public class BaseListPresenter extends BaseListContract.Presenter{
                         mView.hideLoading();
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
                             BaseListBean<DataBean> data = baseResponseBeanResponse.body().result;
+                            mView.hideLoading();
                             if (data != null){
                                 List<DataBean> list = data.getList();
                                 if (list != null && list.size() != 0){
                                     mView.setData(list);
-                                    mView.setRefreshLayoutMode(data.getTotalCount());
                                 }else {
                                     mView.showLoadEmpty();
                                 }
+                                mView.setRefreshLayoutMode(data.getTotalCount());
                             }
                         }else {
                             mView.showLoadEmpty();
@@ -85,10 +86,12 @@ public class BaseListPresenter extends BaseListContract.Presenter{
                     @Override
                     public void onNext(Response<BaseResponseBean<List<DataBean>>> baseResponseBeanResponse) {
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
-                            List<DataBean> data = baseResponseBeanResponse.body().result;
-                            if (data != null && data.size() != 0){
-                                mView.hideLoading();
-                                mView.setData(data);
+                            List<DataBean> list = baseResponseBeanResponse.body().result;
+                            mView.hideLoading();
+                            if (list != null && list.size() != 0){
+                                mView.setData(list);
+                            }else {
+                                mView.showLoadEmpty();
                             }
                         }else {
                             mView.showLoadEmpty();

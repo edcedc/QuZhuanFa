@@ -26,6 +26,8 @@ android {
     }
     buildTypes {
         release {
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             // 混淆
             minifyEnabled true
             // Zipalign优化
@@ -44,8 +46,18 @@ android {
 
         debug {
             signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable true
             zipAlignEnabled false
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('yyc.jks')
+            storePassword "123456"
+            keyAlias "ye"
+            keyPassword "123456"
         }
     }
 
@@ -128,6 +140,8 @@ dependencies {
 
     //数字输入框
     implementation 'com.jungly:gridPasswordView:0.3'
+    //zking
+    implementation 'com.google.zxing:core:3.3.0'
 
     //请求框架
     implementation 'com.lzy.net:okgo:3.0.4'

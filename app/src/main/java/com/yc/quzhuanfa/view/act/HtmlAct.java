@@ -37,8 +37,13 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
     private int type = -1;
     private String url;
 
-    public static final int PRIVACY_PROTOCOL = 1;//隐私协议
-    public static final int REGISTER_PROTOCOL = 4;//注册协议
+    public static final int GUIDE  = 1;//新手指南
+    public static final int MONEY = 2;//挣钱秘笈
+    public static final int REGISTER = 4;//隐私协议
+    public static final int ABOUT_ME = 8;//联系我们
+    public static final int ABOUT_ME_WECAT = 16;//联系我们的微信
+    public static final int ABOUT_ME_QQ = 32;//联系我们的QQ
+
 
     @Override
     public void initPresenter() {mPresenter.init(this);
@@ -58,17 +63,22 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
     @Override
     protected void initView() {
         switch (type){
-            case PRIVACY_PROTOCOL:
-                setTitle("隐私协议");
+            case GUIDE:
+                setTitle("新手指南");
                 break;
-            case REGISTER_PROTOCOL:
-                setTitle("注册协议");
+            case MONEY:
+                setTitle("挣钱秘笈");
+                break;
+            case REGISTER:
+                setTitle("隐私协议");
                 break;
             default:
                 setTitle("广告");
                 break;
         }
-        CloudApi.commonQueryAPPAgreement(type)
+        mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
+
+        /*CloudApi.commonQueryAPPAgreement(type)
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
@@ -86,10 +96,6 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
                             DataBean data = baseResponseBeanResponse.body().result;
                             if (data != null){
-                                mB.webView.loadUrl(CloudApi.SERVLET_URL + "#/H5?articleId=" +
-                                        data.getContent() +
-                                        "&userId=" +
-                                        ShareSessionIdCache.getInstance(act).getUserId());
                             }
                         }else {
                             act.finish();
@@ -103,7 +109,7 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
                     @Override
                     public void onComplete() {
                     }
-                });
+                });*/
         mB.webView.setInitialScale(100);
         mB.webView.setWebViewClient(new WebViewClient() {
             @Override

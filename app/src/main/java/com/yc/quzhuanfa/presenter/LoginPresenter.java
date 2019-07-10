@@ -1,6 +1,7 @@
 package com.yc.quzhuanfa.presenter;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.lzy.okgo.model.Response;
@@ -29,10 +30,10 @@ import io.reactivex.functions.Consumer;
  * Date: 2019/6/18
  * Time: 12:32
  */
-public class LoginPresenter extends LoginContract.Presenter{
+public class LoginPresenter extends LoginContract.Presenter {
     @Override
     public void code(String phone) {
-        if (StringUtils.isEmpty(phone)){
+        if (StringUtils.isEmpty(phone)) {
             showToast(act.getString(R.string.error_phone1));
             return;
         }
@@ -56,7 +57,7 @@ public class LoginPresenter extends LoginContract.Presenter{
 
                     @Override
                     public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
-                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS) {
                             mView.onCode();
                         }
                         showToast(baseResponseBeanResponse.body().description);
@@ -76,7 +77,7 @@ public class LoginPresenter extends LoginContract.Presenter{
 
     @Override
     public void login(String phone, String code, String pwd, String invitation, boolean checked, int mPosition) {
-        if (StringUtils.isEmpty(phone)){
+        if (StringUtils.isEmpty(phone)) {
             showToast(act.getString(R.string.error_phone1));
             return;
         }
@@ -85,8 +86,8 @@ public class LoginPresenter extends LoginContract.Presenter{
             return;
         }
 
-        if (mPosition == 0){
-            if (StringUtils.isEmpty(pwd)){
+        if (mPosition == 0) {
+            if (StringUtils.isEmpty(pwd)) {
                 showToast(act.getString(R.string.please_pwd3));
                 return;
             }
@@ -106,7 +107,7 @@ public class LoginPresenter extends LoginContract.Presenter{
 
                         @Override
                         public void onNext(JSONObject jsonObject) {
-                            if (jsonObject.optInt("code") == Code.CODE_SUCCESS){
+                            if (jsonObject.optInt("code") == Code.CODE_SUCCESS) {
                                 login(jsonObject);
                             }
                             showToast(jsonObject.optString("description"));
@@ -122,16 +123,16 @@ public class LoginPresenter extends LoginContract.Presenter{
                             mView.hideLoading();
                         }
                     });
-        }else {
-            if (StringUtils.isEmpty(code) || StringUtils.isEmpty(phone)){
+        } else {
+            if (StringUtils.isEmpty(code) || StringUtils.isEmpty(phone)) {
                 showToast(act.getString(R.string.error_));
                 return;
             }
-            if (!checked){
+            if (!checked) {
                 showToast(act.getString(R.string.error_1));
                 return;
             }
-            CloudApi.register(phone, code, invitation)
+            CloudApi.register(phone, code, invitation, pwd)
                     .doOnSubscribe(new Consumer<Disposable>() {
                         @Override
                         public void accept(Disposable disposable) throws Exception {
@@ -147,7 +148,7 @@ public class LoginPresenter extends LoginContract.Presenter{
 
                         @Override
                         public void onNext(JSONObject jsonObject) {
-                            if (jsonObject.optInt("code") == Code.CODE_SUCCESS){
+                            if (jsonObject.optInt("code") == Code.CODE_SUCCESS) {
                                 login(jsonObject);
                             }
                             showToast(jsonObject.optString("description"));
@@ -183,9 +184,9 @@ public class LoginPresenter extends LoginContract.Presenter{
 
                     @Override
                     public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
-                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS) {
                             DataBean data = baseResponseBeanResponse.body().result;
-                            if (data != null){
+                            if (data != null) {
                                 mView.setWxNum(data.getContent());
                             }
                         }
@@ -238,7 +239,7 @@ public class LoginPresenter extends LoginContract.Presenter{
 
                                     @Override
                                     public void onNext(JSONObject jsonObject) {
-                                        if (jsonObject.optInt("code") == Code.CODE_SUCCESS){
+                                        if (jsonObject.optInt("code") == Code.CODE_SUCCESS) {
                                             login(jsonObject);
                                         }
                                     }
@@ -267,7 +268,7 @@ public class LoginPresenter extends LoginContract.Presenter{
                 });
     }
 
-    private void login(JSONObject jsonObject){
+    private void login(JSONObject jsonObject) {
         JSONObject data = jsonObject.optJSONObject("result");
         JSONObject user = data.optJSONObject("user");
         ShareSessionIdCache.getInstance(act).save(data.optString("token"));
@@ -277,6 +278,7 @@ public class LoginPresenter extends LoginContract.Presenter{
         User.getInstance().setLogin(true);
         UIHelper.startMainAct();
         ActivityUtils.finishActivity(LoginAct.class);
+        LogUtils.e(ShareSessionIdCache.getInstance(act).getUserId());
     }
 
 }

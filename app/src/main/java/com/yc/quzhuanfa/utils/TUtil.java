@@ -12,7 +12,7 @@ public class TUtil {
         try {
             return ((Class<T>) ((ParameterizedType) (o.getClass().getGenericSuperclass())).getActualTypeArguments()[i]).newInstance();
         } catch (InstantiationException e) {
-            LogUtils.e(e.getMessage());
+//            LogUtils.e(e.getMessage());
         } catch (IllegalAccessException e) {
             LogUtils.e(e.getMessage());
         } catch (ClassCastException e) {

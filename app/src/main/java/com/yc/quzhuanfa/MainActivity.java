@@ -1,6 +1,9 @@
 package com.yc.quzhuanfa;
 
+import android.content.Intent;
 import android.os.Bundle;
+
+import com.umeng.socialize.UMShareAPI;
 import com.yc.quzhuanfa.base.BaseActivity;
 import com.yc.quzhuanfa.view.MainFrg;
 
@@ -60,4 +63,23 @@ public class MainActivity extends BaseActivity {
             loadRootFragment(R.id.fl_container, MainFrg.newInstance());
         }
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        UMShareAPI.get(this).onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UMShareAPI.get(this).release();
+    }
+
 }

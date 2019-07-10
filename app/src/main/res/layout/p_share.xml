@@ -58,7 +58,7 @@
                     android:id="@+id/tv_zking"
                     android:layout_weight="1"
                     android:gravity="center"
-                    android:drawableTop="@mipmap/pyq01"
+                    android:drawableTop="@mipmap/ewm90"
                     android:text="二维码邀请"
                     style="@style/Tv12black" />
 

@@ -43,6 +43,16 @@ public class DataBean implements Serializable {
     private double now;
     private double yesDay;
     private String userName;
+    private String articleId;
+    private int agreementType;
+
+    public int getAgreementType() {
+        return agreementType;
+    }
+
+    public String getArticleId() {
+        return articleId;
+    }
 
     public String getUserName() {
         return userName;

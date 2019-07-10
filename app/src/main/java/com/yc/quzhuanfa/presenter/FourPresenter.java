@@ -3,6 +3,7 @@ package com.yc.quzhuanfa.presenter;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.lzy.okgo.model.Response;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.adapter.MeAdapter;
@@ -34,6 +35,8 @@ import io.reactivex.functions.Consumer;
  */
 public class FourPresenter extends FourContract.Presenter{
 
+    private MeAdapter adapter;
+
     @Override
     public void listView(WithScrollListView listView, final BaseFragment root) {
         String[] laberStr = {act.getString(R.string.bind_phone), act.getString(R.string.withdrawal), act.getString(R.string.income_details), act.getString(R.string.contact), act.getString(R.string.set)};
@@ -45,7 +48,7 @@ public class FourPresenter extends FourContract.Presenter{
             bean.setImg(laberImg[i]);
             listStr.add(bean);
         }
-        MeAdapter adapter = new MeAdapter(act, listStr, true);
+        adapter = new MeAdapter(act, listStr, true);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -54,8 +57,10 @@ public class FourPresenter extends FourContract.Presenter{
                     case 0:
                         JSONObject userObj = User.getInstance().getUserObj();
                         String phoneNum = userObj.optString("phoneNum");
-                        if (!phoneNum.equals("null")){
-                            UIHelper.startRetrievePwdFrg(root, 1);
+                        if (phoneNum.equals("null") || StringUtils.isEmpty(phoneNum)){
+                            UIHelper.startBindPhoneFrg(root);
+                        }else {
+                            showToast("已绑定过手机号码");
                         }
                         break;
                     case 1:
@@ -182,6 +187,16 @@ public class FourPresenter extends FourContract.Presenter{
 
                     }
                 });
+    }
+
+    @Override
+    public void setPhone(String phoneNum) {
+        if (phoneNum.equals("null") || StringUtils.isEmpty(phoneNum)){
+            adapter.setPhone(true);
+        }else {
+            adapter.setPhone(false);
+        }
+        adapter.notifyDataSetChanged();
     }
 
 }

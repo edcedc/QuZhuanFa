@@ -412,6 +412,7 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
         mAppCompatActivity.setSupportActionBar(toolbar);
         mAppCompatActivity.getSupportActionBar().setTitle("");
         if (isBack){
+            toolbar.setNavigationIcon(R.mipmap.bfh01);
             toolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -11,6 +11,7 @@ import com.yc.quzhuanfa.adapter.MyPagerAdapter;
 import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.base.BasePresenter;
 import com.yc.quzhuanfa.databinding.FMakeBinding;
+import com.yc.quzhuanfa.view.act.HtmlAct;
 
 import java.util.ArrayList;
 
@@ -56,8 +57,8 @@ public class MakeMoneyFrg extends BaseFragment<BasePresenter, FMakeBinding> {
         for (int i = 0; i < strings.length; i++){
             MakeMoneyChildFrg frg = new MakeMoneyChildFrg();
             Bundle bundle = new Bundle();
-            int type = i == 0 ? 1 : 2;
-            bundle.putString("type", type + "");
+            int type = (i == 0 ? HtmlAct.GUIDE : HtmlAct.MONEY);
+            bundle.putInt("type", type);
             frg.setArguments(bundle);
             mFragments.add(frg);
         }

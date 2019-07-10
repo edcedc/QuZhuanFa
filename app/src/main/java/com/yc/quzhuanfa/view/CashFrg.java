@@ -2,7 +2,9 @@ package com.yc.quzhuanfa.view;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 
+import com.yc.quzhuanfa.adapter.CashAdapter;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.base.User;
@@ -12,10 +14,14 @@ import com.yc.quzhuanfa.databinding.FCashBinding;
 import com.yc.quzhuanfa.event.CashBankInEvent;
 import com.yc.quzhuanfa.impl.CashContract;
 import com.yc.quzhuanfa.presenter.CashPresenter;
+import com.yc.quzhuanfa.utils.NumUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by wb  yyc
@@ -28,6 +34,9 @@ public class CashFrg extends BaseFragment<CashPresenter, FCashBinding> implement
 
     private DataBean bankBean;
     private double balance;
+
+    private CashAdapter adapter;
+    private List<Integer> listBean = new ArrayList<>();
 
     @Override
     public void initPresenter() {
@@ -53,7 +62,25 @@ public class CashFrg extends BaseFragment<CashPresenter, FCashBinding> implement
         EventBus.getDefault().register(this);
         JSONObject userObj = User.getInstance().getUserObj();
         balance = userObj.optDouble("balance");
-        mB.tvIncome.setText(balance + "");
+        mB.tvIncome.setText("可提现余额 ¥" +
+                NumUtils.doubleTrans1(balance));
+        listBean.add(5);
+        listBean.add(10);
+        listBean.add(20);
+        listBean.add(50);
+        listBean.add(100);
+        if (adapter == null){
+            adapter = new CashAdapter(act, listBean);
+        }
+        mB.gridview.setAdapter(adapter);
+        mB.gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mB.etPrice.setText(listBean.get(i) + "");
+                adapter.setPosition(i);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -78,7 +105,7 @@ public class CashFrg extends BaseFragment<CashPresenter, FCashBinding> implement
                 mB.etPrice.setText(balance + "");
                 break;
             case R.id.bt_submit:
-                mPresenter.cash(bankBean, balance);
+                mPresenter.cash(bankBean, balance, mB.etPrice.getText().toString());
                 break;
         }
     }

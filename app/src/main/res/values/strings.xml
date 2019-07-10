@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">去转发</string>
+    <string name="app_name">天天趣分享</string>
     <string name="setting" translatable="false">设置</string>
     <string name="resume" translatable="false">Resume</string>
     <string name="cancel" translatable="false">取消</string>
@@ -9,7 +9,7 @@
     <string name="message_overlay_failed">您的电话不允许我们使用其他应用程序.</string>
     <string name="message_permission_always_failed">我们需要以下权限，请在设置中为我们开启：\n\n%1$s</string>
     <string name="share_title" translatable="false">神奇动物世界</string>
-    <string name="share_content" translatable="false">抢红包，听故事，跟国宝合影</string>
+    <string name="share_content" translatable="false">看新闻赚钱！</string>
 
     <string name="wx_num" translatable="false">123465789</string>
     <string name="qq_num" translatable="false">123465789</string>
@@ -62,7 +62,7 @@
     <string name="wancehng" translatable="false">完成</string>
     <string name="method_withdrawal" translatable="false">提现方式</string>
     <string name="input_withdrawal" translatable="false">请选择提现方式</string>
-    <string name="input_withdrawal1" translatable="false">￥ 请输入提现金额</string>
+    <string name="input_withdrawal1" translatable="false">￥ 请选择提现金额</string>
     <string name="full_withdrawal" translatable="false">全部提现</string>
     <string name="withdrawal1" translatable="false">提现</string>
     <string name="withdrawal2" translatable="false">选择提现方式</string>

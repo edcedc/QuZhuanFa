@@ -16,6 +16,8 @@ public interface RetrievePwdContract {
         void onCode();
 
         void onRetrievePwd();
+
+        void setWxNum(String content);
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -23,6 +25,8 @@ public interface RetrievePwdContract {
         public abstract void code(String phone, int type);
 
         public abstract void login(String phone, String code, String pwd, String pwd1, int type);
+
+        public abstract void getAgreement();
     }
 
 }

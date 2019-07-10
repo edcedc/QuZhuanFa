@@ -19,6 +19,8 @@ import com.yc.quzhuanfa.presenter.LoginPresenter;
 import com.yc.quzhuanfa.utils.CountDownTimerUtils;
 import com.yc.quzhuanfa.utils.ShareTool;
 import com.yc.quzhuanfa.utils.TabEntity;
+import com.yc.quzhuanfa.utils.cache.ShareIsLoginCache;
+import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
 import com.yc.quzhuanfa.utils.cache.SharedAccount;
 import com.yc.quzhuanfa.view.act.HtmlAct;
 import com.yc.quzhuanfa.weight.ClipboardUtils;
@@ -72,6 +74,8 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
         mB.tvAgreement.setOnClickListener(this);
         mPresenter.getAgreement();
 
+        ShareSessionIdCache.getInstance(act).remove();
+
         String mobile = SharedAccount.getInstance(act).getMobile();
         String pwd = SharedAccount.getInstance(act).getPwd();
         if (!StringUtils.isEmpty(mobile) && !StringUtils.isEmpty(pwd)){
@@ -96,7 +100,7 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
                     mB.gpLogin.setVisibility(View.VISIBLE);
                     mB.tvRetrieve.setVisibility(View.VISIBLE);
                     mB.lyPwd.setVisibility(View.VISIBLE);
-                    mB.lyInvitation.setVisibility(View.GONE);
+//                    mB.lyInvitation.setVisibility(View.GONE);
                 }else {
                     setTitle(getString(R.string.register));
                     mB.lyCode.setVisibility(View.VISIBLE);
@@ -104,7 +108,8 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
                     mB.tvRetrieve.setVisibility(View.INVISIBLE);
                     mB.lyPwd.setVisibility(View.GONE);
                     mB.gpLogin.setVisibility(View.GONE);
-                    mB.lyInvitation.setVisibility(View.VISIBLE);
+                    mB.lyPwd.setVisibility(View.VISIBLE);
+//                    mB.lyInvitation.setVisibility(View.VISIBLE);
                 }
             }
 
@@ -127,7 +132,7 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
                 mPresenter.login(mB.etPhone.getText().toString(), mB.etCode.getText().toString(), mB.etPwd.getText().toString(), mB.etInvitation.getText().toString(), mB.cbSubmit.isChecked(), mPosition);
                 break;
             case R.id.tv_agreement:
-                UIHelper.startHtmlAct(HtmlAct.REGISTER_PROTOCOL);
+                UIHelper.startHtmlAct(HtmlAct.REGISTER);
                 break;
             case R.id.tv_retrieve:
                 UIHelper.startRetrievePwdFrg(this, 0);
@@ -135,7 +140,7 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
             case R.id.iv_wx:
 
 
-                ShareTool.getInstance().Authorization(act, new UMAuthListener() {
+                ShareTool.getInstance(act).authorization( new UMAuthListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
                         LogUtils.e("onStart");
@@ -188,6 +193,6 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ShareTool.getInstance().release(act);
+        ShareTool.getInstance(act).release();
     }
 }

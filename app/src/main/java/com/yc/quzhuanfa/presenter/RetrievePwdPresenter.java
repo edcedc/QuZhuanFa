@@ -4,10 +4,15 @@ import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.lzy.okgo.model.Response;
 import com.yc.quzhuanfa.R;
+import com.yc.quzhuanfa.base.User;
 import com.yc.quzhuanfa.bean.BaseResponseBean;
+import com.yc.quzhuanfa.bean.DataBean;
 import com.yc.quzhuanfa.callback.Code;
 import com.yc.quzhuanfa.controller.CloudApi;
 import com.yc.quzhuanfa.impl.RetrievePwdContract;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -58,7 +63,7 @@ public class RetrievePwdPresenter extends RetrievePwdContract.Presenter{
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
                             mView.onCode();
                         }
-                        showToast(baseResponseBeanResponse.body().description);
+                        showToast("获取验证码成功");
                     }
 
                     @Override
@@ -73,7 +78,7 @@ public class RetrievePwdPresenter extends RetrievePwdContract.Presenter{
                 });    }
 
     @Override
-    public void login(String phone, String code, String pwd, String pwd1, int type) {
+    public void login(final String phone, String code,  String pwd, String pwd1, int type) {
         if (StringUtils.isEmpty(phone)){
             showToast(act.getString(R.string.error_phone1));
             return;
@@ -86,18 +91,18 @@ public class RetrievePwdPresenter extends RetrievePwdContract.Presenter{
             showToast(act.getString(R.string.error_phone1));
             return;
         }
-        if (StringUtils.isEmpty(pwd) || StringUtils.isEmpty(pwd1)){
-            showToast(act.getString(R.string.please_pwd3));
-            return;
-        }
-        if (pwd.length() < 6 || pwd.length() > 16){
-            showToast(act.getString(R.string.error_pwd_length));
-            return;
-        }
-        if (!pwd.equals(pwd1)){
-            showToast(act.getString(R.string.please_pwd2));
-            return;
-        }
+//        if (StringUtils.isEmpty(pwd) || StringUtils.isEmpty(pwd1)){
+//            showToast(act.getString(R.string.please_pwd3));
+//            return;
+//        }
+//        if (pwd.length() < 6 || pwd.length() > 16){
+//            showToast(act.getString(R.string.error_pwd_length));
+//            return;
+//        }
+//        if (!pwd.equals(pwd1)){
+//            showToast(act.getString(R.string.please_pwd2));
+//            return;
+//        }
 
         String url;
         if (type == 0){
@@ -123,6 +128,12 @@ public class RetrievePwdPresenter extends RetrievePwdContract.Presenter{
             @Override
             public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
                 if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                    JSONObject userObj = User.getInstance().getUserObj();
+                    try {
+                        userObj.put("phoneNum", phone);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     mView.onRetrievePwd();
                 }
                 showToast(baseResponseBeanResponse.body().description);
@@ -140,6 +151,41 @@ public class RetrievePwdPresenter extends RetrievePwdContract.Presenter{
         });
 
 
+    }
+
+    @Override
+    public void getAgreement() {
+        CloudApi.commonQueryAPPAgreement(16)
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                    }
+                })
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean data = baseResponseBeanResponse.body().result;
+                            if (data != null){
+                                mView.setWxNum(data.getContent());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                });
     }
 
 }

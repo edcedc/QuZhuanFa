@@ -25,17 +25,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <com.flyco.roundview.RoundTextView
+                <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/tv_invitation"
-                    style="@style/Tv12gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/gly01"
                     android:layout_gravity="right"
-                    android:layout_marginTop="@dimen/px40"
-                    android:padding="@dimen/px10"
-                    android:text="@string/invitation_strategy"
-                    android:textColor="@color/white"
-                    app:rv_backgroundColor="@color/red_EF402C"
-                    app:rv_cornerRadius_BL="@dimen/px20"
-                    app:rv_cornerRadius_TL="@dimen/px20" />
+                    android:layout_marginTop="@dimen/px40" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -324,7 +320,7 @@
                         android:id="@+id/iv_zking"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@mipmap/wx50" />
+                        android:background="@mipmap/ewm90" />
 
                 </LinearLayout>
 

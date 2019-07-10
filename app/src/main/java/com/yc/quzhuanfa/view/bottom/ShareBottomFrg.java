@@ -1,10 +1,17 @@
 package com.yc.quzhuanfa.view.bottom;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseBottomSheetFrag;
+import com.yc.quzhuanfa.base.BaseFragment;
+import com.yc.quzhuanfa.base.User;
+import com.yc.quzhuanfa.controller.CloudApi;
+import com.yc.quzhuanfa.controller.UIHelper;
+import com.yc.quzhuanfa.utils.ShareTool;
 
 /**
  * Created by edison on 2019/4/9.
@@ -15,6 +22,11 @@ public class ShareBottomFrg extends BaseBottomSheetFrag implements View.OnClickL
     @Override
     protected void initPresenter() {
 
+    }
+
+    private BaseFragment root;
+    public  void setBundle(BaseFragment root){
+        this.root = root;
     }
 
     @Override
@@ -37,18 +49,18 @@ public class ShareBottomFrg extends BaseBottomSheetFrag implements View.OnClickL
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.tv_wx:
-
+            case R.id.iv_wx:
+                ShareTool.getInstance((Activity) act).shareAppointAction(SHARE_MEDIA.WEIXIN, CloudApi.REGISTER_URL);
                 break;
             case R.id.tv_pyq:
-
+                ShareTool.getInstance((Activity) act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, CloudApi.REGISTER_URL);
                 break;
             case R.id.tv_zking:
-
+                UIHelper.startZkingFrg(root);
                 break;
             case R.id.bt_submit:
-                dismiss();
                 break;
         }
+        dismiss();
     }
 }

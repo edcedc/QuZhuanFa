@@ -109,4 +109,5 @@ public class BankFrg extends BaseFragment<BaseListPresenter, FBankBinding> imple
                 break;
         }
     }
+
 }

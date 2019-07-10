@@ -3,6 +3,7 @@ package com.yc.quzhuanfa.view;
 import android.os.Bundle;
 import android.view.View;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.quzhuanfa.R;
@@ -14,6 +15,7 @@ import com.yc.quzhuanfa.databinding.FFourBinding;
 import com.yc.quzhuanfa.impl.FourContract;
 import com.yc.quzhuanfa.presenter.FourPresenter;
 import com.yc.quzhuanfa.utils.GlideLoadingUtils;
+import com.yc.quzhuanfa.utils.NumUtils;
 import com.yc.quzhuanfa.utils.PopupWindowTool;
 
 import org.json.JSONObject;
@@ -47,6 +49,7 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
             isRequest = false;
             mB.refreshLayout.startRefresh();
         }
+        setData(User.getInstance().getUserObj());
     }
 
     @Override
@@ -98,12 +101,14 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
     @Override
     public void setData(JSONObject userObj) {
         mB.tvIncome.setText("¥ " +
-                userObj.optDouble("balanceAll"));
+                NumUtils.doubleTrans1(userObj.optDouble("balanceAll")));
         mB.tvBalance.setText("¥ " +
-                userObj.optDouble("balance"));
-        mB.tvId.setText(User.getInstance().getUserId());
+                NumUtils.doubleTrans1(userObj.optDouble("balance")));
+        mB.tvId.setText("ID：" + User.getInstance().getUserId());
         mB.tvName.setText(userObj.optString("userName"));
-        GlideLoadingUtils.load(act, userObj.optString("head"), mB.ivHead);
+        GlideLoadingUtils.load(act, userObj.optString("head"), mB.ivHead, true);
+
+        mPresenter.setPhone(userObj.optString("phoneNum"));
     }
 
     @Override

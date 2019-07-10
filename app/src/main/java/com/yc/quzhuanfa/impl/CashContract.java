@@ -18,7 +18,7 @@ public interface CashContract {
 
     abstract class Presenter extends BasePresenter<View> {
 
-        public abstract void cash(DataBean bankBean, double balance);
+        public abstract void cash(DataBean bankBean, double balance, String cashBalance);
     }
 
 }

@@ -50,12 +50,12 @@ public class HomeChildPresenter extends HomeChildContract.Presenter {
                             if (data != null){
                                 List<DataBean> list = data.getList();
                                 if (list != null && list.size() != 0){
-                                    mView.hideLoading();
                                     mView.setData(list);
-                                    mView.setRefreshLayoutMode(data.getTotalCount());
+                                    mView.hideLoading();
                                 }else {
                                     mView.showLoadEmpty();
                                 }
+                                mView.setRefreshLayoutMode(data.getTotalCount());
                             }
                         }
                     }

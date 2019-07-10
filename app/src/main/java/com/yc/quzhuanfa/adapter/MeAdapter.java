@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseListViewAdapter;
 import com.yc.quzhuanfa.base.User;
@@ -31,9 +32,10 @@ public class MeAdapter extends BaseListViewAdapter<DataBean> {
         this.isImg = isImg;
     }
 
-    private OnClick click;
-    public void setClick(OnClick click){
-        this.click = click;
+    private boolean isPhone = false;
+
+    public void setPhone(boolean phone) {
+        isPhone = phone;
     }
 
     @Override
@@ -55,16 +57,11 @@ public class MeAdapter extends BaseListViewAdapter<DataBean> {
         viewHolder.ivBack.setVisibility(isImg == true ? View.VISIBLE : View.GONE);
 
 
-        if (position == 0){
-            JSONObject userObj = User.getInstance().getUserObj();
-            String phoneNum = userObj.optString("phoneNum");
-            if (phoneNum.equals("null")){
-                bean.setContent("领取现金0.1元");
-                viewHolder.tvContent.setText("领取现金0.1元");
-                viewHolder.tvContent.setVisibility(View.VISIBLE);
-            }else {
-                viewHolder.tvContent.setVisibility(View.GONE);
-            }
+        if (position == 0 && isPhone){
+            viewHolder.tvContent.setText("领取现金0.1元");
+            viewHolder.tvContent.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.tvContent.setVisibility(View.GONE);
         }
 
         if (listBean.size() - 1 == position){

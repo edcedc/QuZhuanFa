@@ -1,5 +1,6 @@
 package com.yc.quzhuanfa.controller;
 
+import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
@@ -29,7 +30,8 @@ import io.reactivex.schedulers.Schedulers;
 public class CloudApi {
 
     private static final String url =
-            "192.168.0.105:8080";
+            "xiaoyueliang.cn:8080";
+//            "10.0.0.138:8080";
 
 
     public static final String SERVLET_URL = "http://" + url + "/forward/";
@@ -43,6 +45,11 @@ public class CloudApi {
     private CloudApi() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
+
+    public static final String ARTICLE_URL = "http://xiaoyueliang.cn/forwardingh5/#/H5?type=2&userId=" + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId() +
+            "&articleId=";//查看H5文章链接
+    public static final String AGREEMENT_URL = "http://xiaoyueliang.cn/forwardingh5/#/agreement?agreementType=";//各种协议
+    public static final String REGISTER_URL = "http://xiaoyueliang.cn/forwardingh5/#/?userId=" + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId();//注册
 
     /**
      * 文章分类
@@ -94,7 +101,7 @@ public class CloudApi {
      * 通用获取验证码  1注册   2找回  4修改  8绑定
      */
     public static Observable<Response<BaseResponseBean>> getCode(String phone, int type) {
-        return OkGo.<BaseResponseBean>post(SERVLET_URL + "user/getCode")
+        return OkGo.<BaseResponseBean>get(SERVLET_URL + "user/getCode")
                 .params("phone", phone)
                 .params("type", type)
                 .converter(new JsonConvert<BaseResponseBean>() {
@@ -106,11 +113,12 @@ public class CloudApi {
     /**
      * 注册
      */
-    public static Observable<JSONObject> register(String mobile, String code, String invitation) {
+    public static Observable<JSONObject> register(String mobile, String code, String invitation, String password) {
         return OkGo.<JSONObject>post(SERVLET_URL + "user/register")
                 .params("phone", mobile)
                 .params("code", code)
-                .params("userCode", invitation)
+                .params("password", EncryptUtils.encryptMD5ToString(password))
+//                .params("userCode", invitation)
                 .converter(new JsonConvert<JSONObject>() {
                 })
                 .adapt(new ObservableBody<JSONObject>())
@@ -135,7 +143,7 @@ public class CloudApi {
     public static Observable<JSONObject> login(String mobile, String code) {
         return OkGo.<JSONObject>post(SERVLET_URL + "user/pLogin")
                 .params("phone", mobile)
-                .params("password", code)
+                .params("password", EncryptUtils.encryptMD5ToString(code))
                 .converter(new JsonConvert<JSONObject>() {
                 })
                 .adapt(new ObservableBody<JSONObject>())
@@ -178,9 +186,11 @@ public class CloudApi {
      */
     public static Observable<Response<BaseResponseBean>> retrievePwd(String phone, String code, String pwd, String url) {
         return OkGo.<BaseResponseBean>post(SERVLET_URL + url)
-                .params("phone", phone)
+                .params("phoneNum", phone)
                 .params("code", code)
-                .params("pwd", pwd)
+                .params("password", EncryptUtils.encryptMD5ToString(pwd))
+                .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
+                .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
                 .converter(new JsonConvert<BaseResponseBean>() {
                 })
                 .adapt(new ObservableResponse<BaseResponseBean>())
@@ -217,7 +227,7 @@ public class CloudApi {
     /**
      * 提现
      */
-    public static Observable<Response<BaseResponseBean>> userSaveUserCash(DataBean bankBean, double balance) {
+    public static Observable<Response<BaseResponseBean>> userSaveUserCash(DataBean bankBean, String balance) {
         return OkGo.<BaseResponseBean>post(SERVLET_URL + "userBalance/saveUserCash")
                 .params("bankId", bankBean.getBankId())
                 .params("balance", balance)

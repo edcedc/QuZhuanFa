@@ -12,140 +12,99 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include layout="@layout/include_top" />
+        <View
+            android:background="@color/white"
+            android:id="@+id/title_bar"
+            style="@style/title_bar"/>
 
-        <android.support.v4.widget.NestedScrollView
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@mipmap/dbbjt01"
-            android:fillViewport="true">
+            android:layout_height="?actionBarSize"
+            android:layout_gravity="top"
+            android:background="@color/white"
+            android:theme="@style/AppTheme.AppBarLight"
+            app:navigationIcon="@mipmap/hfh01"
+            app:popupTheme="@style/AppTheme.Popup"
+            app:subtitleTextColor="@color/white"
+            app:titleTextColor="@color/white">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/top_title"
+                android:text="@string/apprentice1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textColor="@color/tab_black"
+                android:textSize="19sp" />
+
+            <FrameLayout
+                android:paddingLeft="20dp"
+                android:paddingRight="15dp"
+                android:id="@+id/top_right_fy"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_gravity="right" >
 
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-
-                        <android.support.v7.widget.AppCompatTextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="@dimen/px60"
-                            android:gravity="center"
-                            android:text="看资讯赚零花钱\n千万人在使用"
-                            android:textColor="@color/white"
-                            android:textSize="37sp" />
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <com.flyco.roundview.RoundLinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginLeft="@dimen/px40"
-                                android:layout_marginTop="@dimen/px120"
-                                android:layout_marginRight="@dimen/px40"
-                                android:orientation="vertical"
-                                app:rv_backgroundColor="@color/white"
-                                app:rv_cornerRadius="@dimen/px15">
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:gravity="center"
-                                    android:paddingTop="@dimen/px80"
-                                    android:text="趣转发"
-                                    android:textColor="#FE6259"
-                                    android:textSize="27sp" />
-
-                                <android.support.v7.widget.AppCompatImageView
-                                    android:id="@+id/iv_zking"
-                                    android:layout_width="300dp"
-                                    android:layout_height="300dp"
-                                    android:layout_gravity="center"
-                                    android:layout_marginTop="@dimen/px40"
-                                    android:layout_marginBottom="@dimen/px40"
-                                    android:scaleType="fitXY"
-                                    android:src="@mipmap/place_holder" />
-
-                                <LinearLayout
-
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:orientation="horizontal">
-
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="立即扫码"
-                                        android:textColor="#9C8169" />
-
-                                    <android.support.v7.widget.AppCompatTextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="领红包"
-                                        android:textColor="#FE6259" />
-
-                                </LinearLayout>
-
-                                <android.support.v7.widget.AppCompatTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginTop="@dimen/px20"
-                                    android:layout_marginBottom="@dimen/px40"
-                                    android:text="长按图片选择识别二维码" />
-
-
-                            </com.flyco.roundview.RoundLinearLayout>
-
-                            <android.support.v7.widget.AppCompatImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="550dp"
-                                android:background="@mipmap/hh02" />
-
-                        </FrameLayout>
-
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <LinearLayout
+                <TextView
+                    android:id="@+id/top_right"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="@dimen/px40"
-                    android:orientation="horizontal">
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/iv_wx"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/px60"
-                        android:background="@mipmap/wxan01" />
+            </FrameLayout>
 
-                    <android.support.v7.widget.AppCompatImageView
-                        android:id="@+id/iv_pyq"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@mipmap/pyqan02" />
+        </android.support.v7.widget.Toolbar>
 
-                </LinearLayout>
+        <View
+            style="@style/divider_dropshadow"
+            android:id="@+id/top_view"/>
 
-            </LinearLayout>
+         <LinearLayout
+             android:background="@mipmap/y5"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
 
-        </android.support.v4.widget.NestedScrollView>
+
+             <android.support.v7.widget.AppCompatImageView
+                 android:id="@+id/iv_zking"
+                 android:src="@mipmap/place_holder"
+                 android:scaleType="fitXY"
+                 android:layout_marginTop="200dp"
+                 android:layout_width="180dp"
+                 android:layout_gravity="center"
+                 android:layout_height="180dp" />
+
+             <View
+                 android:layout_width="0dp"
+                 android:layout_height="0dp"
+                 android:layout_weight="1"/>
+
+             <LinearLayout
+                 android:layout_gravity="center"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal">
+
+                 <android.support.v7.widget.AppCompatImageView
+                     android:id="@+id/iv_wx"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginRight="@dimen/px60"
+                     android:background="@mipmap/wxan01" />
+
+                 <android.support.v7.widget.AppCompatImageView
+                     android:id="@+id/iv_wxq"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:background="@mipmap/pyqan02" />
+
+             </LinearLayout>
+
+         </LinearLayout>
 
     </LinearLayout>
 

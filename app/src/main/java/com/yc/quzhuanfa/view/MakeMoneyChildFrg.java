@@ -52,7 +52,7 @@ public class MakeMoneyChildFrg extends BaseFragment<BasePresenter, FMakeMoneyBin
 
     @Override
     protected void initView(View view) {
-    CloudApi.commonQueryAPPAgreement(type)
+    /*CloudApi.commonQueryAPPAgreement(type)
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable) throws Exception {
@@ -88,13 +88,15 @@ public class MakeMoneyChildFrg extends BaseFragment<BasePresenter, FMakeMoneyBin
                     @Override
                     public void onComplete() {
                     }
-                });
+                });*/
+        setSwipeBackEnable(false);
+        mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
+        LogUtils.e(CloudApi.AGREEMENT_URL + type);
         mB.webView.setInitialScale(100);
         mB.webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
-                LogUtils.e(url);
                 return true;
             }
 

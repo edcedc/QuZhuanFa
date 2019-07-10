@@ -54,6 +54,11 @@ public class RetrievePwdFrg extends BaseFragment<RetrievePwdPresenter, FRetrieve
     }
 
     @Override
+    public void setWxNum(String content) {
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_code:

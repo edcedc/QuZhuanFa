@@ -36,6 +36,8 @@ public interface FourContract {
         public abstract void sign();
 
         public abstract void signList();
+
+        public abstract void setPhone(String phoneNum);
     }
 
 

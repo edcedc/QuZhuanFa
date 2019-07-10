@@ -10,6 +10,7 @@ import com.yc.quzhuanfa.bean.DataBean;
 import com.yc.quzhuanfa.view.AddBankFrg;
 import com.yc.quzhuanfa.view.ApprenticeFrg;
 import com.yc.quzhuanfa.view.BankFrg;
+import com.yc.quzhuanfa.view.BindPhoneFrg;
 import com.yc.quzhuanfa.view.CashFrg;
 import com.yc.quzhuanfa.view.ContactFrg;
 import com.yc.quzhuanfa.view.IncomeFrg;
@@ -40,9 +41,9 @@ public final class UIHelper {
     }
 
     /**
-     *  收入明细
+     * 收入明细
      */
-    public static void startIncomeFrg(BaseFragment root){
+    public static void startIncomeFrg(BaseFragment root) {
         IncomeFrg frg = new IncomeFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
@@ -50,9 +51,9 @@ public final class UIHelper {
     }
 
     /**
-     *  徒弟详情
+     * 徒弟详情
      */
-    public static void startApprenticeDescFrg(BaseFragment root, DataBean bean){
+    public static void startApprenticeDescFrg(BaseFragment root, DataBean bean) {
         ApprenticeFrg frg = new ApprenticeFrg();
         Bundle bundle = new Bundle();
         bundle.putString("bean", new Gson().toJson(bean));
@@ -61,9 +62,9 @@ public final class UIHelper {
     }
 
     /**
-     *  设置
+     * 设置
      */
-    public static void startSetFrg(BaseFragment root){
+    public static void startSetFrg(BaseFragment root) {
         SetFrg frg = new SetFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
@@ -71,17 +72,20 @@ public final class UIHelper {
     }
 
     /**
-     *  文章详情
+     * 文章详情
      */
-    public static void startDetailsAct(String id, int type) {
+    public static void startDetailsAct(String id, int type, String title, String pic, String className) {
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
+        bundle.putString("title", title);
+        bundle.putString("image", pic);
+        bundle.putString("className", className);
         bundle.putInt("type", type);
         ActivityUtils.startActivity(bundle, DetailsAct.class);
     }
 
     /**
-     *  赚钱攻略
+     * 赚钱攻略
      */
     public static void startMakeMoneyAct() {
         Bundle bundle = new Bundle();
@@ -89,7 +93,7 @@ public final class UIHelper {
     }
 
     /**
-     *  登录
+     * 登录
      */
     public static void startLoginAct() {
         Bundle bundle = new Bundle();
@@ -97,41 +101,44 @@ public final class UIHelper {
     }
 
     /**
-     *  html
+     * html
      */
-    public static void startHtmlAct(int type){
+    public static void startHtmlAct(int type) {
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
         ActivityUtils.startActivity(bundle, HtmlAct.class);
     }
 
     /**
-     *  找回密码
+     * 找回密码
      */
-    public static void startRetrievePwdFrg(BaseFragment root, int type){
+    public static void startRetrievePwdFrg(BaseFragment root, int type) {
         RetrievePwdFrg frg = new RetrievePwdFrg();
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
         frg.setArguments(bundle);
-        if (type == 0){
+        if (type == 0) {
             root.start(frg);
-        }else {
+        } else {
             ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
         }
     }
 
     /**
-     *  绑定手机
+     * 绑定手机
      */
-    public static void startBindPhoneFrg(){
-
+    public static void startBindPhoneFrg(BaseFragment root) {
+        BindPhoneFrg frg = new BindPhoneFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
     }
 
 
     /**
-     *  立即提现
+     * 立即提现
      */
-    public static void startCashFrg(BaseFragment root){
+    public static void startCashFrg(BaseFragment root) {
         CashFrg frg = new CashFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
@@ -139,9 +146,9 @@ public final class UIHelper {
     }
 
     /**
-     *  二维码收徒
+     * 二维码收徒
      */
-    public static void startZkingFrg(BaseFragment root){
+    public static void startZkingFrg(BaseFragment root) {
         ZkingFrg frg = new ZkingFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
@@ -149,24 +156,25 @@ public final class UIHelper {
     }
 
     /**
-     *  联系我们
+     * 联系我们
+     *
      * @param root
      */
     public static void startContactFrg(BaseFragment root, int type) {
         ContactFrg frg = new ContactFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
-        if (type == 0){
+        if (type == 0) {
             ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
-        }else {
+        } else {
             root.start(frg);
         }
     }
 
     /**
-     *  设置支付密码
+     * 设置支付密码
      */
-    public static void startPayPwd(BaseFragment root){
+    public static void startPayPwd(BaseFragment root) {
         PayPwdFrg frg = new PayPwdFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
@@ -174,9 +182,9 @@ public final class UIHelper {
     }
 
     /**
-     *  银行卡列表
+     * 银行卡列表
      */
-    public static void startBankFrg(BaseFragment root){
+    public static void startBankFrg(BaseFragment root) {
         BankFrg frg = new BankFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
@@ -184,14 +192,15 @@ public final class UIHelper {
     }
 
     /**
-     *  添加/更新银行卡
+     * 添加/更新银行卡
+     *
      * @param root
      * @param position
      */
     public static void startAddBnakFrg(BaseFragment root, DataBean bean, int position) {
         AddBankFrg frg = new AddBankFrg();
         Bundle bundle = new Bundle();
-        if (bean != null){
+        if (bean != null) {
             bundle.putString("id", bean.getBankId() + "");
         }
         bundle.putInt("position", position);
@@ -201,7 +210,7 @@ public final class UIHelper {
     }
 
     /**
-     *  收徒
+     * 收徒
      */
     public static void startApprenticeFrg(BaseFragment root) {
         ThreeFrg frg = ThreeFrg.newInstance();

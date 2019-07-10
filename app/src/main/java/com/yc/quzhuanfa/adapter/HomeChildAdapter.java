@@ -38,7 +38,7 @@ public class HomeChildAdapter extends BaseRecyclerviewAdapter<DataBean> {
         viewHolder.tv_price.setText(bean.getPrice() +
                 "分/阅读");
         viewHolder.tv_read.setText("阅读：" +
-                bean.getForwardNum());
+                bean.getReadNum());
 
         GlideLoadingUtils.load(act, bean.getPic(), viewHolder.iv_img);
 
@@ -51,7 +51,7 @@ public class HomeChildAdapter extends BaseRecyclerviewAdapter<DataBean> {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UIHelper.startDetailsAct(bean.getClassId(), bean.getType());
+                UIHelper.startDetailsAct(bean.getArticleId(), bean.getType(), bean.getTitle(), bean.getPic(), bean.getClassName());
             }
         });
     }

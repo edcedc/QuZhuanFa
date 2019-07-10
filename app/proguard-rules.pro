@@ -320,8 +320,8 @@ public void onEventMainThread(**);
 -keep class com.tencent.mm.sdk.** {
    *;
 }
--dontwarn twitter4j.**
--keep class twitter4j.** { *; }
+
+-keep class com.twitter.** { *; }
 
 -keep class com.tencent.** {*;}
 -dontwarn com.tencent.**

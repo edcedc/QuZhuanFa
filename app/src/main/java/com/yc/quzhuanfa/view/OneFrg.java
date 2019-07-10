@@ -59,7 +59,7 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
         mB.ivAdd.setOnClickListener(this);
         mB.lyLock.setOnClickListener(this);
         mB.ivIncome.setOnClickListener(this);
-        mPresenter.onRequest(CloudApi.articleGetArticleClass);
+        mPresenter.onRequest(pagerNumber = 1, CloudApi.articleGetArticleClass);
 
         onProfitOne();
     }
@@ -104,7 +104,6 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        ImmersionBar.with(this).navigationBarColor(R.color.red_EF402C);
     }
 
     @Override

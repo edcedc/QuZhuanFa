@@ -36,6 +36,7 @@ import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.event.PayInEvent;
 import com.yc.quzhuanfa.utils.TUtil;
 import com.yc.quzhuanfa.utils.pay.PayResult;
+import com.yc.quzhuanfa.view.ThreeFrg;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -380,5 +381,6 @@ public abstract class BaseBottomSheetFrag<P extends BasePresenter, VB extends Vi
         }, 300);
 
     }
+
 
 }

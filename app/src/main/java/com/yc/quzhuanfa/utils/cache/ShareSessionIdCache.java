@@ -45,6 +45,7 @@ public class ShareSessionIdCache {
 
     public void remove(){
         ACache.get(act).remove(SessionId);
+        ACache.get(act).remove(UserId);
     }
 
 

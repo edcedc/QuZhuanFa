@@ -10,6 +10,7 @@ import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.adapter.HomeChildAdapter;
 import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.bean.DataBean;
+import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.databinding.FHomeBinding;
 import com.yc.quzhuanfa.impl.HomeChildContract;
 import com.yc.quzhuanfa.presenter.HomeChildPresenter;
@@ -66,6 +67,7 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
 
     @Override
     protected void initView(View view) {
+        setSwipeBackEnable(false);
         mB.banner.updateBannerStyle(BannerConfig.NUM_INDICATOR_TITLE);
         if (adapter == null) {
             adapter = new HomeChildAdapter(act, listBean);
@@ -89,11 +91,9 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
 
     }
 
-
-
     @Override
     public void setRefreshLayoutMode(int totalRow) {
-        super.setRefreshLayoutMode(listBean.size(), totalRow, mB.refreshLayout);
+        super.setRefreshLayoutMode(listBean.size() + 1, totalRow, mB.refreshLayout);
     }
 
     @Override
@@ -109,9 +109,10 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
             listBean.clear();
             mB.refreshLayout.finishRefreshing();
 
-            DataBean bean = list.get(list.size() - 1);
+            DataBean bean = list.get(0);
             listBanner.clear();
-            listBanner.addAll(list);
+            listBanner.add(bean);
+            list.remove(0);
             List<String> list1 = new ArrayList<>();
             List<String> imgs = new ArrayList<>();
             imgs.add(bean.getPic());
@@ -139,7 +140,8 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
 
     @Override
     public void OnBannerClick(int position) {
-
+        DataBean bean = listBanner.get(position);
+        UIHelper.startDetailsAct(bean.getArticleId(), bean.getType(), bean.getTitle(), bean.getPic(), bean.getClassName());
     }
 
     @Override

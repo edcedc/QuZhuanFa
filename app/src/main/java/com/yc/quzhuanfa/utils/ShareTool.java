@@ -20,7 +20,7 @@ import java.lang.ref.WeakReference;
 
 /**
  * Created by Administrator on 2018/5/11.
- *  分享工具
+ * 分享工具
  */
 
 public class ShareTool {
@@ -32,13 +32,16 @@ public class ShareTool {
     private ShareTool() {
     }
 
+    private static Activity act;
+
     private Bitmap imgBitmap;
 
     public void setImgBitmap(Bitmap imgBitmap) {
         this.imgBitmap = imgBitmap;
     }
 
-    public static final ShareTool getInstance() {
+    public static final ShareTool getInstance(Activity act_) {
+        act = act_;
         return LazyHolder.INSTANCE;
     }
 
@@ -47,12 +50,9 @@ public class ShareTool {
 //    }
 
     /****************************分享***********************************/
-    private ShareAction shareAction;
-    private Activity act;
-    public ShareAction shareAction(final Activity act, final String url) {
+    public ShareAction shareAction(final String title, final String content, final String image, final String url) {
         LogUtils.e(url);
-        this.act = act;
-        return shareAction = new ShareAction(act).setDisplayList(
+        return new ShareAction(act).setDisplayList(
                 SHARE_MEDIA.WEIXIN,
                 SHARE_MEDIA.WEIXIN_CIRCLE
         )
@@ -60,9 +60,9 @@ public class ShareTool {
                     @Override
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
                         UMWeb web = new UMWeb(url);
-                        web.setTitle(act.getString(R.string.share_title));
-                        web.setDescription(act.getString(R.string.share_content));
-                        web.setThumb(new UMImage(act, R.mipmap.login_logo));
+                        web.setTitle(title);
+                        web.setDescription(content);
+                        web.setThumb(new UMImage(act, image));
                         new ShareAction(act)
                                 .withMedia(web)
                                 .setPlatform(share_media)
@@ -78,16 +78,15 @@ public class ShareTool {
     }
 
     /**
-     *  指定分享
+     * 指定分享
      */
-    public void shareAppointAction(final Activity act, final SHARE_MEDIA share_media, final String url) {
+    public void shareAppointAction(final SHARE_MEDIA share_media, final String url) {
         LogUtils.e(url);
-        this.act = act;
         UMWeb web = new UMWeb(url);
-        web.setTitle(act.getString(R.string.share_title));
-        web.setDescription(act.getString(R.string.share_content));
-        web.setThumb(new UMImage(act, R.mipmap.login_logo));
-        new ShareAction(act).withMedia(web )
+        web.setTitle(act.getString(R.string.app_name));
+        web.setDescription("邀请注册");
+        web.setThumb(new UMImage(act, R.mipmap.icon_logo));
+        new ShareAction(act).withMedia(web)
                 .setPlatform(share_media)
                 .setCallback(new UMShareListener() {
                     @Override
@@ -112,8 +111,8 @@ public class ShareTool {
                 }).share();
     }
 
-    public ShareAction shareActionImage(final Activity act, final String url) {
-        return shareAction = new ShareAction(act).setDisplayList(
+    public ShareAction shareActionImage(final String url) {
+        return new ShareAction(act).setDisplayList(
                 SHARE_MEDIA.WEIXIN,
                 SHARE_MEDIA.WEIXIN_CIRCLE
         )
@@ -139,12 +138,20 @@ public class ShareTool {
                 });
     }
 
-    public void release(Activity act) {
+    public void release() {
         UMShareAPI.get(act).release();
     }
 
     private CustomShareListener listener(Activity act) {
         return new CustomShareListener(act);
+    }
+
+    private UMListener listener;
+    public interface UMListener{
+        void onResult(SHARE_MEDIA platform);
+    }
+    public void setUMListener(UMListener listener){
+        this.listener = listener;
     }
 
     private class CustomShareListener implements UMShareListener {
@@ -157,7 +164,7 @@ public class ShareTool {
 
         @Override
         public void onStart(SHARE_MEDIA platform) {
-            /*switch (platform){
+            switch (platform){
                 case WEIXIN:
                     if (!IsInstallWeChatOrAliPay.isWeixinAvilible(act)){
                         ToastUtils.showShort("未安装微信客户端");
@@ -170,25 +177,22 @@ public class ShareTool {
                         return;
                     }
                     break;
-                case SINA:
-                    if (!IsInstallWeChatOrAliPay.isSinaInstalled(act)){
-                        ToastUtils.showShort("未安装微博客户端");
-                        return;
-                    }
-                    break;
-            }*/
+            }
             ToastUtils.showShort(platform + " 正在启动");
         }
 
         @Override
         public void onResult(SHARE_MEDIA platform) {
-//            ToastUtils.showShort(platform + " 分享成功啦");
+            ToastUtils.showShort(platform + " 分享成功啦");
+            if (listener != null){
+                listener.onResult(platform);
+            }
         }
 
         @Override
         public void onError(SHARE_MEDIA platform, Throwable t) {
             LogUtils.e(t.getMessage());
-            ToastUtils.showShort(platform + " 分享失败啦");
+//            ToastUtils.showShort(platform + " 分享失败啦");
         }
 
         @Override
@@ -199,19 +203,19 @@ public class ShareTool {
 
 
     /****************************授权***********************************/
-    public void Authorization(Activity act, UMAuthListener listener){
+    public void authorization(UMAuthListener listener) {
         boolean b = UMShareAPI.get(act).isAuthorize(act, SHARE_MEDIA.WEIXIN);
-        if (b){
+        if (b) {
             LogUtils.e("删除授权");
             UMShareAPI.get(act).deleteOauth(act, SHARE_MEDIA.WEIXIN, listener);
-        }else {
+        } else {
             LogUtils.e("授权");
             UMShareAPI.get(act).doOauthVerify(act, SHARE_MEDIA.WEIXIN, listener);
         }
     }
 
     /****************************登陆***********************************/
-    public void ShareLogin(Activity act){
+    public void ShareLogin(Activity act) {
 
     }
 

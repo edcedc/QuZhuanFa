@@ -13,7 +13,9 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.adapter.ApprenticeAdapter;
 import com.yc.quzhuanfa.base.BaseFragment;
+import com.yc.quzhuanfa.base.User;
 import com.yc.quzhuanfa.bean.DataBean;
+import com.yc.quzhuanfa.controller.CloudApi;
 import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.databinding.FThreeBinding;
 import com.yc.quzhuanfa.impl.ThreeContract;
@@ -50,7 +52,7 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
     public void onSupportVisible() {
         super.onSupportVisible();
         if (isRequest){
-            isRequest = true;
+            isRequest = false;
             mB.refreshLayout.startRefresh();
         }
     }
@@ -85,7 +87,9 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
         mB.tvInvitation.setOnClickListener(this);
         mB.ivWx.setOnClickListener(this);
         mB.ivWxq.setOnClickListener(this);
+        mB.ivZking.setOnClickListener(this);
         shareBottomFrg = new ShareBottomFrg();
+        shareBottomFrg.setBundle(this);
 
         if (adapter == null) {
             adapter = new ApprenticeAdapter(act, this, listBean);
@@ -127,17 +131,19 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
                 mB.fyMyApprentice.setBackgroundResource(0);
                 break;
             case R.id.tv_invite:
-//                shareBottomFrg.show(getChildFragmentManager(), "dialog");
-                UIHelper.startZkingFrg(this);
+                shareBottomFrg.show(getChildFragmentManager(), "dialog");
                 break;
             case R.id.tv_invitation:
                 UIHelper.startMakeMoneyAct();
                 break;
             case R.id.iv_wx:
-                ShareTool.getInstance().shareAppointAction(act, SHARE_MEDIA.WEIXIN, "https://www.baidu.com/");
+                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN, CloudApi.REGISTER_URL);
                 break;
             case R.id.iv_wxq:
-                ShareTool.getInstance().shareAppointAction(act, SHARE_MEDIA.WEIXIN_CIRCLE, "https://www.baidu.com/");
+                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, CloudApi.REGISTER_URL);
+                break;
+            case R.id.iv_zking:
+                UIHelper.startZkingFrg(this);
                 break;
         }
     }

@@ -9,9 +9,8 @@ import android.os.Environment;
 public class Constants {
 
    public static final int ITEMCOUNT = 10;
-   public static final int pageSize = 10;
+   public static final int pageSize = 20;
 
-   public static final int day_min = 86400;//一天秒数
 
    public static final String ShareID = "5d1f08010cafb29cbb0007b2";
    public static final String WX_APPID = "wxed3971fb41174390";

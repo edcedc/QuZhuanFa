@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseFragment;
@@ -36,12 +37,12 @@ public class ApprenticeAdapter extends BaseRecyclerviewAdapter<DataBean> {
         ViewHolder viewHolder = (ViewHolder) holder;
         final DataBean bean = listBean.get(position);
 
-        GlideLoadingUtils.load(act, CloudApi.SERVLET_IMG_URL + bean.getHead(), viewHolder.iv_head, true);
+        GlideLoadingUtils.load(act, bean.getHead(), viewHolder.iv_head, true);
 
         viewHolder.tv_id.setText("ID：" +
                 bean.getUserName());
         viewHolder.tv_income.setText("+" +
-                bean.getBalance());
+                bean.getGoId());
         viewHolder.tv_time.setText("注册时间：" +
                 TimeUtils.millis2String(Long.valueOf(bean.getCreateTime())));
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

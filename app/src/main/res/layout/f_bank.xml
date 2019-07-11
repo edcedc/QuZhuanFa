@@ -26,7 +26,7 @@
         </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
         <com.flyco.roundview.RoundLinearLayout
-            android:layout_margin="@dimen/px50"
+            android:layout_margin="@dimen/px20"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:rv_backgroundColor="@color/red_FF7D78"

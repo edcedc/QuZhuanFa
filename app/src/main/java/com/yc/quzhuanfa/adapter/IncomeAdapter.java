@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseRecyclerviewAdapter;
 import com.yc.quzhuanfa.bean.DataBean;
@@ -55,9 +56,19 @@ public class IncomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
             case 128:
                 str = "首次收徒";
                 break;
+            case 256:
+                str = "首次登录";
+                break;
         }
         viewHolder.tv_title.setText(str);
-        viewHolder.tv_time.setText(bean.getCreateTime());
+        String createTime = bean.getCreateTime();
+        if (createTime.indexOf(" ") != - 1){
+            viewHolder.tv_time.setText(createTime);
+        }else {
+            viewHolder.tv_time.setText(TimeUtils.millis2String(Long.valueOf(createTime)));
+        }
+
+
         viewHolder.tv_state.setText((bean.getBalanceType() == 1 ? "+" : "-") + bean.getBalance());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {

@@ -86,7 +86,7 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
                                 public void run() {
                                     PopupWindowTool.showLogin(act, baseResponseBeanResponse.body().result);
                                 }
-                            }, 5000);
+                            }, 1000);
                         }
                     }
 

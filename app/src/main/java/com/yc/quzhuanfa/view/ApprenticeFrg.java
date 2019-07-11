@@ -3,6 +3,7 @@ package com.yc.quzhuanfa.view;
 import android.os.Bundle;
 import android.view.View;
 
+import com.blankj.utilcode.util.TimeUtils;
 import com.google.gson.Gson;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -50,10 +51,10 @@ public class ApprenticeFrg extends BaseFragment<ApprenticePresenter, FApprentice
     @Override
     protected void initView(View view) {
         setTitleTransparent(getString(R.string.apprentice_desc), false);
-        GlideLoadingUtils.load(act, CloudApi.SERVLET_IMG_URL + bean.getHead(), mB.ivHead, true);
+        GlideLoadingUtils.load(act, bean.getHead(), mB.ivHead, true);
         mB.tvName.setText("ID：" + bean.getUserName());
         mB.tvId.setText("注册时间：" +
-                bean.getCreateTime());
+                TimeUtils.millis2String(Long.valueOf(bean.getCreateTime())));
 
         if (adapter == null) {
             adapter = new IncomeAdapter(act, listBean);
@@ -63,11 +64,11 @@ public class ApprenticeFrg extends BaseFragment<ApprenticePresenter, FApprentice
         showLoadDataing();
         mB.refreshLayout.startRefresh();
         mB.refreshLayout.setEnableLoadmore(false);
-        mPresenter.onIncome(bean.getUserId());
+        mPresenter.onIncome(bean.getLevelUserId());
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onRequest(pagerNumber = 1, bean.getUserId());
+                mPresenter.onRequest(pagerNumber = 1, bean.getLevelUserId());
             }
         });
     }

@@ -60,7 +60,7 @@ public class BankFrg extends BaseFragment<BaseListPresenter, FBankBinding> imple
         setRecyclerViewType(mB.recyclerView);
         showLoadDataing();
         mB.refreshLayout.startRefresh();
-        mB.refreshLayout.setEnableLoadmore(true);
+        mB.refreshLayout.setEnableLoadmore(false);
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {

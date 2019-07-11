@@ -49,7 +49,7 @@ public class ShareBottomFrg extends BaseBottomSheetFrag implements View.OnClickL
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.iv_wx:
+            case R.id.tv_wx:
                 ShareTool.getInstance((Activity) act).shareAppointAction(SHARE_MEDIA.WEIXIN, CloudApi.REGISTER_URL);
                 break;
             case R.id.tv_pyq:

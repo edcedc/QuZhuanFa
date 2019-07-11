@@ -59,8 +59,10 @@ public class LoginPresenter extends LoginContract.Presenter {
                     public void onNext(Response<BaseResponseBean> baseResponseBeanResponse) {
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS) {
                             mView.onCode();
+                            showToast("获取成功");
+                        }else {
+                            showToast(baseResponseBeanResponse.body().description);
                         }
-                        showToast(baseResponseBeanResponse.body().description);
                     }
 
                     @Override

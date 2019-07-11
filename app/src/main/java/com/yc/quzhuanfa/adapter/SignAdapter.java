@@ -11,6 +11,7 @@ import com.flyco.roundview.RoundTextView;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseRecyclerviewAdapter;
 import com.yc.quzhuanfa.bean.DataBean;
+import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.utils.GlideLoadingUtils;
 import com.yc.quzhuanfa.weight.RoundImageView;
 
@@ -30,7 +31,7 @@ public class SignAdapter extends BaseRecyclerviewAdapter<DataBean> {
     @Override
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
-        DataBean bean = listBean.get(position);
+        final DataBean bean = listBean.get(position);
         viewHolder.tv_title.setText(bean.getTitle());
         viewHolder.tv_price.setText(bean.getPrice() +
                 "分/阅读");
@@ -39,6 +40,7 @@ public class SignAdapter extends BaseRecyclerviewAdapter<DataBean> {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                UIHelper.startDetailsAct(bean.getArticleId(), bean.getType(), bean.getTitle(), bean.getPic(), bean.getClassName());
             }
         });
     }

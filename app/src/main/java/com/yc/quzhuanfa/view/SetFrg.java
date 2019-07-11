@@ -3,7 +3,10 @@ package com.yc.quzhuanfa.view;
 import android.os.Bundle;
 import android.view.View;
 
+import com.blankj.utilcode.util.CacheDoubleUtils;
+import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.blankj.utilcode.util.CacheUtils;
+import com.blankj.utilcode.util.LogUtils;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.base.BasePresenter;
@@ -42,7 +45,8 @@ public class SetFrg extends BaseFragment<BasePresenter, FSetBinding> implements 
         mB.lyContact.setOnClickListener(this);
         mB.lyReminder.setOnClickListener(this);
         mB.lyClear.setOnClickListener(this);
-        long cache = CacheUtils.getInstance().getCacheSize();
+        long cache =  CacheMemoryUtils.getInstance().getCacheCount();
+        LogUtils.e(cache);
         mB.tvClear.setText(cache + "");
     }
 
@@ -59,7 +63,7 @@ public class SetFrg extends BaseFragment<BasePresenter, FSetBinding> implements 
 
                 break;
             case R.id.ly_clear:
-                CacheUtils.getInstance().clear();
+                CacheMemoryUtils.getInstance().clear();
                 showToast("清除成功");
                 mB.tvClear.setText("0MB");
                 break;

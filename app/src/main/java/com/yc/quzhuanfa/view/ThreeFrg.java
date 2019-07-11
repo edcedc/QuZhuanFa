@@ -31,7 +31,7 @@ import java.util.List;
  * User: 501807647@qq.com
  * Date: 2019/6/16
  * Time: 1:11
- *  收徒
+ * 收徒
  */
 public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implements ThreeContract.View, View.OnClickListener {
 
@@ -51,7 +51,7 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        if (isRequest){
+        if (isRequest) {
             isRequest = false;
             mB.refreshLayout.startRefresh();
         }
@@ -109,7 +109,7 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.fy_invite_friends:
                 mB.tvInviteFriends.setCompoundDrawablesWithIntrinsicBounds(act.getDrawable(R.mipmap.yqhy01),
                         null, null, null);
@@ -161,6 +161,6 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
         mB.tvContribution.setText(bean.getNow() + "");
         mB.tvYesterdayContribution.setText(bean.getYesDay() + "");
         mB.tvIncome.setText(Html.fromHtml("好友共计帮我赚了<font color='#FF3A22'><big>" + bean.getAll() +
-                "</big></font>"+ "元"));
+                "</big></font>" + "元"));
     }
 }

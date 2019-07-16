@@ -23,6 +23,10 @@ import com.jungly.gridpasswordview.PasswordType;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.adapter.SignAdapter;
 import com.yc.quzhuanfa.bean.DataBean;
+import com.yc.quzhuanfa.controller.CloudApi;
+import com.yc.quzhuanfa.controller.UIHelper;
+import com.yc.quzhuanfa.view.act.HtmlAct;
+import com.yc.quzhuanfa.weight.RoundImageView;
 import com.yc.quzhuanfa.weight.WPopupWindow;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -38,6 +42,26 @@ import java.util.List;
  */
 
 public class PopupWindowTool {
+
+    public static void showAdvertisement(final Context act, final DataBean bean){
+        View wh = LayoutInflater.from(act).inflate(R.layout.p_adv, null);
+        final WPopupWindow popupWindow = new WPopupWindow(wh);
+        popupWindow.showAtLocation(wh, Gravity.CENTER, 0, 0);
+        RoundImageView iv_img = wh.findViewById(R.id.iv_img);
+        GlideLoadingUtils.load(act, CloudApi.SERVLET_IMG_URL + bean.getAttachId(), iv_img);
+        iv_img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                UIHelper.startHtmlAct(HtmlAct.ADVERTISEMENT, bean.getUrl());
+            }
+        });
+        wh.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                popupWindow.dismiss();
+            }
+        });
+    }
 
     public static void showLogin(final Context act, DataBean bean){
         View wh = LayoutInflater.from(act).inflate(R.layout.p_login, null);

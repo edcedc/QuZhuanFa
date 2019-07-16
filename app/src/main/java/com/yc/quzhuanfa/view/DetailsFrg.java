@@ -5,6 +5,8 @@ import android.view.View;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.blankj.utilcode.util.Utils;
+import com.google.gson.Gson;
 import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
@@ -14,12 +16,14 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.base.BasePresenter;
+import com.yc.quzhuanfa.bean.DataBean;
 import com.yc.quzhuanfa.controller.CloudApi;
 import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.databinding.FDetailsBinding;
 import com.yc.quzhuanfa.impl.DetailsContract;
 import com.yc.quzhuanfa.presenter.DetailsPresenter;
 import com.yc.quzhuanfa.utils.ShareTool;
+import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
 
 /**
  * Created by wb  yyc
@@ -29,12 +33,8 @@ import com.yc.quzhuanfa.utils.ShareTool;
  */
 public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> implements DetailsContract.View, View.OnClickListener {
 
-    private String id;
     private ShareAction shareAction;
-    private int type;
-    private String title;
-    private String image;
-    private String className;
+    private DataBean bean;
 
     public static DetailsFrg newInstance() {
         Bundle args = new Bundle();
@@ -50,11 +50,7 @@ public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> 
 
     @Override
     protected void initParms(Bundle bundle) {
-        id = bundle.getString("id");
-        type = bundle.getInt("type");
-        title = bundle.getString("title");
-        image = bundle.getString("image");
-        className = bundle.getString("className");
+        bean = new Gson().fromJson(bundle.getString("bean"), DataBean.class);
     }
 
     @Override
@@ -65,19 +61,21 @@ public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> 
     @Override
     protected void initView(View view) {
         setTitle(getString(R.string.details));
-        String url = CloudApi.ARTICLE_URL + id;
+        setSwipeBackEnable(false);
+        String url = CloudApi.ARTICLE_URL  + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId() +
+                "&articleId=" + bean.getArticleId();
         ShareTool instance = ShareTool.getInstance(act);
-        shareAction = instance.shareAction(className, title, image, url + "&realType=1");
+        shareAction = instance.shareAction(bean.getClassName(), bean.getTitle(), bean.getPic(), url + "&realType=1");
         instance.setUMListener(new ShareTool.UMListener() {
             @Override
             public void onResult(SHARE_MEDIA platform) {
-                mPresenter.onSaveForward(id);
+                mPresenter.onSaveForward(bean.getArticleId());
             }
         });
         mB.tvForwarding.setOnClickListener(this);
         mB.tvShare.setOnClickListener(this);
         mB.webView.loadUrl(url + "&realType=2");
-        mB.webView.setInitialScale(100);
+//        mB.webView.loadDataWithBaseURL(null, bean.getContent(), "text/html", "utf-8", null);
         mB.webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -103,7 +101,7 @@ public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> 
                 mB.progressBar.setProgress(newProgress);
             }
         });
-        mB.tvLook.setVisibility(type == 1 ? View.VISIBLE : View.GONE);
+        mB.tvLook.setVisibility(bean.getType() == 1 ? View.VISIBLE : View.GONE);
         mB.tvLook.setOnClickListener(this);
     }
 

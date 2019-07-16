@@ -14,6 +14,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.yc.quzhuanfa.base.BaseFragment;
+import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
 import com.yc.quzhuanfa.weight.RuntimeRationale;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.transformer.DefaultTransformer;
@@ -229,13 +231,13 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
      * 权限都成功
      */
     private void setPermissionOk() {
-        /*String sessionId = ShareSessionIdCache.getInstance(act).getSessionId();
+        String sessionId = ShareSessionIdCache.getInstance(act).getSessionId();
         if (!StringUtils.isEmpty(sessionId)) {
             UIHelper.startMainAct();
+            ActivityUtils.finishAllActivities();
         } else {
-            UIHelper.startLoginAct();
-        }*/
-        startNext();
+            startNext();
+        }
     }
 
     private void startNext() {

@@ -40,7 +40,7 @@ public class SignAdapter extends BaseRecyclerviewAdapter<DataBean> {
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UIHelper.startDetailsAct(bean.getArticleId(), bean.getType(), bean.getTitle(), bean.getPic(), bean.getClassName());
+                UIHelper.startDetailsAct(bean);
             }
         });
     }

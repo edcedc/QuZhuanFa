@@ -47,6 +47,26 @@ public class DataBean implements Serializable {
     private int agreementType;
     private double gold;
     private String levelUserId;
+    private int cashType;
+    private String reason;
+    private String url;
+    private String attachId;
+
+    public String getAttachId() {
+        return attachId;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public int getCashType() {
+        return cashType;
+    }
 
     public String getLevelUserId() {
         return levelUserId;

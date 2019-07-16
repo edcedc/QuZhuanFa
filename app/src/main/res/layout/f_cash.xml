@@ -113,10 +113,18 @@
                 android:layout_marginLeft="@dimen/px40"
                 android:layout_marginTop="@dimen/px100"
                 android:layout_marginRight="@dimen/px40"
-                android:layout_marginBottom="@dimen/px50"
                 android:text="@string/withdrawal1"
                 app:rv_backgroundColor="@color/red_FF7D78"
                 app:rv_cornerRadius="@dimen/px40" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_cash_record"
+                android:text="@string/cash_record"
+                android:padding="@dimen/px20"
+                android:layout_margin="@dimen/px20"
+                android:background="?actionBarItemBackground"
+                android:layout_gravity="right"
+                style="@style/Tv15red" />
 
         </com.flyco.roundview.RoundLinearLayout>
 

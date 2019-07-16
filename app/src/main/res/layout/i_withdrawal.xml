@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white_f4f4f4"
+    tools:ignore="MissingConstraints"
+    android:layout_height="wrap_content">
+
+    <com.flyco.roundview.RoundLinearLayout
+        android:padding="@dimen/px25"
+        app:rv_cornerRadius="@dimen/px20"
+        app:rv_backgroundColor="@color/white"
+        android:layout_marginLeft="@dimen/px25"
+        android:layout_marginRight="@dimen/px25"
+        android:layout_marginTop="@dimen/px25"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_title"
+                android:layout_weight="1"
+                style="@style/Tv15black" />
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_state"
+                android:textSize="@dimen/size40"
+                android:textColor="@color/red_EF402C"
+                style="@style/Tv15black" />
+
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_reason"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/px20"
+            style="@style/Tv13gray" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_time"
+            android:layout_marginTop="@dimen/px20"
+            style="@style/Tv13gray" />
+
+    </com.flyco.roundview.RoundLinearLayout>
+
+</FrameLayout>

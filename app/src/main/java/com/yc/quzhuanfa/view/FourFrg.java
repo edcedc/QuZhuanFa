@@ -79,8 +79,8 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.signList();
                 mPresenter.onRequest();
+                mPresenter.signList();
                 mB.refreshLayout.finishRefreshing();
             }
         });
@@ -100,11 +100,12 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
 
     @Override
     public void setData(JSONObject userObj) {
+        if (userObj == null)return;
         mB.tvIncome.setText("¥ " +
                 NumUtils.doubleTrans1(userObj.optDouble("balanceAll")));
         mB.tvBalance.setText("¥ " +
                 NumUtils.doubleTrans1(userObj.optDouble("balance")));
-        mB.tvId.setText("ID：" + User.getInstance().getUserId());
+        mB.tvId.setText(userObj.optString("memberTip"));
         mB.tvName.setText(userObj.optString("userName"));
         GlideLoadingUtils.load(act, userObj.optString("head"), mB.ivHead, true);
 

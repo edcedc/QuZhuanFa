@@ -36,7 +36,7 @@ public class CloudApi {
 
     public static final String SERVLET_URL = "http://" + url + "/forward/";
 
-    public static final String SERVLET_IMG_URL = SERVLET_URL + "attach/showPic?imageCode=";
+    public static final String SERVLET_IMG_URL = SERVLET_URL + "attach/showPic?attachId=";
 
     public static final String TEST_URL = ""; //测试
 
@@ -46,10 +46,9 @@ public class CloudApi {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    public static final String ARTICLE_URL = "http://xiaoyueliang.cn/forwardingh5/#/H5?type=2&userId=" + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId() +
-            "&articleId=";//查看H5文章链接
+    public static final String ARTICLE_URL = "http://xiaoyueliang.cn/forwardingh5/#/H5?type=2&userId=";//查看H5文章链接
     public static final String AGREEMENT_URL = "http://xiaoyueliang.cn/forwardingh5/#/agreement?agreementType=";//各种协议
-    public static final String REGISTER_URL = "http://xiaoyueliang.cn/forwardingh5/#/?userId=" + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId();//注册
+    public static final String REGISTER_URL = "http://xiaoyueliang.cn/forwardingh5/#/?userId=";//注册
 
     /**
      * 文章分类
@@ -63,6 +62,10 @@ public class CloudApi {
      * 收入明细
      */
     public static final String userGetBalanceList = "userBalance/getBalanceList";
+    /**
+     * 银行卡提现记录
+     */
+    public static final String userGetUserCashList = "userBalance/getUserCashList";
 
     /**
      * 收入明细
@@ -180,6 +183,10 @@ public class CloudApi {
      * 获取徒弟列表
      */
     public static String userGetUserList = "userBalance/getApprentices";
+    /**
+     * 获取用户进来要显示的弹窗
+     */
+    public static String userGetNewOldUser = "user/getNewOldUser";
 
     /**
      * 找回密码
@@ -249,6 +256,20 @@ public class CloudApi {
                 .converter(new JsonConvert<BaseResponseBean<DataBean>>() {
                 })
                 .adapt(new ObservableResponse<BaseResponseBean<DataBean>>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 获取用户进来要显示的弹窗
+     */
+    public static Observable<Response<BaseResponseBean<List<DataBean>>>> getNewOldUser() {
+        return OkGo.<BaseResponseBean<List<DataBean>>>get(SERVLET_URL + "user/getNewOldUser")
+                .converter(new NewsCallback<BaseResponseBean<List<DataBean>>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<List<DataBean>>> response) {
+                    }
+                })
+                .adapt(new ObservableResponse<BaseResponseBean<List<DataBean>>>())
                 .subscribeOn(Schedulers.io());
     }
 

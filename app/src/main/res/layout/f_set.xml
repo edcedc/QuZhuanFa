@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -8,7 +9,6 @@
         android:orientation="vertical">
 
         <include layout="@layout/include_top"/>
-
 
         <LinearLayout
             android:background="@color/white"
@@ -30,6 +30,32 @@
                     android:drawablePadding="@dimen/px20"
                     android:layout_weight="1"
                     android:text="@string/privacy_protocol"
+                    style="@style/Tv15black"/>
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:background="@mipmap/jtt40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/divider_1"/>
+
+            <LinearLayout
+                android:id="@+id/ly_vip"
+                android:background="?selectableItemBackground"
+                android:padding="@dimen/px40"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:drawableLeft="@mipmap/xy20"
+                    android:drawablePadding="@dimen/px20"
+                    android:layout_weight="1"
+                    android:text="@string/member"
                     style="@style/Tv15black"/>
 
                 <android.support.v7.widget.AppCompatImageView
@@ -136,6 +162,15 @@
 
         </LinearLayout>
 
+        <com.flyco.roundview.RoundTextView
+            android:id="@+id/bt_submit"
+            style="@style/RoundBlueTextView"
+            android:layout_marginLeft="@dimen/px140"
+            android:layout_marginTop="@dimen/px50"
+            android:layout_marginRight="@dimen/px140"
+            android:text="退出登录"
+            app:rv_backgroundColor="@color/red_FF7D78"
+            app:rv_cornerRadius="@dimen/px40" />
 
     </LinearLayout>
 

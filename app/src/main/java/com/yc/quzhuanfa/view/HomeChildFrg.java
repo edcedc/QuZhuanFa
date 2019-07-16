@@ -141,7 +141,7 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
     @Override
     public void OnBannerClick(int position) {
         DataBean bean = listBanner.get(position);
-        UIHelper.startDetailsAct(bean.getArticleId(), bean.getType(), bean.getTitle(), bean.getPic(), bean.getClassName());
+        UIHelper.startDetailsAct(bean);
     }
 
     @Override

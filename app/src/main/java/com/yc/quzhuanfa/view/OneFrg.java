@@ -65,38 +65,42 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
     }
 
     private void onProfitOne() {
-        CloudApi.getUserOne()
+        CloudApi.getNewOldUser()
                 .doOnSubscribe(new Consumer<Disposable>() {
                     @Override
                     public void accept(Disposable disposable){
                     }
                 })
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                .subscribe(new Observer<Response<BaseResponseBean<List<DataBean>>>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
                         addDisposable(d);
                     }
 
                     @Override
-                    public void onNext(final Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                    public void onNext(Response<BaseResponseBean<List<DataBean>>> baseResponseBeanResponse) {
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    PopupWindowTool.showLogin(act, baseResponseBeanResponse.body().result);
-                                }
-                            }, 1000);
+                            final List<DataBean> list = baseResponseBeanResponse.body().result;
+                            if (list != null && list.size() != 0){
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        PopupWindowTool.showAdvertisement(act, list.get(0));
+                                    }
+                                }, 1000);
+                            }
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        OneFrg.this.onError(e);
+
                     }
 
                     @Override
                     public void onComplete() {
+
                     }
                 });
     }

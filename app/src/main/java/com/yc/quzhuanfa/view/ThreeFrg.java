@@ -5,6 +5,7 @@ import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.Utils;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
@@ -21,6 +22,7 @@ import com.yc.quzhuanfa.databinding.FThreeBinding;
 import com.yc.quzhuanfa.impl.ThreeContract;
 import com.yc.quzhuanfa.presenter.ThreePresenter;
 import com.yc.quzhuanfa.utils.ShareTool;
+import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
 import com.yc.quzhuanfa.view.bottom.ShareBottomFrg;
 
 import java.util.ArrayList;
@@ -137,10 +139,10 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
                 UIHelper.startMakeMoneyAct();
                 break;
             case R.id.iv_wx:
-                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN, CloudApi.REGISTER_URL);
+                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN, CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId());
                 break;
             case R.id.iv_wxq:
-                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, CloudApi.REGISTER_URL);
+                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId());
                 break;
             case R.id.iv_zking:
                 UIHelper.startZkingFrg(this);

@@ -17,11 +17,7 @@ import com.yc.quzhuanfa.view.DetailsFrg;
  */
 public class DetailsAct extends BaseActivity {
 
-    private String id;
-    private int type;
-    private String title;
-    private String image;
-    private String className;
+    private String bean;
 
     @Override
     protected void initPresenter() {
@@ -35,11 +31,7 @@ public class DetailsAct extends BaseActivity {
 
     @Override
     protected void initParms(Bundle bundle) {
-        id = bundle.getString("id");
-        type = bundle.getInt("type");
-        title = bundle.getString("title");
-        image = bundle.getString("image");
-        className = bundle.getString("className");
+        bean = bundle.getString("bean");
     }
 
     @Override
@@ -48,11 +40,7 @@ public class DetailsAct extends BaseActivity {
         DetailsFrg frg = DetailsFrg.newInstance();
         if (findFragment(DetailsFrg.class) == null) {
             Bundle bundle = new Bundle();
-            bundle.putString("id", id);
-            bundle.putString("title", title);
-            bundle.putString("image", image);
-            bundle.putString("className", className);
-            bundle.putInt("type", type);
+            bundle.putString("bean", bean);
             frg.setArguments(bundle);
             loadRootFragment(R.id.fl_container, frg);
         }

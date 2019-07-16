@@ -86,6 +86,7 @@
     <string name="set_pay_pwd" translatable="false">设置支付密码</string>
     <string name="add_bank" translatable="false">添加银行卡</string>
     <string name="me_bank" translatable="false">我的银行卡</string>
+    <string name="cash_record" translatable="false">提现记录</string>
     <string name="bank_num" translatable="false">银行卡号：</string>
     <string name="input_bank_num" translatable="false">请输入银行卡号</string>
     <string name="input_bank" translatable="false">开户银行：</string>
@@ -111,6 +112,7 @@
     <string name="yesterday_contribution" translatable="false">昨日贡献</string>
     <string name="continue_collect" translatable="false">继续领取</string>
     <string name="distribution_rewards" translatable="false">奖励分布</string>
+    <string name="member" translatable="false">会员协议</string>
 
 
 </resources>

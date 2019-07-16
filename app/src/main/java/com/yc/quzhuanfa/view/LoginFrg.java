@@ -74,8 +74,6 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
         mB.tvAgreement.setOnClickListener(this);
         mPresenter.getAgreement();
 
-        ShareSessionIdCache.getInstance(act).remove();
-
         String mobile = SharedAccount.getInstance(act).getMobile();
         String pwd = SharedAccount.getInstance(act).getPwd();
         if (!StringUtils.isEmpty(mobile) && !StringUtils.isEmpty(pwd)){

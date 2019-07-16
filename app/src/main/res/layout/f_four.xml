@@ -57,7 +57,6 @@
 
                     <android.support.v7.widget.AppCompatTextView
                         style="@style/Tv12gray"
-                        android:visibility="gone"
                         android:layout_marginLeft="@dimen/px20"
                         app:layout_constraintBottom_toBottomOf="@id/iv_head"
                         app:layout_constraintLeft_toRightOf="@id/iv_head"

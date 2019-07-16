@@ -3,6 +3,7 @@ package com.yc.quzhuanfa.view;
 import android.os.Bundle;
 import android.view.View;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.CacheDoubleUtils;
 import com.blankj.utilcode.util.CacheMemoryUtils;
 import com.blankj.utilcode.util.CacheUtils;
@@ -13,6 +14,7 @@ import com.yc.quzhuanfa.base.BasePresenter;
 import com.yc.quzhuanfa.base.IBaseView;
 import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.databinding.FSetBinding;
+import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
 import com.yc.quzhuanfa.view.act.HtmlAct;
 
 /**
@@ -43,8 +45,10 @@ public class SetFrg extends BaseFragment<BasePresenter, FSetBinding> implements 
         setTitle(getString(R.string.set));
         mB.lyPrivacy.setOnClickListener(this);
         mB.lyContact.setOnClickListener(this);
+        mB.lyVip.setOnClickListener(this);
         mB.lyReminder.setOnClickListener(this);
         mB.lyClear.setOnClickListener(this);
+        mB.btSubmit.setOnClickListener(this);
         long cache =  CacheMemoryUtils.getInstance().getCacheCount();
         LogUtils.e(cache);
         mB.tvClear.setText(cache + "");
@@ -66,6 +70,14 @@ public class SetFrg extends BaseFragment<BasePresenter, FSetBinding> implements 
                 CacheMemoryUtils.getInstance().clear();
                 showToast("清除成功");
                 mB.tvClear.setText("0MB");
+                break;
+            case R.id.bt_submit:
+                UIHelper.startLoginAct();
+                ShareSessionIdCache.getInstance(act).remove();
+                ActivityUtils.finishAllActivities();
+                break;
+            case R.id.ly_vip:
+                UIHelper.startHtmlAct(HtmlAct.MEMBER);
                 break;
         }
     }

@@ -43,6 +43,8 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
     public static final int ABOUT_ME = 8;//联系我们
     public static final int ABOUT_ME_WECAT = 16;//联系我们的微信
     public static final int ABOUT_ME_QQ = 32;//联系我们的QQ
+    public static final int MEMBER = 64;//会员类型
+    public static final int ADVERTISEMENT = 99;//登录进来的弹窗
 
 
     @Override
@@ -72,45 +74,18 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
             case REGISTER:
                 setTitle("隐私协议");
                 break;
+            case MEMBER:
+                setTitle("会员协议");
+                break;
             default:
                 setTitle("广告");
                 break;
         }
-        mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
-
-        /*CloudApi.commonQueryAPPAgreement(type)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                    }
-                })
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        addDisposable(d);
-                    }
-
-                    @Override
-                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
-                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
-                            DataBean data = baseResponseBeanResponse.body().result;
-                            if (data != null){
-                            }
-                        }else {
-                            act.finish();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });*/
-        mB.webView.setInitialScale(100);
+        if(type == ADVERTISEMENT){
+            mB.webView.loadUrl(url);
+        }else {
+            mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
+        }
         mB.webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

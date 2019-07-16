@@ -19,6 +19,7 @@ import com.yc.quzhuanfa.view.PayPwdFrg;
 import com.yc.quzhuanfa.view.RetrievePwdFrg;
 import com.yc.quzhuanfa.view.SetFrg;
 import com.yc.quzhuanfa.view.ThreeFrg;
+import com.yc.quzhuanfa.view.WithdrawalFrg;
 import com.yc.quzhuanfa.view.ZkingFrg;
 import com.yc.quzhuanfa.view.act.DetailsAct;
 import com.yc.quzhuanfa.view.act.HtmlAct;
@@ -51,6 +52,16 @@ public final class UIHelper {
     }
 
     /**
+     * 银行卡提现记录
+     */
+    public static void startWithdrawalFrg(BaseFragment root) {
+        WithdrawalFrg frg = new WithdrawalFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        root.start(frg);
+    }
+
+    /**
      * 徒弟详情
      */
     public static void startApprenticeDescFrg(BaseFragment root, DataBean bean) {
@@ -74,13 +85,9 @@ public final class UIHelper {
     /**
      * 文章详情
      */
-    public static void startDetailsAct(String id, int type, String title, String pic, String className) {
+    public static void startDetailsAct(DataBean bean) {
         Bundle bundle = new Bundle();
-        bundle.putString("id", id);
-        bundle.putString("title", title);
-        bundle.putString("image", pic);
-        bundle.putString("className", className);
-        bundle.putInt("type", type);
+        bundle.putString("bean", new Gson().toJson(bean));
         ActivityUtils.startActivity(bundle, DetailsAct.class);
     }
 
@@ -106,6 +113,12 @@ public final class UIHelper {
     public static void startHtmlAct(int type) {
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
+        ActivityUtils.startActivity(bundle, HtmlAct.class);
+    }
+    public static void startHtmlAct(int type, String url) {
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+        bundle.putString("url", url);
         ActivityUtils.startActivity(bundle, HtmlAct.class);
     }
 

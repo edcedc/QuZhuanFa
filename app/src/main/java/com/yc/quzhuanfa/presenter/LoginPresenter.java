@@ -280,7 +280,6 @@ public class LoginPresenter extends LoginContract.Presenter {
         User.getInstance().setLogin(true);
         UIHelper.startMainAct();
         ActivityUtils.finishActivity(LoginAct.class);
-        LogUtils.e(ShareSessionIdCache.getInstance(act).getUserId());
     }
 
 }

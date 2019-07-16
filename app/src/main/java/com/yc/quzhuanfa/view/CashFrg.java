@@ -59,6 +59,7 @@ public class CashFrg extends BaseFragment<CashPresenter, FCashBinding> implement
         mB.tvCash.setOnClickListener(this);
         mB.tvFullWithdrawa1.setOnClickListener(this);
         mB.btSubmit.setOnClickListener(this);
+        mB.tvCashRecord.setOnClickListener(this);
         EventBus.getDefault().register(this);
         JSONObject userObj = User.getInstance().getUserObj();
         balance = userObj.optDouble("balance");
@@ -106,6 +107,9 @@ public class CashFrg extends BaseFragment<CashPresenter, FCashBinding> implement
                 break;
             case R.id.bt_submit:
                 mPresenter.cash(bankBean, balance, mB.etPrice.getText().toString());
+                break;
+            case R.id.tv_cash_record:
+                UIHelper.startWithdrawalFrg(this);
                 break;
         }
     }

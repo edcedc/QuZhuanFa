@@ -25,7 +25,7 @@
         android:id="@+id/iv_img"
         android:layout_width="@dimen/px224"
         android:layout_height="@dimen/px158"
-        android:scaleType="centerCrop"
+        android:scaleType="centerInside"
         android:src="@mipmap/place_holder"
         app:layout_constraintRight_toRightOf="parent" />
 

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseRecyclerviewAdapter;
@@ -20,9 +21,9 @@ import java.util.List;
  * Date: 2019/6/16
  * Time: 11:14
  */
-public class IncomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
+public class WithdrawalAdapter extends BaseRecyclerviewAdapter<DataBean> {
 
-    public IncomeAdapter(Context act, List<DataBean> listBean) {
+    public WithdrawalAdapter(Context act, List<DataBean> listBean) {
         super(act, listBean);
     }
 
@@ -31,51 +32,27 @@ public class IncomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
         String str = null;
-        switch (bean.getType()){
+        switch (bean.getCashType()){
             case 1:
-                str = "每日签到";
+                str = "提现中";
                 break;
             case 2:
-                str = "首次分享";
-                break;
-            case 4:
-                str = "首次登录";
-                break;
-            case 8:
-                str = "绑定手机";
-                break;
-            case 16:
-                str = "文章被阅读";
-                break;
-            case 32:
-                str = "下级文章被阅读";
-                break;
-            case 64:
-                str = "下下级文章被阅读";
-                break;
-            case 128:
-                str = "首次收徒";
-                break;
-            case 256:
-                str = "首次登录";
-                break;
-            case 512:
                 str = "提现成功";
                 break;
-            case 1024:
+            case 4:
                 str = "提现失败";
                 break;
         }
         viewHolder.tv_title.setText(str);
-        String createTime = bean.getCreateTime();
-        if (createTime.indexOf(" ") != - 1){
-            viewHolder.tv_time.setText(createTime);
+        viewHolder.tv_time.setText(bean.getCreateTime());
+        viewHolder.tv_state.setText(bean.getBalance() + "");
+        String reason = bean.getReason();
+        if (StringUtils.isEmpty(reason)){
+            viewHolder.tv_reason.setVisibility(View.GONE);
         }else {
-            viewHolder.tv_time.setText(TimeUtils.millis2String(Long.valueOf(createTime)));
+            viewHolder.tv_reason.setVisibility(View.VISIBLE);
+            viewHolder.tv_reason.setText("审核原因：" + reason);
         }
-
-
-        viewHolder.tv_state.setText((bean.getBalanceType() == 1 ? "+" : "-") + bean.getBalance());
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,19 +64,19 @@ public class IncomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
 
     @Override
     protected RecyclerView.ViewHolder onCreateViewHolde(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.i_income, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.i_withdrawal, parent, false));
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
 
-        AppCompatTextView tv_title, tv_state, tv_time;
+        AppCompatTextView tv_title, tv_state, tv_time, tv_reason;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tv_title = itemView.findViewById(R.id.tv_title);
             tv_state = itemView.findViewById(R.id.tv_state);
             tv_time = itemView.findViewById(R.id.tv_time);
-
+            tv_reason = itemView.findViewById(R.id.tv_reason);
         }
     }
 

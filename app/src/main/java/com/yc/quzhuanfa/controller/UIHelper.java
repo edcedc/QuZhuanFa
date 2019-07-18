@@ -21,6 +21,7 @@ import com.yc.quzhuanfa.view.SetFrg;
 import com.yc.quzhuanfa.view.ThreeFrg;
 import com.yc.quzhuanfa.view.WithdrawalFrg;
 import com.yc.quzhuanfa.view.ZkingFrg;
+import com.yc.quzhuanfa.view.act.ActionCenterAct;
 import com.yc.quzhuanfa.view.act.DetailsAct;
 import com.yc.quzhuanfa.view.act.HtmlAct;
 import com.yc.quzhuanfa.view.act.LoginAct;
@@ -166,6 +167,13 @@ public final class UIHelper {
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
         ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+    }
+
+    /**
+     * 活动中心
+     */
+    public static void startActionCenterAct() {
+        ActivityUtils.startActivity(ActionCenterAct.class);
     }
 
     /**

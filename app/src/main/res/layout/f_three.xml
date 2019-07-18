@@ -273,8 +273,7 @@
                                     android:layout_gravity="center"
                                     android:drawableLeft="@mipmap/y3"
                                     android:drawablePadding="@dimen/px20"
-                                    android:text="@string/my_apprentice" />
-
+                                    android:text="邀请收益" />
 
                             </FrameLayout>
 

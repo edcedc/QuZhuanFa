@@ -62,18 +62,27 @@
         <activity
             android:name=".view.act.DetailsAct"
             android:resizeableActivity="true"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".view.act.MakeMoneyAct"
             android:resizeableActivity="true"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".view.act.LoginAct"
             android:resizeableActivity="true"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".view.act.HtmlAct"
             android:resizeableActivity="true"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.act.ActionCenterAct"
+            android:resizeableActivity="true"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:screenOrientation="portrait"/>
 
 

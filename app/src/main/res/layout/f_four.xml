@@ -4,6 +4,10 @@
     tools:ignore="MissingConstraints"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
@@ -177,5 +181,7 @@
     </android.support.constraint.ConstraintLayout>
 
     </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+    </android.support.v4.widget.NestedScrollView>
 
 </layout>

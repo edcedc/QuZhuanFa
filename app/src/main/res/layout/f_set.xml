@@ -17,6 +17,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ly_privacy"
                 android:background="?selectableItemBackground"
                 android:padding="@dimen/px40"
@@ -40,9 +41,11 @@
             </LinearLayout>
 
             <View
+                android:visibility="gone"
                 style="@style/divider_1"/>
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ly_vip"
                 android:background="?selectableItemBackground"
                 android:padding="@dimen/px40"
@@ -66,6 +69,7 @@
             </LinearLayout>
 
             <View
+                android:visibility="gone"
                 style="@style/divider_1"/>
 
             <LinearLayout

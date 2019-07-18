@@ -56,7 +56,7 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
     protected void initView(View view) {
        mB.bottomBar
                 .addItem(new BottomBarTab(_mActivity, R.mipmap.zw01, "新闻"))
-                .addItem(new BottomBarTab(_mActivity, R.mipmap.st01,"收徒"))
+                .addItem(new BottomBarTab(_mActivity, R.mipmap.st01,"邀请"))
                 .addItem(new BottomBarTab(_mActivity, R.mipmap.wd01,"我的"));
         mB.bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override

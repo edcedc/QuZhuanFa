@@ -9,6 +9,8 @@ import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseActivity;
 import com.yc.quzhuanfa.view.DetailsFrg;
 
+import me.yokeyword.fragmentation.SwipeBackLayout;
+
 /**
  * Created by wb  yyc
  * User: 501807647@qq.com

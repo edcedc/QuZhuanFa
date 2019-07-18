@@ -136,8 +136,6 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
                 UIHelper.startRetrievePwdFrg(this, 0);
                 break;
             case R.id.iv_wx:
-
-
                 ShareTool.getInstance(act).authorization( new UMAuthListener() {
                     @Override
                     public void onStart(SHARE_MEDIA share_media) {
@@ -193,4 +191,5 @@ public class LoginFrg extends BaseFragment<LoginPresenter, FLoginBinding> implem
         super.onDestroy();
         ShareTool.getInstance(act).release();
     }
+
 }

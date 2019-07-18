@@ -78,7 +78,7 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
                 setTitle("会员协议");
                 break;
             default:
-                setTitle("广告");
+                setTitle("详情");
                 break;
         }
         if(type == ADVERTISEMENT){

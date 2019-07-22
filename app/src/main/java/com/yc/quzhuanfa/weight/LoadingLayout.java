@@ -1,4 +1,4 @@
-/*
+package com.yc.quzhuanfa.weight;/*
  * Copyright 2016 czy1121
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,6 @@
  * limitations under the License.
  */
 
-package com.yc.quzhuanfa.weight;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -145,7 +144,7 @@ public class LoadingLayout extends FrameLayout {
         }
         View view = getChildAt(0);
         setContentView(view);
-        showLoading();
+        showContent();
     }
 
     private void setContentView(View view) {

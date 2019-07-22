@@ -16,11 +16,6 @@ public final class Code {
     /**
      * cookie丢失
      */
-    public static final int CODE_TIMEOUT = 2;
-
-    /**
-     * 融云 200
-     */
-    public static final int CODE_RONG = 200;
+    public static final int CODE_TIMEOUT = 506;
 
 }

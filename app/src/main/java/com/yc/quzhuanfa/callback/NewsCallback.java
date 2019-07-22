@@ -14,11 +14,14 @@ package com.yc.quzhuanfa.callback;/*
  * limitations under the License.
  */
 
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.Utils;
 import com.google.gson.stream.JsonReader;
 import com.lzy.okgo.callback.AbsCallback;
 import com.yc.quzhuanfa.bean.BaseResponseBean;
 import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
+import com.yc.quzhuanfa.view.act.LoginAct;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -57,12 +60,12 @@ public abstract class NewsCallback<T> extends AbsCallback<T> {
             }else if (gankResponse.code == Code.CODE_FAILED){
                 response.close();
                 throw new IllegalStateException(gankResponse.description);
-            } else if (gankResponse.code == 2){
+            } else if (gankResponse.code == Code.CODE_TIMEOUT){
                 response.close();
-//                UIHelper.startSplashAct();
-//                ActivityUtils.startActivity(LoginAct.class);
+                ActivityUtils.startActivity(LoginAct.class);
                 ShareSessionIdCache.getInstance(Utils.getApp()).remove();
-//                ActivityUtils.finishAllActivities();
+                ActivityUtils.finishAllActivities();
+                ToastUtils.showShort("账号异常");
                 throw new IllegalStateException("用户在第三方登录");
             }else {
                 response.close();

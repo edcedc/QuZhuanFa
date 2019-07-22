@@ -31,7 +31,7 @@ public class CloudApi {
 
     private static final String url =
             "xiaoyueliang.cn:8080";
-//            "10.0.0.138:8080";
+//            "10.0.1.229:8080";
 
 
     public static final String SERVLET_URL = "http://" + url + "/forward/";

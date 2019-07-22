@@ -3,7 +3,9 @@ package com.yc.quzhuanfa.presenter;
 import android.view.View;
 import android.widget.AdapterView;
 
+import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.Utils;
 import com.lzy.okgo.model.Response;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.adapter.MeAdapter;
@@ -15,6 +17,8 @@ import com.yc.quzhuanfa.callback.Code;
 import com.yc.quzhuanfa.controller.CloudApi;
 import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.impl.FourContract;
+import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
+import com.yc.quzhuanfa.view.act.LoginAct;
 import com.yc.quzhuanfa.weight.WithScrollListView;
 
 import org.json.JSONObject;
@@ -106,6 +110,10 @@ public class FourPresenter extends FourContract.Presenter{
                             User.getInstance().setLogin(true);
                             User.getInstance().setUserObj(result);
                             mView.setData(User.getInstance().getUserObj());
+                        }else if (jsonObject.optInt("code") == Code.CODE_TIMEOUT){
+                            ActivityUtils.startActivity(LoginAct.class);
+                            ShareSessionIdCache.getInstance(Utils.getApp()).remove();
+                            ActivityUtils.finishAllActivities();
                         }
                     }
 

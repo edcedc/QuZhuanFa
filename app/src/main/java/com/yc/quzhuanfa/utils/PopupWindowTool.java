@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jungly.gridpasswordview.GridPasswordView;
 import com.jungly.gridpasswordview.PasswordType;
@@ -52,7 +53,10 @@ public class PopupWindowTool {
         iv_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                UIHelper.startHtmlAct(HtmlAct.ADVERTISEMENT, bean.getUrl());
+                String url = bean.getUrl();
+                if (!StringUtils.isEmpty(url)){
+                    UIHelper.startHtmlAct(HtmlAct.ADVERTISEMENT, url);
+                }
             }
         });
         wh.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {

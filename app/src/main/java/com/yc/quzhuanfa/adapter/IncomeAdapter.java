@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.TimeUtils;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseRecyclerviewAdapter;
@@ -63,7 +64,12 @@ public class IncomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
                 str = "提现成功";
                 break;
             case 1024:
-                str = "提现失败";
+                String tips = bean.getTips();
+                if (StringUtils.isEmpty(tips)){
+                    str = "提现失败";
+                }else {
+                    str = "提现失败" + "：" + bean.getTips();
+                }
                 break;
         }
         viewHolder.tv_title.setText(str);

@@ -46,6 +46,7 @@ public class ActionCenterFrg extends BaseFragment<BasePresenter, FActionBinding>
         setTitle(getString(R.string.action_center));
         mB.lyVip.setOnClickListener(this);
         mB.lyPrivacy.setOnClickListener(this);
+        mB.lyActionCenter.setOnClickListener(this);
     }
 
     @Override
@@ -56,6 +57,9 @@ public class ActionCenterFrg extends BaseFragment<BasePresenter, FActionBinding>
                 break;
             case R.id.ly_privacy:
                 UIHelper.startHtmlAct(HtmlAct.REGISTER);
+                break;
+            case R.id.ly_action_center:
+                UIHelper.startHtmlAct(HtmlAct.CENTER);
                 break;
         }
     }

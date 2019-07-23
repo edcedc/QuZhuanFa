@@ -20,11 +20,14 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <android.support.v7.widget.AppCompatImageView
+                <android.support.v7.widget.AppCompatTextView
+                    android:text="趣转发"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
                     android:layout_marginLeft="@dimen/px10"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/qzf01"/>
+                    android:layout_height="wrap_content"/>
 
                 <com.flyco.roundview.RoundLinearLayout
                     android:id="@+id/ly_lock"

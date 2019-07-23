@@ -67,6 +67,32 @@
             <View
                 style="@style/divider_1"/>
 
+            <LinearLayout
+                android:id="@+id/ly_action_center"
+                android:background="?selectableItemBackground"
+                android:padding="@dimen/px40"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatTextView
+                    android:drawableLeft="@mipmap/xy20"
+                    android:drawablePadding="@dimen/px20"
+                    android:layout_weight="1"
+                    android:text="@string/action_center"
+                    style="@style/Tv15black"/>
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:background="@mipmap/jtt40"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/divider_1"/>
+
         </LinearLayout>
 
     </LinearLayout>

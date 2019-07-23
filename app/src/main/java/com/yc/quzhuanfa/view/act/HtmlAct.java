@@ -44,6 +44,7 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
     public static final int ABOUT_ME_WECAT = 16;//联系我们的微信
     public static final int ABOUT_ME_QQ = 32;//联系我们的QQ
     public static final int MEMBER = 64;//会员类型
+    public static final int CENTER = 128;//会员类型
     public static final int ADVERTISEMENT = 99;//登录进来的弹窗
 
 
@@ -76,6 +77,8 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
                 break;
             case MEMBER:
                 setTitle("会员协议");
+            case CENTER:
+                setTitle("活动中心");
                 break;
             default:
                 setTitle("详情");

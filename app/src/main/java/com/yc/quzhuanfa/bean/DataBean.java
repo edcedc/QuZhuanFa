@@ -51,6 +51,11 @@ public class DataBean implements Serializable {
     private String reason;
     private String url;
     private String attachId;
+    private String tips;
+
+    public String getTips() {
+        return tips;
+    }
 
     public String getAttachId() {
         return attachId;

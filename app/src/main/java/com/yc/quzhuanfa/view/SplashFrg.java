@@ -32,6 +32,7 @@ import java.util.List;
 import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
 import com.yc.quzhuanfa.weight.RuntimeRationale;
+import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.transformer.DefaultTransformer;
 
@@ -88,14 +89,14 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
 //        images.add(bean3);
 
         final List<Integer> images = new ArrayList<>();
-        images.add(R.mipmap.y10);
-        images.add(R.mipmap.y11);
-        images.add(R.mipmap.y12);
+        images.add(R.mipmap.bbb01);
+        images.add(R.mipmap.bjj01);
+        images.add(R.mipmap.ddb01);
 
         mB.banner.setImages(images)
                 .setImageLoader(new GlideImageLoader())
                 .setOnBannerListener(this)
-                .setBannerAnimation(DefaultTransformer.class);
+                .setBannerAnimation(DefaultTransformer.class).setBannerStyle(BannerConfig.NOT_INDICATOR);
 
         if (!ShareIsLoginCache.getInstance(act).getIsLogin()){
             mB.banner.start();

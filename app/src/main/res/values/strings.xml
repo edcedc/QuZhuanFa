@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">天天趣分享</string>
+    <string name="app_name">趣分享</string>
     <string name="setting" translatable="false">设置</string>
     <string name="resume" translatable="false">Resume</string>
     <string name="cancel" translatable="false">取消</string>
@@ -35,7 +35,7 @@
     <string name="forwarding1" translatable="false">转发赚钱</string>
     <string name="forwarding2" translatable="false">赚钱规则</string>
     <string name="make" translatable="false">赚钱攻略</string>
-    <string name="make1" translatable="false">赚钱密集</string>
+    <string name="make1" translatable="false">赚钱秘籍</string>
     <string name="details" translatable="false">文章详情</string>
     <string name="finger_guide" translatable="false">新手指南</string>
     <string name="me" translatable="false">我的</string>

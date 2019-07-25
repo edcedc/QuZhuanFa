@@ -15,12 +15,16 @@ import android.view.View;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.blankj.utilcode.util.StringUtils;
+import com.blankj.utilcode.util.Utils;
 import com.yanzhenjie.permission.Action;
 import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.Permission;
 import com.yanzhenjie.permission.Setting;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BasePresenter;
+import com.yc.quzhuanfa.base.User;
+import com.yc.quzhuanfa.callback.Code;
+import com.yc.quzhuanfa.controller.CloudApi;
 import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.databinding.FSplashBinding;
 import com.yc.quzhuanfa.utils.GlideImageLoader;
@@ -31,10 +35,18 @@ import java.util.List;
 
 import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
+import com.yc.quzhuanfa.view.act.LoginAct;
 import com.yc.quzhuanfa.weight.RuntimeRationale;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.transformer.DefaultTransformer;
+
+import org.json.JSONObject;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * 作者：yc on 2018/6/15.
@@ -234,8 +246,39 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
     private void setPermissionOk() {
         String sessionId = ShareSessionIdCache.getInstance(act).getSessionId();
         if (!StringUtils.isEmpty(sessionId)) {
-            UIHelper.startMainAct();
-            ActivityUtils.finishAllActivities();
+            CloudApi.userInfo()
+                    .doOnSubscribe(new Consumer<Disposable>() {
+                        @Override
+                        public void accept(Disposable disposable){
+                        }
+                    })
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<JSONObject>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            addDisposable(d);
+                        }
+
+                        @Override
+                        public void onNext(JSONObject jsonObject) {
+                            if (jsonObject.optInt("code") == Code.CODE_SUCCESS){
+                                UIHelper.startMainAct();
+                                ActivityUtils.finishAllActivities();
+                            }else {
+                                startNext();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+                            startNext();
+                        }
+
+                        @Override
+                        public void onComplete() {
+                        }
+                    });
+
         } else {
             startNext();
         }

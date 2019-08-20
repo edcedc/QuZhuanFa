@@ -16,6 +16,8 @@ import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
 
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
 
 import io.reactivex.Observable;
@@ -46,9 +48,10 @@ public class CloudApi {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
+    public static final String SHARE_URL = "http://ff.wx108.net/shortApi.php?key=jtkM1QXTzoFR0k3VhJmZ5VHdmNzQv1Geth0Zxh3SqdVc0N2VHpUT3FERNdXQE10dBRUT&format=wxbox&longurl=";
     public static final String ARTICLE_URL = "http://xiaoyueliang.cn/forwardingh5/#/H5?type=2&userId=";//查看H5文章链接
     public static final String AGREEMENT_URL = "http://xiaoyueliang.cn/forwardingh5/#/agreement?agreementType=";//各种协议
-    public static final String REGISTER_URL = "http://xiaoyueliang.cn/forwardingh5/#/?userId=";//注册
+    public static final String REGISTER_URL = SHARE_URL + "http://xiaoyueliang.cn/forwardingh5/#/?userId=";//注册
 
     /**
      * 文章分类
@@ -152,6 +155,18 @@ public class CloudApi {
                 .adapt(new ObservableBody<JSONObject>())
                 .subscribeOn(Schedulers.io());
     }
+
+    /**
+     * 分享走第三方
+     */
+    public static Observable<JSONObject> share(String url) {
+        return OkGo.<JSONObject>get(url)
+                .converter(new JsonConvert<JSONObject>() {
+                })
+                .adapt(new ObservableBody<JSONObject>())
+                .subscribeOn(Schedulers.io());
+    }
+
     /**
      * 微信登录
      */

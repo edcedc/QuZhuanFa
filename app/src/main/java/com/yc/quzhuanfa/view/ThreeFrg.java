@@ -5,16 +5,15 @@ import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.adapter.ApprenticeAdapter;
 import com.yc.quzhuanfa.base.BaseFragment;
-import com.yc.quzhuanfa.base.User;
 import com.yc.quzhuanfa.bean.DataBean;
 import com.yc.quzhuanfa.controller.CloudApi;
 import com.yc.quzhuanfa.controller.UIHelper;
@@ -25,6 +24,8 @@ import com.yc.quzhuanfa.utils.ShareTool;
 import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
 import com.yc.quzhuanfa.view.bottom.ShareBottomFrg;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +41,7 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
     private List<DataBean> listBean = new ArrayList<>();
     private ApprenticeAdapter adapter;
     private ShareBottomFrg shareBottomFrg;
+    private String short_url;
 
     public static ThreeFrg newInstance() {
         Bundle args = new Bundle();
@@ -82,7 +84,10 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
         TextView top_title = view.findViewById(R.id.top_title);
         top_title.setTextColor(act.getColor(R.color.tab_black));
         ImmersionBar.with(this).statusBarDarkFont(true).init();
-
+        String s = CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId();
+        s = s.replaceAll("#", "%23");
+        LogUtils.e(s);
+        mPresenter.onShareUrl(s);
         mB.fyInviteFriends.setOnClickListener(this);
         mB.fyMyApprentice.setOnClickListener(this);
         mB.tvInvite.setOnClickListener(this);
@@ -91,7 +96,7 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
         mB.ivWxq.setOnClickListener(this);
         mB.ivZking.setOnClickListener(this);
         shareBottomFrg = new ShareBottomFrg();
-        shareBottomFrg.setBundle(this);
+        shareBottomFrg.setBundle(this, short_url);
 
         if (adapter == null) {
             adapter = new ApprenticeAdapter(act, this, listBean);
@@ -133,16 +138,17 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
                 mB.fyMyApprentice.setBackgroundResource(0);
                 break;
             case R.id.tv_invite:
+                shareBottomFrg.setBundle(this, short_url);
                 shareBottomFrg.show(getChildFragmentManager(), "dialog");
                 break;
             case R.id.tv_invitation:
                 UIHelper.startMakeMoneyAct();
                 break;
             case R.id.iv_wx:
-                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN, CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId());
+                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN, short_url);
                 break;
             case R.id.iv_wxq:
-                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId());
+                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, short_url);
                 break;
             case R.id.iv_zking:
                 UIHelper.startZkingFrg(this);
@@ -164,5 +170,10 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
         mB.tvYesterdayContribution.setText(bean.getYesDay() + "");
         mB.tvIncome.setText(Html.fromHtml("好友共计帮我赚了<font color='#FF3A22'><big>" + bean.getAll() +
                 "</big></font>" + "元"));
+    }
+
+    @Override
+    public void setShare(String short_url) {
+        this.short_url = short_url;
     }
 }

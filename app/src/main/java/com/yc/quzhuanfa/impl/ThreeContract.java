@@ -19,6 +19,8 @@ public interface ThreeContract {
         void setData(List<DataBean> list);
 
         void onTodayYesterdayALl(DataBean bean);
+
+        void setShare(String short_url);
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -26,6 +28,8 @@ public interface ThreeContract {
         public abstract void getUserList();
 
         public abstract void getTodayYesterdayALl();
+
+        public abstract void onShareUrl(String url);
     }
 
 }

@@ -66,7 +66,9 @@ public class ZkingFrg extends BaseFragment<BasePresenter, FZkingBinding> impleme
                 mB.ivZking.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                 try {
-                    Bitmap bitmap = ZXingUtils.creatBarcode(CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId(), mB.ivZking.getWidth());
+                    String s = CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId();
+                    s = s.replaceAll("#", "%23");
+                    Bitmap bitmap = ZXingUtils.creatBarcode(s, mB.ivZking.getWidth());
                     mB.ivZking.setImageBitmap(bitmap);
                 } catch (WriterException e) {
                     e.printStackTrace();

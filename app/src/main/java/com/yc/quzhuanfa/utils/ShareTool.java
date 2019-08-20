@@ -15,8 +15,16 @@ import com.umeng.socialize.media.UMWeb;
 import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
 import com.yc.quzhuanfa.R;
+import com.yc.quzhuanfa.controller.CloudApi;
+
+import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
+
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Created by Administrator on 2018/5/11.
@@ -75,6 +83,7 @@ public class ShareTool {
                         super.finalize();
                     }
                 });
+
     }
 
     /**

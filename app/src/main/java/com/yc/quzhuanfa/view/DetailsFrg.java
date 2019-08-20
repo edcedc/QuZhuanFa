@@ -25,6 +25,9 @@ import com.yc.quzhuanfa.presenter.DetailsPresenter;
 import com.yc.quzhuanfa.utils.ShareTool;
 import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 /**
  * Created by wb  yyc
  * User: 501807647@qq.com
@@ -35,6 +38,8 @@ public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> 
 
     private ShareAction shareAction;
     private DataBean bean;
+    private ShareTool instance;
+    private String url;
 
     public static DetailsFrg newInstance() {
         Bundle args = new Bundle();
@@ -62,10 +67,9 @@ public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> 
     protected void initView(View view) {
         setTitle(getString(R.string.details));
         setSwipeBackEnable(false);
-        String url = CloudApi.ARTICLE_URL  + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId() +
-                "&articleId=" + bean.getArticleId();
-        ShareTool instance = ShareTool.getInstance(act);
-        shareAction = instance.shareAction(bean.getClassName(), bean.getTitle(), bean.getPic(), url + "&realType=1");
+        url = CloudApi.ARTICLE_URL  + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId() +
+                "&articleId=" + bean.getArticleId() + "&realType=1";
+        instance = ShareTool.getInstance(act);
         instance.setUMListener(new ShareTool.UMListener() {
             @Override
             public void onResult(SHARE_MEDIA platform) {
@@ -74,7 +78,7 @@ public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> 
         });
         mB.tvForwarding.setOnClickListener(this);
         mB.tvShare.setOnClickListener(this);
-        mB.webView.loadUrl(url + "&realType=2");
+        mB.webView.loadUrl(url);
 //        mB.webView.loadDataWithBaseURL(null, bean.getContent(), "text/html", "utf-8", null);
         mB.webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -125,11 +129,43 @@ public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> 
                 UIHelper.startMakeMoneyAct();
                 break;
             case R.id.tv_share:
-                shareAction.open();
+                try {
+                    String s = CloudApi.SHARE_URL + url;
+                    s = s.replaceAll("#", "%23");
+                    LogUtils.e(s);
+                    mPresenter.onShareUrl(s);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.tv_look:
                 break;
         }
     }
 
+    public static String toURLEncoded(String paramString) {
+        if (paramString == null || paramString.equals("")) {
+            LogUtils.e("toURLEncoded error:"+paramString);
+            return "";
+        }
+
+        try
+        {
+            String str = new String(paramString.getBytes(), "UTF-8");
+            str = URLEncoder.encode(str, "UTF-8");
+            return str;
+        }
+        catch (Exception localException)
+        {
+            LogUtils.e("toURLEncoded error:"+paramString, localException);
+        }
+
+        return "";
+    }
+
+    @Override
+    public void setShare(String short_url) {
+        shareAction = instance.shareAction(bean.getClassName(), bean.getTitle(), bean.getPic(), short_url);
+        shareAction.open();
+    }
 }

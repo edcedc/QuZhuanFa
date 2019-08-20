@@ -7,6 +7,8 @@ import com.yc.quzhuanfa.callback.Code;
 import com.yc.quzhuanfa.controller.CloudApi;
 import com.yc.quzhuanfa.impl.ThreeContract;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -77,6 +79,40 @@ public class ThreePresenter extends ThreeContract.Presenter {
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
                             DataBean bean = baseResponseBeanResponse.body().result;
                             mView.onTodayYesterdayALl(bean);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void onShareUrl(String url) {
+        CloudApi.share(url)
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) {
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<JSONObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(JSONObject jsonObject) {
+                        if (jsonObject.optInt("code") == 1){
+                            mView.setShare(jsonObject.optString("short_url"));
                         }
                     }
 

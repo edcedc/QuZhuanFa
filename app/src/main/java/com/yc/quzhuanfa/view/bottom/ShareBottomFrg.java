@@ -9,7 +9,6 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseBottomSheetFrag;
 import com.yc.quzhuanfa.base.BaseFragment;
-import com.yc.quzhuanfa.base.User;
 import com.yc.quzhuanfa.controller.CloudApi;
 import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.utils.ShareTool;
@@ -27,8 +26,10 @@ public class ShareBottomFrg extends BaseBottomSheetFrag implements View.OnClickL
     }
 
     private BaseFragment root;
-    public  void setBundle(BaseFragment root){
+    private String short_url;
+    public  void setBundle(BaseFragment root, String short_url){
         this.root = root;
+        this.short_url = short_url;
     }
 
     @Override
@@ -52,10 +53,10 @@ public class ShareBottomFrg extends BaseBottomSheetFrag implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.tv_wx:
-                ShareTool.getInstance((Activity) act).shareAppointAction(SHARE_MEDIA.WEIXIN, CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId());
+                ShareTool.getInstance((Activity) act).shareAppointAction(SHARE_MEDIA.WEIXIN, short_url);
                 break;
             case R.id.tv_pyq:
-                ShareTool.getInstance((Activity) act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId());
+                ShareTool.getInstance((Activity) act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, short_url);
                 break;
             case R.id.tv_zking:
                 UIHelper.startZkingFrg(root);

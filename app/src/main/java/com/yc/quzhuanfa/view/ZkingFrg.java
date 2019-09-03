@@ -27,6 +27,8 @@ import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
  */
 public class ZkingFrg extends BaseFragment<BasePresenter, FZkingBinding> implements View.OnClickListener {
 
+    private String url;
+
     @Override
     public void initPresenter() {
 
@@ -34,7 +36,7 @@ public class ZkingFrg extends BaseFragment<BasePresenter, FZkingBinding> impleme
 
     @Override
     protected void initParms(Bundle bundle) {
-
+        url = bundle.getString("url");
     }
 
     @Override
@@ -81,11 +83,12 @@ public class ZkingFrg extends BaseFragment<BasePresenter, FZkingBinding> impleme
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.iv_wx:
-                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN, CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId());
+                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN, url);
                 break;
             case R.id.iv_wxq:
-                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId());
+                ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, url);
                 break;
         }
     }
+
 }

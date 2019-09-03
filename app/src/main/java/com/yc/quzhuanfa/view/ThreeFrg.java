@@ -96,7 +96,6 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
         mB.ivWxq.setOnClickListener(this);
         mB.ivZking.setOnClickListener(this);
         shareBottomFrg = new ShareBottomFrg();
-        shareBottomFrg.setBundle(this, short_url);
 
         if (adapter == null) {
             adapter = new ApprenticeAdapter(act, this, listBean);
@@ -151,7 +150,7 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
                 ShareTool.getInstance(act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, short_url);
                 break;
             case R.id.iv_zking:
-                UIHelper.startZkingFrg(this);
+                UIHelper.startZkingFrg(this, short_url);
                 break;
         }
     }
@@ -175,5 +174,6 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
     @Override
     public void setShare(String short_url) {
         this.short_url = short_url;
+        shareBottomFrg.setBundle(this, short_url);
     }
 }

@@ -162,9 +162,10 @@ public final class UIHelper {
     /**
      * 二维码收徒
      */
-    public static void startZkingFrg(BaseFragment root) {
+    public static void startZkingFrg(BaseFragment root, String short_url) {
         ZkingFrg frg = new ZkingFrg();
         Bundle bundle = new Bundle();
+        bundle.putString("url", short_url);
         frg.setArguments(bundle);
         ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
     }

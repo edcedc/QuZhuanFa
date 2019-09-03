@@ -4,15 +4,12 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
-import com.blankj.utilcode.util.Utils;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseBottomSheetFrag;
 import com.yc.quzhuanfa.base.BaseFragment;
-import com.yc.quzhuanfa.controller.CloudApi;
 import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.utils.ShareTool;
-import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
 
 /**
  * Created by edison on 2019/4/9.
@@ -59,7 +56,7 @@ public class ShareBottomFrg extends BaseBottomSheetFrag implements View.OnClickL
                 ShareTool.getInstance((Activity) act).shareAppointAction(SHARE_MEDIA.WEIXIN_CIRCLE, short_url);
                 break;
             case R.id.tv_zking:
-                UIHelper.startZkingFrg(root);
+                UIHelper.startZkingFrg(root, short_url);
                 break;
             case R.id.bt_submit:
                 break;

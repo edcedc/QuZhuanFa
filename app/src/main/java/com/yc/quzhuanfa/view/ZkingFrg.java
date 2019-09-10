@@ -70,7 +70,7 @@ public class ZkingFrg extends BaseFragment<BasePresenter, FZkingBinding> impleme
                 try {
                     String s = CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId();
                     s = s.replaceAll("#", "%23");
-                    Bitmap bitmap = ZXingUtils.creatBarcode(s, mB.ivZking.getWidth());
+                    Bitmap bitmap = ZXingUtils.creatBarcode(url, mB.ivZking.getWidth());
                     mB.ivZking.setImageBitmap(bitmap);
                 } catch (WriterException e) {
                     e.printStackTrace();

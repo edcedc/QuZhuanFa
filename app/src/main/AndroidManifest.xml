@@ -37,6 +37,7 @@
         android:hardwareAccelerated="true"
         android:label="@string/app_name"
         android:icon="@mipmap/icon_logo"
+        android:roundIcon="@mipmap/icon_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="HardcodedDebugMode"

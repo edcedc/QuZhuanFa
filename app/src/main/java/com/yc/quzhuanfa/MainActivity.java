@@ -2,10 +2,16 @@ package com.yc.quzhuanfa;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 
+import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.umeng.socialize.UMShareAPI;
 import com.yc.quzhuanfa.base.BaseActivity;
 import com.yc.quzhuanfa.view.MainFrg;
+
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 
 /**
  * /**
@@ -59,6 +65,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
+
         if (findFragment(MainFrg.class) == null) {
             loadRootFragment(R.id.fl_container, MainFrg.newInstance());
         }

@@ -78,7 +78,7 @@
     <string name="share_money" translatable="false">分享赚钱</string>
     <string name="share_money1" translatable="false">分享任意文章到微信群，好友或者朋友圈</string>
     <string name="share_money2" translatable="false">坐等收益</string>
-    <string name="share_money3" translatable="false">分享的文章，每被有效阅读一次都会获得 0.08~0.1元收益</string>
+    <string name="share_money3" translatable="false">分享的文章，每被有效阅读一次都会获得 0.01~0.1元收益</string>
     <string name="share_money4" translatable="false">小技巧</string>
     <string name="share_money5" translatable="false">分享时写上一句精美点评，赚钱更快更多</string>
     <string name="input_pay_pwd1" translatable="false">请输入支付密码（6位数）</string>

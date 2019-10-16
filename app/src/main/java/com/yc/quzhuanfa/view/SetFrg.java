@@ -61,7 +61,7 @@ public class SetFrg extends BaseFragment<BasePresenter, FSetBinding> implements 
                 UIHelper.startHtmlAct(HtmlAct.REGISTER);
                 break;
             case R.id.ly_contact:
-                UIHelper.startContactFrg(this, 1);
+                UIHelper.startContactFrg(this);
                 break;
             case R.id.ly_reminder:
 

@@ -165,6 +165,7 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
         errorText(e, null);
     }
     private void errorText(Throwable e, String errorName){
+        hideLoading();
         if (null != e) {
             LogUtils.e(e.getMessage(), errorName);
             showToast(e.getMessage());
@@ -380,6 +381,9 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
     protected void setTitle(String title, int img) {
         title(title, null, img, true);
     }
+    protected void setTitle(String title, int img, boolean isBack) {
+        title(title, null, img, isBack);
+    }
     protected void setTitle(String title, String right) {
         title(title,  right, -1, true);
     }
@@ -393,12 +397,12 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
     protected void setTitleTransparent(String title, boolean back){
         setTitle(title);
         view.findViewById(R.id.top_view).setVisibility(View.GONE);
-        view.findViewById(R.id.title_bar).setBackgroundColor(act.getColor(R.color.transparent));
+        view.findViewById(R.id.title_bar).setBackgroundColor(act.getResources().getColor(R.color.transparent));
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         if (back){
             toolbar.setNavigationIcon(null);
         }
-        toolbar.setBackgroundColor(act.getColor(R.color.transparent));
+        toolbar.setBackgroundColor(act.getResources().getColor(R.color.transparent));
     }
 
     private void title(String title, String rightText, int img, boolean isBack) {
@@ -441,7 +445,6 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     protected void setRecyclerViewType(RecyclerView recyclerView){
         recyclerView.setLayoutManager(new LinearLayoutManager(act));
         recyclerView.setHasFixedSize(true);
@@ -449,7 +452,6 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
         recyclerView.setBackgroundColor(ContextCompat.getColor(act,R.color.white));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     protected void setRecyclerViewGridType(RecyclerView recyclerView, int spanCount, int height, int color){
         recyclerView.setLayoutManager(new GridLayoutManager(act, spanCount));
         recyclerView.setHasFixedSize(true);

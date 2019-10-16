@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="MissingConstraints"
+    android:background="@color/white"
+    android:padding="@dimen/px20"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_text"
+        android:hint="@string/xie_comments"
+        android:minLines="5"
+        android:gravity="top"
+        android:background="@null"
+        android:textSize="@dimen/size24"
+        android:maxLength="200"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.flyco.roundview.RoundTextView
+        android:id="@+id/bt_submit"
+        android:padding="@dimen/px15"
+        android:textColor="@color/white"
+        app:rv_cornerRadius="@dimen/px60"
+        android:ems="5"
+        android:imeOptions="actionSend"
+        android:gravity="center"
+        app:rv_backgroundColor="@color/red_FF7D78"
+        app:layout_constraintTop_toBottomOf="@id/et_text"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_text"
+        android:text="0/200"
+        app:layout_constraintTop_toTopOf="@id/bt_submit"
+        app:layout_constraintBottom_toBottomOf="@id/bt_submit"
+        app:layout_constraintRight_toLeftOf="@id/bt_submit"
+        android:layout_marginRight="@dimen/px20"
+        style="@style/Tv12gray" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.AppCompatTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:paddingLeft="@dimen/px10"
+    android:paddingRight="@dimen/px5"
+    android:paddingBottom="@dimen/px5"
+    android:paddingTop="@dimen/px5"
+    android:id="@+id/tv_content"
+    style="@style/Tv15black"/>
+

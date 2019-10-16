@@ -43,8 +43,10 @@ public class FourPresenter extends FourContract.Presenter{
 
     @Override
     public void listView(WithScrollListView listView, final BaseFragment root) {
-        String[] laberStr = {act.getString(R.string.bind_phone), act.getString(R.string.withdrawal), act.getString(R.string.income_details), act.getString(R.string.contact), act.getString(R.string.set), act.getString(R.string.action_center)};
-        int[] laberImg = {R.mipmap.sjh40, R.mipmap.ljtx01, R.mipmap.srmx01, R.mipmap.lxwm01, R.mipmap.szyy01, R.mipmap.sjh40};
+        String[] laberStr = {act.getString(R.string.bind_phone), act.getString(R.string.withdrawal), act.getString(R.string.income_details), act.getString(R.string.contact), act.getString(R.string.set), act.getString(R.string.action_center),
+                act.getString(R.string.my_collection),act.getString(R.string.my_evaluate),act.getString(R.string.enquiry),act.getString(R.string.historical)};
+        int[] laberImg = {R.mipmap.sjh40, R.mipmap.ljtx01, R.mipmap.srmx01, R.mipmap.lxwm01, R.mipmap.szyy01, R.mipmap.sjh40,
+                R.mipmap.wdsc1, R.mipmap.wdpj1, R.mipmap.wgcx1, R.mipmap.gghz1, R.mipmap.lsjl1};
         List<DataBean> listStr = new ArrayList<>();
         for (int i = 0; i < laberStr.length; i++) {
             DataBean bean = new DataBean();
@@ -74,7 +76,7 @@ public class FourPresenter extends FourContract.Presenter{
                         UIHelper.startIncomeFrg(root);
                         break;
                     case 3:
-                        UIHelper.startContactFrg(root, 0);
+                        UIHelper.startContactFrg(root);
                         break;
                     case 4:
                         UIHelper.startSetFrg(root);

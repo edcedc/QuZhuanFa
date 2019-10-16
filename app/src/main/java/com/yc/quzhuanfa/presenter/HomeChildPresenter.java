@@ -49,11 +49,8 @@ public class HomeChildPresenter extends HomeChildContract.Presenter {
                             BaseListBean<DataBean> data = baseResponseBeanResponse.body().result;
                             if (data != null){
                                 List<DataBean> list = data.getList();
-                                if (list != null && list.size() != 0){
+                                if (list != null){
                                     mView.setData(list);
-                                    mView.hideLoading();
-                                }else {
-                                    mView.showLoadEmpty();
                                 }
                                 mView.setRefreshLayoutMode(data.getTotalCount());
                             }
@@ -67,7 +64,7 @@ public class HomeChildPresenter extends HomeChildContract.Presenter {
 
                     @Override
                     public void onComplete() {
-
+                        mView.hideLoading();
                     }
                 });
     }
@@ -75,6 +72,41 @@ public class HomeChildPresenter extends HomeChildContract.Presenter {
     @Override
     public void onProfitOne() {
 
+    }
+
+    @Override
+    public void onGetUserCashRecordList() {
+        CloudApi.list2(CloudApi.userBalanceGetUserCashRecordList)
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) {
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<List<DataBean>>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<List<DataBean>>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            List<DataBean> result = baseResponseBeanResponse.body().result;
+                            mView.setCashRecordList(result);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
 }

@@ -100,13 +100,19 @@ public class BottomBarTab extends FrameLayout {
         super.setSelected(selected);
         switch (mTabPosition){
             case 0:
-                mIcon.setImageResource(selected? R.mipmap.zw01 : R.mipmap.xw30);
+                mIcon.setImageResource(selected? R.mipmap.xinwen1 : R.mipmap.xw2);
                 break;
             case 1:
-                mIcon.setImageResource(selected? R.mipmap.st02 : R.mipmap.st01);
+                mIcon.setImageResource(selected? R.mipmap.bf1 : R.mipmap.bf2);
                 break;
             case 2:
-                mIcon.setImageResource(selected? R.mipmap.wd02 : R.mipmap.wd01);
+                mIcon.setImageResource(selected? R.mipmap.pyq1 : R.mipmap.pyq2);
+                break;
+            case 3:
+                mIcon.setImageResource(selected? R.mipmap.yq1 : R.mipmap.yq2);
+                break;
+            case 4:
+                mIcon.setImageResource(selected? R.mipmap.wd1 : R.mipmap.wd2);
                 break;
         }
         if (selected) {

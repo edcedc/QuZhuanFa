@@ -2,6 +2,7 @@ package com.yc.quzhuanfa.bean;
 
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by yc on 2017/8/17.
@@ -25,6 +26,7 @@ public class DataBean implements Serializable {
     private int login;
     private int apprentice;
     private String content;
+    private String context;
     private int bankId;
     private String bankName;
     private String bankDeposit;
@@ -52,6 +54,60 @@ public class DataBean implements Serializable {
     private String url;
     private String attachId;
     private String tips;
+    private String userNickName;
+    private String pUserNickName;
+    private String classifyId;
+    private String adTitle;
+    private String adAttachId;
+    private String adContent;
+    private String video;
+    private String friendId;
+    private String puserId;
+    private int isTrue;
+
+    public String getpUserNickName() {
+        return pUserNickName;
+    }
+
+    public String getPuserId() {
+        return puserId;
+    }
+
+    public String getFriendId() {
+        return friendId;
+    }
+
+    public String getVideo() {
+        return video;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public int getIsTrue() {
+        return isTrue;
+    }
+
+    public String getAdAttachId() {
+        return adAttachId;
+    }
+
+    public String getAdContent() {
+        return adContent;
+    }
+
+    public String getAdTitle() {
+        return adTitle;
+    }
+
+    public String getClassifyId() {
+        return classifyId;
+    }
+
+    public String getUserNickName() {
+        return userNickName;
+    }
 
     public String getTips() {
         return tips;
@@ -239,5 +295,15 @@ public class DataBean implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    private List<DataBean> friendImgs, disList;
+
+    public List<DataBean> getDisList() {
+        return disList;
+    }
+
+    public List<DataBean> getFriendImgs() {
+        return friendImgs;
     }
 }

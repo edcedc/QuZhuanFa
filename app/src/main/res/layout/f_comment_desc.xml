@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/include_top" />
+
+        <com.yc.quzhuanfa.weight.LoadingLayout
+            android:id="@+id/loadinglayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white_f4f4f4">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <android.support.v4.widget.NestedScrollView
+                        android:fillViewport="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recyclerView"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:nestedScrollingEnabled="false"
+                                android:overScrollMode="never" />
+
+                            <View
+                                android:layout_height="@dimen/px20"
+                                style="@style/divider_1"/>
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:text="@string/comments"
+                                android:layout_width="match_parent"
+                                android:background="@color/white"
+                                android:padding="@dimen/px20"
+                                style="@style/Tv15black" />
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/rv_comment"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:nestedScrollingEnabled="false"
+                                android:overScrollMode="never" />
+
+                        </LinearLayout>
+
+                    </android.support.v4.widget.NestedScrollView>
+
+                    <android.support.v7.widget.AppCompatTextView
+                        android:id="@+id/tv_comment"
+                        android:padding="@dimen/px30"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:text="@string/yy3"
+                        style="@style/Tv15gray" />
+
+                </LinearLayout>
+
+            </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+        </com.yc.quzhuanfa.weight.LoadingLayout>
+
+    </LinearLayout>
+
+</layout>

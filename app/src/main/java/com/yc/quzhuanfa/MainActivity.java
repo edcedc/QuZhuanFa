@@ -7,7 +7,10 @@ import android.text.TextUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.umeng.socialize.UMShareAPI;
 import com.yc.quzhuanfa.base.BaseActivity;
+import com.yc.quzhuanfa.event.CameraInEvent;
 import com.yc.quzhuanfa.view.MainFrg;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.TimeUnit;
 
@@ -82,6 +85,9 @@ public class MainActivity extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
+        if (resultCode == RESULT_OK) {
+            EventBus.getDefault().post(new CameraInEvent(requestCode, data));
+        }
     }
 
     @Override

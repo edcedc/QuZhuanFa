@@ -24,10 +24,7 @@ public class BaseListPresenter extends BaseListContract.Presenter{
     @Override
     public void onRequest(int pagerNumber, String url) {
         CloudApi.list(pagerNumber, url)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                    }
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean<BaseListBean<DataBean>>>>() {
@@ -44,7 +41,7 @@ public class BaseListPresenter extends BaseListContract.Presenter{
                             mView.hideLoading();
                             if (data != null){
                                 List<DataBean> list = data.getList();
-                                if (list != null && list.size() != 0){
+                                if (list != null){
                                     mView.setData(list);
                                 }else {
                                     mView.showLoadEmpty();

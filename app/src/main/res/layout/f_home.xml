@@ -20,8 +20,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
+                    android:focusableInTouchMode="true"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
@@ -34,12 +35,28 @@
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView"
+                        app:layout_constraintTop_toBottomOf="@id/banner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"
                         android:overScrollMode="never" />
 
-                </LinearLayout>
+                    <com.gongwen.marqueen.SimpleMarqueeView
+                        android:id="@+id/simpleMarqueeView"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:flipInterval="2500"
+                        android:background="#44000000"
+                        android:inAnimation="@anim/in_right"
+                        android:outAnimation="@anim/out_left"
+                        app:marqueeAnimDuration="2000"
+                        app:smvTextColor="@color/white"
+                        app:smvTextEllipsize="end"
+                        app:smvTextGravity="center_vertical"
+                        app:smvTextSingleLine="true"
+                        app:smvTextSize="15sp" />
+
+                </android.support.constraint.ConstraintLayout>
 
             </android.support.v4.widget.NestedScrollView>
 

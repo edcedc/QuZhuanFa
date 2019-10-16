@@ -1,6 +1,7 @@
 package com.yc.quzhuanfa.controller;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.google.gson.Gson;
@@ -12,13 +13,18 @@ import com.yc.quzhuanfa.view.ApprenticeFrg;
 import com.yc.quzhuanfa.view.BankFrg;
 import com.yc.quzhuanfa.view.BindPhoneFrg;
 import com.yc.quzhuanfa.view.CashFrg;
+import com.yc.quzhuanfa.view.CommentDescFrg;
 import com.yc.quzhuanfa.view.ContactFrg;
+import com.yc.quzhuanfa.view.FourFrg;
 import com.yc.quzhuanfa.view.IncomeFrg;
 import com.yc.quzhuanfa.view.MainFrg;
 import com.yc.quzhuanfa.view.PayPwdFrg;
+import com.yc.quzhuanfa.view.ReleaseFrg;
 import com.yc.quzhuanfa.view.RetrievePwdFrg;
 import com.yc.quzhuanfa.view.SetFrg;
+import com.yc.quzhuanfa.view.SixFrg;
 import com.yc.quzhuanfa.view.ThreeFrg;
+import com.yc.quzhuanfa.view.UserInfoFrg;
 import com.yc.quzhuanfa.view.WithdrawalFrg;
 import com.yc.quzhuanfa.view.ZkingFrg;
 import com.yc.quzhuanfa.view.act.ActionCenterAct;
@@ -26,6 +32,7 @@ import com.yc.quzhuanfa.view.act.DetailsAct;
 import com.yc.quzhuanfa.view.act.HtmlAct;
 import com.yc.quzhuanfa.view.act.LoginAct;
 import com.yc.quzhuanfa.view.act.MakeMoneyAct;
+import com.yc.quzhuanfa.view.act.VideoAct;
 
 
 /**
@@ -49,7 +56,12 @@ public final class UIHelper {
         IncomeFrg frg = new IncomeFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
-        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
     }
 
     /**
@@ -70,7 +82,12 @@ public final class UIHelper {
         Bundle bundle = new Bundle();
         bundle.putString("bean", new Gson().toJson(bean));
         frg.setArguments(bundle);
-        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
     }
 
     /**
@@ -80,7 +97,12 @@ public final class UIHelper {
         SetFrg frg = new SetFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
-        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
     }
 
     /**
@@ -90,6 +112,15 @@ public final class UIHelper {
         Bundle bundle = new Bundle();
         bundle.putString("bean", new Gson().toJson(bean));
         ActivityUtils.startActivity(bundle, DetailsAct.class);
+    }
+
+    /**
+     * 视频详情
+     */
+    public static void startVideoAct(DataBean bean) {
+        Bundle bundle = new Bundle();
+        bundle.putString("bean", new Gson().toJson(bean));
+        ActivityUtils.startActivity(bundle, VideoAct.class);
     }
 
     /**
@@ -131,7 +162,8 @@ public final class UIHelper {
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
         frg.setArguments(bundle);
-        if (type == 0) {
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
             root.start(frg);
         } else {
             ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
@@ -145,7 +177,12 @@ public final class UIHelper {
         BindPhoneFrg frg = new BindPhoneFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
-        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
     }
 
 
@@ -156,7 +193,12 @@ public final class UIHelper {
         CashFrg frg = new CashFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
-        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
     }
 
     /**
@@ -167,7 +209,12 @@ public final class UIHelper {
         Bundle bundle = new Bundle();
         bundle.putString("url", short_url);
         frg.setArguments(bundle);
-        ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
     }
 
     /**
@@ -182,14 +229,15 @@ public final class UIHelper {
      *
      * @param root
      */
-    public static void startContactFrg(BaseFragment root, int type) {
+    public static void startContactFrg(BaseFragment root) {
         ContactFrg frg = new ContactFrg();
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
-        if (type == 0) {
-            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
-        } else {
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
             root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
         }
     }
 
@@ -239,5 +287,51 @@ public final class UIHelper {
         Bundle bundle = new Bundle();
         frg.setArguments(bundle);
         root.start(frg);
+    }
+
+    /**
+     *  发布
+     */
+    public static void startReleaseFrg(BaseFragment root) {
+        ReleaseFrg frg = new ReleaseFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
+    }
+
+    /**
+     *  评论详情
+     */
+    public static void startCommentDescFrg(BaseFragment root, DataBean bean) {
+        CommentDescFrg frg = new CommentDescFrg();
+        Bundle bundle = new Bundle();
+        bundle.putString("bean", new Gson().toJson(bean));
+        frg.setArguments(bundle);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
+    }
+
+    /**
+     *  我的信息
+     */
+    public static void startUserInfoFrg(BaseFragment root) {
+        UserInfoFrg frg = new UserInfoFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
     }
 }

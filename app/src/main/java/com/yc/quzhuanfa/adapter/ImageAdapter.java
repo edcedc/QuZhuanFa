@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.TimeUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -23,6 +24,8 @@ import com.luck.picture.lib.entity.LocalMedia;
 import com.luck.picture.lib.tools.DateUtils;
 import com.luck.picture.lib.tools.StringUtils;
 import com.yc.quzhuanfa.R;
+import com.yc.quzhuanfa.utils.FileSaveUtils;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -168,7 +171,7 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
                     }
                 }
             });
-            LocalMedia media = list.get(position);
+            final LocalMedia media = list.get(position);
             int mimeType = media.getMimeType();
             String path = "";
             if (media.isCut() && !media.isCompressed()) {
@@ -210,23 +213,20 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
                 if (isVideoImg()){
                     final String finalPath = path;
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            final Bitmap bitmap = getVideoThumbnail(finalPath);
-                            Activity activity = (Activity)context;
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    viewHolder.mImg.setImageBitmap(bitmap);
-                                }
-                            });
-                        }
+                    new Thread(() -> {
+                        final Bitmap bitmap = getVideoThumbnail(finalPath);
+                        final Activity activity = (Activity)context;
+                        activity.runOnUiThread(() -> {
+                            String save = FileSaveUtils.save(activity, bitmap, TimeUtils.getNowMills() + "");
+                            LogUtils.e(save);
+                            media.setCutPath(save);
+                            viewHolder.mImg.setImageBitmap(bitmap);
+                        });
                     }).start();
                 }else {
                     RequestOptions options = new RequestOptions()
                             .centerCrop()
-                            .placeholder(R.color.color_f6)
+                            .placeholder(R.color.gray_C1C9D6)
                             .diskCacheStrategy(DiskCacheStrategy.ALL);
                     Glide.with(viewHolder.itemView.getContext())
                             .load(path)
@@ -240,12 +240,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
 
             //itemView 的点击事件
             if (mItemClickListener != null) {
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int adapterPosition = viewHolder.getAdapterPosition();
-                        mItemClickListener.onItemClick(adapterPosition, v);
-                    }
+                viewHolder.itemView.setOnClickListener(v -> {
+                    int adapterPosition = viewHolder.getAdapterPosition();
+                    mItemClickListener.onItemClick(adapterPosition, v);
                 });
             }
         }
@@ -258,21 +255,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder> 
      * @return
      */
     private Bitmap getVideoThumbnail(String url) {
-        Bitmap bitmap = null;
-        //MediaMetadataRetriever 是android中定义好的一个类，提供了统一
-        //的接口，用于从输入的媒体文件中取得帧和元数据；
-        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
-        try {
-            //根据文件路径获取缩略图
-            LogUtils.e(url);
-            retriever.setDataSource(url, new HashMap());
-            //获得第一帧图片
-            bitmap = retriever.getFrameAtTime();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-        } finally {
-            retriever.release();
-        }
+        MediaMetadataRetriever media = new MediaMetadataRetriever();
+        media.setDataSource(url);// videoPath 本地视频的路径
+        Bitmap bitmap  = media.getFrameAtTime(1, MediaMetadataRetriever.OPTION_CLOSEST_SYNC );
         return bitmap;
     }
 

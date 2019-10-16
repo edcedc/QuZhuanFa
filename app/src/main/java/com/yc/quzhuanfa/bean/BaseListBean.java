@@ -14,7 +14,6 @@ public class BaseListBean<T> implements Serializable {
     private int page;
     private int size;
     private List<T> content;
-    private String money;
 
     public int getTotalCount() {
         return totalCount;
@@ -54,14 +53,6 @@ public class BaseListBean<T> implements Serializable {
 
     public void setList(List<T> list) {
         this.content = list;
-    }
-
-    public String getMoney() {
-        return money;
-    }
-
-    public void setMoney(String money) {
-        this.money = money;
     }
 
 }

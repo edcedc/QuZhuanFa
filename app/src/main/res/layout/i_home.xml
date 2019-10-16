@@ -50,6 +50,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/tv_price" />
 
+
+
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/iv_delete"
         android:layout_width="wrap_content"

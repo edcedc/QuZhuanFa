@@ -114,6 +114,24 @@
     <string name="distribution_rewards" translatable="false">奖励分布</string>
     <string name="member" translatable="false">会员协议</string>
     <string name="action_center" translatable="false">活动中心</string>
+    <string name="popular_comments" translatable="false">热门评论</string>
+    <string name="xie_comments" translatable="false">写评论</string>
+    <string name="comments" translatable="false">评论</string>
+    <string name="collect_articles" translatable="false">收藏文章</string>
+    <string name="collect_video" translatable="false">收藏视频</string>
+    <string name="send" translatable="false">发送</string>
+    <string name="my_collection" translatable="false">我的收藏</string>
+    <string name="my_evaluate" translatable="false">我的评价</string>
+    <string name="enquiry" translatable="false">违规查询</string>
+    <string name="cooperation" translatable="false">广告合作</string>
+    <string name="historical" translatable="false">历史记录</string>
+    <string name="pyq" translatable="false">朋友圈</string>
+    <string name="adv" translatable="false">广告</string>
+    <string name="release" translatable="false">发表</string>
+    <string name="yy1" translatable="false">请输入内容</string>
+    <string name="yy2" translatable="false">至少选择一样发布</string>
+    <string name="yy3" translatable="false">看了这么多，留下你的评论在趣分享吧!!! </string>
+    <string name="location" translatable="false">所在位置</string>
 
 
 </resources>

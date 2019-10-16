@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?actionBarItemBackground"
+    tools:ignore="MissingConstraints"
+    android:paddingLeft="@dimen/px30"
+    android:paddingRight="@dimen/px30"
+    android:paddingTop="@dimen/px30"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/iv_img"
+        android:layout_width="match_parent"
+        android:src="@drawable/no_banner"
+        android:scaleType="fitXY"
+        android:layout_height="188dp" />
+
+    <android.support.v7.widget.AppCompatImageView
+        android:layout_width="wrap_content"
+        app:layout_constraintLeft_toLeftOf="@id/iv_img"
+        app:layout_constraintRight_toRightOf="@id/iv_img"
+        app:layout_constraintTop_toTopOf="@id/iv_img"
+        app:layout_constraintBottom_toBottomOf="@id/iv_img"
+        android:background="@mipmap/bofanganniu1"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_play_time"
+        android:text="0:00"
+        android:drawablePadding="@dimen/px10"
+        app:layout_constraintRight_toRightOf="@id/iv_img"
+        android:layout_margin="@dimen/px20"
+        app:layout_constraintBottom_toBottomOf="@id/iv_img"
+        android:drawableLeft="@mipmap/bofanshichan1"
+        android:textColor="@color/white"
+        style="@style/Tv12gray"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_content"
+        android:layout_marginTop="@dimen/px20"
+        app:layout_constraintTop_toBottomOf="@id/iv_img"
+        style="@style/Tv15black" />
+
+    <View
+        android:id="@+id/v1"
+        android:layout_marginTop="@dimen/px20"
+        app:layout_constraintTop_toBottomOf="@id/tv_content"
+        style="@style/divider_1"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_collect"
+        android:text="@string/collect_video"
+        android:drawableRight="@mipmap/weidianzan1"
+        android:gravity="left"
+        android:background="?actionBarItemBackground"
+        android:drawablePadding="@dimen/px20"
+        android:paddingTop="@dimen/px30"
+        android:paddingBottom="@dimen/px30"
+        app:layout_constraintTop_toBottomOf="@id/v1"
+        style="@style/Tv12black" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_comment"
+        app:layout_constraintTop_toBottomOf="@id/v1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/xie_comments"
+        android:drawableRight="@mipmap/pinglun1"
+        android:background="?actionBarItemBackground"
+        android:drawablePadding="@dimen/px20"
+        android:padding="@dimen/px30"
+        style="@style/Tv12black" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/tv_time"
+        app:layout_constraintTop_toTopOf="@id/tv_collect"
+        app:layout_constraintBottom_toBottomOf="@id/tv_collect"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="?actionBarItemBackground"
+        android:padding="@dimen/px30"
+        style="@style/Tv12gray" />
+
+</android.support.constraint.ConstraintLayout>

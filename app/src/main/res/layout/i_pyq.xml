@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:ignore="MissingConstraints"
+    android:padding="@dimen/px30"
+    android:background="?actionBarItemBackground"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content">
+
+    <com.yc.quzhuanfa.weight.CircleImageView
+        android:id="@+id/iv_head"
+        android:src="@mipmap/place_holder_user"
+        android:layout_width="42dp"
+        android:layout_height="42dp" />
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/px30"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_name"
+                android:textColor="@color/blue_5C6F96"
+                android:layout_weight="1"
+                android:textSize="@dimen/size34"
+                style="@style/Tv15black" />
+
+
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/tv_adv"
+                android:visibility="gone"
+                app:rv_cornerRadius="@dimen/px10"
+                app:rv_strokeColor="@color/gray_8D95A4"
+                app:rv_strokeWidth="@dimen/px1"
+                android:padding="@dimen/px10"
+                android:ems="3"
+                android:gravity="center"
+                android:text="@string/adv"
+                style="@style/Tv12gray" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_content"
+            style="@style/Tv15black" />
+
+        <FrameLayout
+            android:layout_marginTop="@dimen/px20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <com.yc.quzhuanfa.weight.NineGridTestLayout
+                android:id="@+id/layout_nine_grid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:sapcing="4dp"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_img"
+                android:src="@drawable/no_banner"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_play"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:background="@mipmap/bofanganniu1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </FrameLayout>
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_address"
+            android:textSize="@dimen/size28"
+            android:layout_marginTop="@dimen/px20"
+            style="@style/Tv15black" />
+
+        <LinearLayout
+            android:layout_marginTop="@dimen/px20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_time"
+                android:layout_weight="1"
+                android:textSize="@dimen/size28"
+                style="@style/Tv15gray" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_comment"
+                android:background="@mipmap/pinglun1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <com.yc.quzhuanfa.weight.WithScrollListView
+            android:divider="@null"
+            android:id="@+id/recyclerView"
+            android:background="@color/white_f4f4f4"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/px20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false"
+            android:overScrollMode="never" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/tv_look"
+            android:visibility="gone"
+            android:text="查看更多"
+            android:padding="@dimen/px10"
+            android:background="@color/white_f4f4f4"
+            android:layout_width="match_parent"
+            style="@style/Tv12red" />
+
+    </LinearLayout>
+
+</LinearLayout>

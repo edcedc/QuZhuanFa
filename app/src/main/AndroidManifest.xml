@@ -86,11 +86,14 @@
             android:theme="@style/AppTheme.NoActionBar.SwipeBack"
             android:screenOrientation="portrait"/>
 
-
+        <activity
+            android:name=".view.act.VideoAct"
+            android:resizeableActivity="true"
+            android:theme="@style/AppTheme.NoActionBar.SwipeBack"
+            android:screenOrientation="portrait"/>
 
         <service android:name=".service.InitializeService"
             android:exported="false"/>
-
 
         <meta-data
             android:name="UMENG_APPKEY"

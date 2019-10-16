@@ -2,8 +2,10 @@ package com.yc.quzhuanfa.controller;
 
 import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.Utils;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.PostRequest;
 import com.lzy.okrx2.adapter.ObservableBody;
 import com.lzy.okrx2.adapter.ObservableResponse;
 import com.yc.quzhuanfa.bean.BaseListBean;
@@ -16,6 +18,7 @@ import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
 
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.List;
@@ -33,7 +36,7 @@ public class CloudApi {
 
     private static final String url =
             "xiaoyueliang.cn:8080";
-//            "10.0.1.229:8080";
+//            "192.168.8.204:8080";
 
 
     public static final String SERVLET_URL = "http://" + url + "/forward/";
@@ -57,6 +60,11 @@ public class CloudApi {
      * 文章分类
      */
     public static final String articleGetArticleClass = "article/getArticleClass";
+
+    /**
+     * 获取视频分类列表
+     */
+    public static final String videoGetVideoClassifyList = "video/getVideoClassifyList";
     /**
      * 银行卡列表
      */
@@ -194,6 +202,16 @@ public class CloudApi {
      * 签到成功展示的列表
      */
     public static String userSignList = "sign/signList";
+
+    /**
+     * 随机推荐文章
+     */
+    public static String articleGetRandomArticle = "article/getRandomArticle";
+
+    /**
+     * 获取10条提现成功的记录
+     */
+    public static String userBalanceGetUserCashRecordList = "userBalance/getUserCashRecordList";
     /**
      * 获取徒弟列表
      */
@@ -242,7 +260,66 @@ public class CloudApi {
                 .params("articleId", articleId)
                 .converter(new JsonConvert<BaseResponseBean>() {
                 })
-                .adapt(new ObservableResponse<BaseResponseBean>())
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 保存编辑顶级评论
+     */
+    public static Observable<Response<BaseResponseBean<DataBean>>> articleSaveArticleDiscuss(String articleId, String content) {
+        return OkGo.<BaseResponseBean<DataBean>>post(SERVLET_URL + "article/saveArticleDiscuss")
+                .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
+                .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .params("articleId", articleId)
+                .params("content", content)
+                .converter(new JsonConvert<BaseResponseBean<DataBean>>() {
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 保存编辑朋友圈顶级评论
+     */
+    public static Observable<Response<BaseResponseBean<DataBean>>> friendSaveFriendsDiscuss(String articleId, String content, String puserId) {
+        return OkGo.<BaseResponseBean<DataBean>>post(SERVLET_URL + "friend/saveFriendsDiscuss")
+                .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
+                .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .params("friendId", articleId)
+                .params("puserId", puserId)
+                .params("content", content)
+                .converter(new JsonConvert<BaseResponseBean<DataBean>>() {
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 保存编辑朋友圈
+     */
+    public static Observable<Response<BaseResponseBean<DataBean>>> friendSaveFriendsCircle(String text, int type, List<LocalMedia> localMediaList, String address) {
+        PostRequest<BaseResponseBean<DataBean>> post = OkGo.post(SERVLET_URL + "friend/saveFriendsCircle");
+        if (type == 0){
+            post.params("videoFile", new File(localMediaList.get(0).getPath()));
+            post.params("videoImg", new File(localMediaList.get(0).getCutPath()));
+        }else {
+            for (LocalMedia media : localMediaList){
+                post.params("imgFile", new File(media.getCompressPath()));
+            }
+        }
+        return post
+                .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
+                .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .params("context", text)
+                .params("address", address)
+                .converter(new NewsCallback<BaseResponseBean<DataBean>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<DataBean>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
                 .subscribeOn(Schedulers.io());
     }
 
@@ -310,7 +387,7 @@ public class CloudApi {
                 .params("pupiUserId", userId)
                 .converter(new JsonConvert<BaseResponseBean<DataBean>>() {
                 })
-                .adapt(new ObservableResponse<BaseResponseBean<DataBean>>())
+                .adapt(new ObservableResponse<>())
                 .subscribeOn(Schedulers.io());
     }
 
@@ -332,7 +409,7 @@ public class CloudApi {
                 .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
                 .converter(new JsonConvert<BaseResponseBean>() {
                 })
-                .adapt(new ObservableResponse<BaseResponseBean>())
+                .adapt(new ObservableResponse<>())
                 .subscribeOn(Schedulers.io());
     }
 
@@ -344,6 +421,65 @@ public class CloudApi {
                 .params("classId", id)
                 .params("page", pageNumber)
                 .params("size", Constants.pageSize)
+                .converter(new NewsCallback<BaseResponseBean<BaseListBean<DataBean>>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<BaseListBean<DataBean>>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 获取朋友圈列表
+     */
+    public static Observable<Response<BaseResponseBean<BaseListBean<DataBean>>>> friendGetFriendsCircleList(int pageNumber) {
+        return OkGo.<BaseResponseBean<BaseListBean<DataBean>>>get(SERVLET_URL + "friend/getFriendsCircleList")
+                .params("page", pageNumber)
+                .params("size", Constants.pageSize)
+                .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
+                .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .converter(new NewsCallback<BaseResponseBean<BaseListBean<DataBean>>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<BaseListBean<DataBean>>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 获取朋友圈评论列表
+     */
+    public static Observable<Response<BaseResponseBean<BaseListBean<DataBean>>>> friendGetFriendsDiscussList(int pageNumber, String friendId) {
+        return OkGo.<BaseResponseBean<BaseListBean<DataBean>>>get(SERVLET_URL + "friend/getFriendsDiscussList")
+                .params("friendId", friendId)
+                .params("page", pageNumber)
+                .params("size", Constants.pageSize)
+                .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
+                .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .converter(new NewsCallback<BaseResponseBean<BaseListBean<DataBean>>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<BaseListBean<DataBean>>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
+     * 获取视频列表
+     */
+    public static Observable<Response<BaseResponseBean<BaseListBean<DataBean>>>> videoGetVideoList(int pageNumber, String id) {
+        return OkGo.<BaseResponseBean<BaseListBean<DataBean>>>get(SERVLET_URL + "video/getVideoList")
+                .params("classId", id)
+                .params("page", pageNumber)
+                .params("size", Constants.pageSize)
+                .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
+                .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
                 .converter(new NewsCallback<BaseResponseBean<BaseListBean<DataBean>>>() {
                     @Override
                     public void onSuccess(Response<BaseResponseBean<BaseListBean<DataBean>>> response) {
@@ -381,6 +517,26 @@ public class CloudApi {
     }
 
     /**
+     * 获取文章评论列表
+     */
+    public static Observable<Response<BaseResponseBean<BaseListBean<DataBean>>>> articleGetArticleDiscussesList(int pageNumber, String articleId) {
+        return OkGo.<BaseResponseBean<BaseListBean<DataBean>>>get(SERVLET_URL + "article/getArticleDiscussesList")
+                .params("articleId", articleId)
+                .params("page", pageNumber)
+                .params("size", Constants.pageSize)
+                .params("token", ShareSessionIdCache.getInstance(Utils.getApp()).getSessionId())
+                .params("userId", ShareSessionIdCache.getInstance(Utils.getApp()).getUserId())
+                .converter(new NewsCallback<BaseResponseBean<BaseListBean<DataBean>>>() {
+                    @Override
+                    public void onSuccess(Response<BaseResponseBean<BaseListBean<DataBean>>> response) {
+
+                    }
+                })
+                .adapt(new ObservableResponse<BaseResponseBean<BaseListBean<DataBean>>>())
+                .subscribeOn(Schedulers.io());
+    }
+
+    /**
      * 通用list数据
      */
     public static Observable<Response<BaseResponseBean<BaseListBean<DataBean>>>> list(int pageNumber, String url) {
@@ -398,6 +554,7 @@ public class CloudApi {
                 .adapt(new ObservableResponse<BaseResponseBean<BaseListBean<DataBean>>>())
                 .subscribeOn(Schedulers.io());
     }
+
 
     /**
      * 通用list 2

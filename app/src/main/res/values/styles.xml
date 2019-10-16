@@ -44,6 +44,11 @@
 
     <style name="AppTheme.Popup" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="BottomSheetEdit" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item> <!--不浮现在活动上-->
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
     <style name="divider_dropshadow">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">2dp</item>

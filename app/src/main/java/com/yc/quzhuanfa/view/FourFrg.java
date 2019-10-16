@@ -11,6 +11,7 @@ import com.yc.quzhuanfa.adapter.SignAdapter;
 import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.base.User;
 import com.yc.quzhuanfa.bean.DataBean;
+import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.databinding.FFourBinding;
 import com.yc.quzhuanfa.impl.FourContract;
 import com.yc.quzhuanfa.presenter.FourPresenter;
@@ -79,7 +80,7 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
-                mPresenter.onRequest();
+//                mPresenter.onRequest();
                 mPresenter.signList();
                 mB.refreshLayout.finishRefreshing();
             }
@@ -90,7 +91,7 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.iv_head:
-//                UIHelper.startLoginAct();
+                UIHelper.startUserInfoFrg(this);
                 break;
             case R.id.ly_sign:
                 mPresenter.sign();

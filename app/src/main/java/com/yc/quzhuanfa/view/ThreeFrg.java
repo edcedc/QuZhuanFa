@@ -79,14 +79,13 @@ public class ThreeFrg extends BaseFragment<ThreePresenter, FThreeBinding> implem
     @Override
     protected void initView(View view) {
         setTitle(getString(R.string.apprentice), false);
-        view.findViewById(R.id.title_bar).setBackgroundColor(act.getColor(R.color.white));
-        view.findViewById(R.id.toolbar).setBackgroundColor(act.getColor(R.color.white));
+        view.findViewById(R.id.title_bar).setBackgroundColor(act.getResources().getColor(R.color.white));
+        view.findViewById(R.id.toolbar).setBackgroundColor(act.getResources().getColor(R.color.white));
         TextView top_title = view.findViewById(R.id.top_title);
-        top_title.setTextColor(act.getColor(R.color.tab_black));
+        top_title.setTextColor(act.getResources().getColor(R.color.tab_black));
         ImmersionBar.with(this).statusBarDarkFont(true).init();
         String s = CloudApi.REGISTER_URL + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId();
         s = s.replaceAll("#", "%23");
-        LogUtils.e(s);
         mPresenter.onShareUrl(s);
         mB.fyInviteFriends.setOnClickListener(this);
         mB.fyMyApprentice.setOnClickListener(this);

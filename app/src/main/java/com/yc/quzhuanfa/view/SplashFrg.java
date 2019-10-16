@@ -35,6 +35,7 @@ import java.util.List;
 
 import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.utils.cache.ShareSessionIdCache;
+import com.yc.quzhuanfa.utils.cache.SharedAccount;
 import com.yc.quzhuanfa.view.act.LoginAct;
 import com.yc.quzhuanfa.weight.RuntimeRationale;
 import com.youth.banner.BannerConfig;
@@ -244,24 +245,33 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
      * 权限都成功
      */
     private void setPermissionOk() {
-        String sessionId = ShareSessionIdCache.getInstance(act).getSessionId();
-        if (!StringUtils.isEmpty(sessionId)) {
-            CloudApi.userInfo()
+//        String sessionId = ShareSessionIdCache.getInstance(act).getSessionId();
+        SharedAccount instance = SharedAccount.getInstance(act);
+        String mobile = instance.getMobile();
+        String pwd = instance.getPwd();
+        if (!StringUtils.isEmpty(mobile) && !StringUtils.isEmpty(pwd)) {
+            CloudApi.login(mobile, pwd)
                     .doOnSubscribe(new Consumer<Disposable>() {
                         @Override
-                        public void accept(Disposable disposable){
+                        public void accept(Disposable disposable) {
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<JSONObject>() {
                         @Override
                         public void onSubscribe(Disposable d) {
-                            addDisposable(d);
                         }
 
                         @Override
                         public void onNext(JSONObject jsonObject) {
                             if (jsonObject.optInt("code") == Code.CODE_SUCCESS){
+                                JSONObject data = jsonObject.optJSONObject("result");
+                                JSONObject user = data.optJSONObject("user");
+                                ShareSessionIdCache.getInstance(act).save(data.optString("token"));
+                                ShareSessionIdCache.getInstance(act).saveUserId(user.optString("userId"));
+                                SharedAccount.getInstance(act).save(data.optString("phoneNum"), data.optString("password"));
+                                User.getInstance().setUserObj(user);
+                                User.getInstance().setLogin(true);
                                 UIHelper.startMainAct();
                                 ActivityUtils.finishAllActivities();
                             }else {
@@ -278,7 +288,6 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
                         public void onComplete() {
                         }
                     });
-
         } else {
             startNext();
         }

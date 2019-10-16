@@ -33,8 +33,10 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
     private final int FIRST = 0;
     private final int SECOND = 1;
     private final int THIRD = 2;
+    private final int FOUR = 3;
+    private final int FIVE = 4;
 
-    private SupportFragment[] mFragments = new SupportFragment[3];
+    private SupportFragment[] mFragments = new SupportFragment[5];
 
 
     @Override
@@ -55,9 +57,11 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
     @Override
     protected void initView(View view) {
        mB.bottomBar
-                .addItem(new BottomBarTab(_mActivity, R.mipmap.zw01, "新闻"))
-                .addItem(new BottomBarTab(_mActivity, R.mipmap.st01,"邀请"))
-                .addItem(new BottomBarTab(_mActivity, R.mipmap.wd01,"我的"));
+                .addItem(new BottomBarTab(_mActivity, R.mipmap.xinwen1, "新闻"))
+                .addItem(new BottomBarTab(_mActivity, R.mipmap.bf2,"视频"))
+                .addItem(new BottomBarTab(_mActivity, R.mipmap.pyq2,"朋友圈"))
+                .addItem(new BottomBarTab(_mActivity, R.mipmap.yq2,"邀请"))
+                .addItem(new BottomBarTab(_mActivity, R.mipmap.wd2,"我的"));
         mB.bottomBar.setOnTabSelectedListener(new BottomBar.OnTabSelectedListener() {
             @Override
             public void onTabSelected(int position, int prePosition) {
@@ -89,21 +93,27 @@ public class MainFrg extends BaseFragment<BasePresenter, FMainBinding> implement
         SupportFragment firstFragment = findChildFragment(OneFrg.class);
         if (firstFragment == null) {
             mFragments[FIRST] = OneFrg.newInstance();
-            mFragments[SECOND] = ThreeFrg.newInstance();
-            mFragments[THIRD] = FourFrg.newInstance();
+            mFragments[SECOND] = FiveFrg.newInstance();
+            mFragments[THIRD] = SixFrg.newInstance();
+            mFragments[FOUR] = ThreeFrg.newInstance();
+            mFragments[FIVE] = FourFrg.newInstance();
 
             loadMultipleRootFragment(R.id.fl_container,
                     FIRST,
                     mFragments[FIRST],
                     mFragments[SECOND],
-                    mFragments[THIRD]);
+                    mFragments[THIRD],
+                    mFragments[FOUR],
+                    mFragments[FIVE]);
         } else {
             // 这里库已经做了Fragment恢复,所有不需要额外的处理了, 不会出现重叠问题
 
             // 这里我们需要拿到mFragments的引用
             mFragments[FIRST] = firstFragment;
-            mFragments[SECOND] = findChildFragment(ThreeFrg.class);
-            mFragments[THIRD] = findChildFragment(FourFrg.class);
+            mFragments[SECOND] = findChildFragment(FiveFrg.class);
+            mFragments[THIRD] = findChildFragment(SixFrg.class);
+            mFragments[FOUR] = findChildFragment(ThreeFrg.class);
+            mFragments[FIVE] = findChildFragment(FourFrg.class);
         }
         setSwipeBackEnable(false);
     }

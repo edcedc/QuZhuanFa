@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.view.View;
 
+import com.gongwen.marqueen.SimpleMF;
+import com.gongwen.marqueen.SimpleMarqueeView;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.yc.quzhuanfa.R;
@@ -21,6 +23,7 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.transformer.DefaultTransformer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -76,6 +79,7 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
         setRecyclerViewType(mB.recyclerView);
         mB.recyclerView.addItemDecoration(new LinearDividerItemDecoration(act, DividerItemDecoration.VERTICAL,  2));
         mPresenter.onProfitOne();
+        mPresenter.onGetUserCashRecordList();
         setRefreshLayout(mB.refreshLayout, new RefreshListenerAdapter() {
             @Override
             public void onRefresh(TwinklingRefreshLayout refreshLayout) {
@@ -136,6 +140,22 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
 
     @Override
     public void setProfitOne(DataBean result) {
+    }
+
+    @Override
+    public void setCashRecordList(List<DataBean> result) {
+        List<String> list = new ArrayList<>();
+        for (DataBean bean : result){
+            String phoneNum = bean.getPhoneNum();
+            String str = phoneNum.substring(0, 3);
+            String str2 = phoneNum.substring(phoneNum.length() - 4);
+            phoneNum = str + "****" + str2;
+            list.add("用户" + phoneNum + "提现" + bean.getBalance() + "成功");
+        }
+        SimpleMF<String> marqueeFactory = new SimpleMF(act);
+        marqueeFactory.setData(list);
+        mB.simpleMarqueeView.setMarqueeFactory(marqueeFactory);
+        mB.simpleMarqueeView.startFlipping();
     }
 
     @Override

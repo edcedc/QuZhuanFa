@@ -39,12 +39,12 @@ public class CashAdapter extends BaseListViewAdapter<Integer> {
         RoundViewDelegate delegate = viewHolder.tv_text.getDelegate();
         if (this.position == position){
             viewHolder.iv_img.setVisibility(View.VISIBLE);
-            delegate.setStrokeColor(act.getColor(R.color.red_FF7D78));
-            viewHolder.tv_text.setTextColor(act.getColor(R.color.red_FF7D78));
+            delegate.setStrokeColor(act.getResources().getColor(R.color.red_FF7D78));
+            viewHolder.tv_text.setTextColor(act.getResources().getColor(R.color.red_FF7D78));
         }else {
             viewHolder.iv_img.setVisibility(View.GONE);
-            delegate.setStrokeColor(act.getColor(R.color.tab_gray));
-            viewHolder.tv_text.setTextColor(act.getColor(R.color.tab_gray));
+            delegate.setStrokeColor(act.getResources().getColor(R.color.tab_gray));
+            viewHolder.tv_text.setTextColor(act.getResources().getColor(R.color.tab_gray));
         }
         return convertView;
     }

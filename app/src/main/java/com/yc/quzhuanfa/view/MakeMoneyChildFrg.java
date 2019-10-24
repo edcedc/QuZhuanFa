@@ -52,43 +52,6 @@ public class MakeMoneyChildFrg extends BaseFragment<BasePresenter, FMakeMoneyBin
 
     @Override
     protected void initView(View view) {
-    /*CloudApi.commonQueryAPPAgreement(type)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                    }
-                })
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        addDisposable(d);
-                    }
-
-                    @Override
-                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
-                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
-                            DataBean data = baseResponseBeanResponse.body().result;
-                            if (data != null){
-                                mB.webView.loadUrl(CloudApi.SERVLET_URL + "#/H5?articleId=" +
-                                        data.getContent() +
-                                        "&userId=" +
-                                        ShareSessionIdCache.getInstance(act).getUserId());
-
-                            }
-                        }else {
-                            act.finish();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                    }
-
-                    @Override
-                    public void onComplete() {
-                    }
-                });*/
         setSwipeBackEnable(false);
         mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
         LogUtils.e(CloudApi.AGREEMENT_URL + type);

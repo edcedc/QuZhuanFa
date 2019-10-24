@@ -90,7 +90,7 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
 
         initView();
 //        vLoading = LoadingLayout.wrap(act);
-        vLoading = findViewById(R.id.loading);
+        vLoading = findViewById(R.id.loadinglayout);
 
         api = WXAPIFactory.createWXAPI(act, Constants.WX_APPID);
         getSwipeBackLayout().setEdgeOrientation(SwipeBackLayout.EDGE_ALL);
@@ -102,6 +102,7 @@ public abstract class BaseActivity<P extends BasePresenter, VB extends ViewDataB
         if (!isFullScreen){
             ImmersionBar.with(this).statusBarColor(R.color.red_FF7D78).init();
         }else {
+            ImmersionBar.with(this).statusBarColor(R.color.red_FF7D78).init();
 
         }
     }

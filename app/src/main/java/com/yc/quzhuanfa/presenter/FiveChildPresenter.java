@@ -31,11 +31,8 @@ public class FiveChildPresenter extends FiveChildContract.Presenter {
 
     @Override
     public void onRequest(int pagerNumber, String id) {
-        CloudApi.videoGetVideoList(pagerNumber, id)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable){
-                    }
+        CloudApi.videoGetVideoList(pagerNumber, id, null)
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean<BaseListBean<DataBean>>>>() {
@@ -56,6 +53,85 @@ public class FiveChildPresenter extends FiveChildContract.Presenter {
                                 mView.setRefreshLayoutMode(data.getTotalCount());
                             }
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void onCollectList(int pagerNumber) {
+        CloudApi.articleGetArticleCollectList(pagerNumber)
+                .doOnSubscribe(disposable -> {
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<BaseListBean<DataBean>>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<BaseListBean<DataBean>>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            BaseListBean<DataBean> data = baseResponseBeanResponse.body().result;
+                            if (data != null){
+                                List<DataBean> list = data.getList();
+                                if (list != null){
+                                    mView.setData(list);
+                                 }
+                                mView.setRefreshLayoutMode(data.getTotalCount());
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+
+
+    @Override
+    public void onVideoCollect(int position, String videoId, int isTrue) {
+        if (isTrue == 0){
+            isTrue = 1;
+        }else {
+            isTrue = 0;
+        }
+        int finalIsTrue = isTrue;
+        CloudApi.videoVideoCollect(videoId, isTrue)
+                .doOnSubscribe(disposable -> {
+                    mView.showLoading();
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<Object>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<Object>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            mView.setCollect(position, finalIsTrue);
+                        }
+//                        showToast(baseResponseBeanResponse.body().description);
                     }
 
                     @Override

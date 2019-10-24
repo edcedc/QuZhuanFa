@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import com.blankj.utilcode.util.StringUtils;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseListViewAdapter;
+import com.yc.quzhuanfa.base.User;
 import com.yc.quzhuanfa.bean.DataBean;
 
 import java.util.List;
@@ -65,13 +66,13 @@ public class CommentChildAdapter extends BaseListViewAdapter<DataBean> {
         String content = bean.getContent();
         String pUserId = bean.getPuserId();
         SpannableString cSp;
-        if (StringUtils.isEmpty(pUserId)){
+        if (StringUtils.isEmpty(pUserId) || User.getInstance().getUserId().equals(pUserId)){
             cSp = new SpannableString(name + "：" + content);
-            cSp.setSpan(new ForegroundColorSpan(Color.parseColor("#797979")), name.length() + 1, cSp.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+            cSp.setSpan(new ForegroundColorSpan(Color.parseColor("#FC7875")), 0, name.length() + 1, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         }else {
             cSp = new SpannableString(name + "：回复" + byName + "：" + content);
-            cSp.setSpan(new ForegroundColorSpan(Color.parseColor("#797979")), name.length() + 1, name.length() + 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            cSp.setSpan(new ForegroundColorSpan(Color.parseColor("#797979")), cSp.length() - content.length(), cSp.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            cSp.setSpan(new ForegroundColorSpan(Color.parseColor("#FC7875")), 0, name.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            cSp.setSpan(new ForegroundColorSpan(Color.parseColor("#FC7875")), name.length() + 2, name.length() + 2 + byName.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         viewHolder.tv_content.setText(cSp);
         return convertView;

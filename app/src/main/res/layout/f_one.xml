@@ -44,7 +44,7 @@
 
                     <android.support.v7.widget.AppCompatTextView
                         android:layout_marginRight="@dimen/px40"
-                        android:text="@string/home_search_title"
+                        android:text="@string/home_search"
                         style="@style/Tv13gray" />
 
                     <android.support.v7.widget.AppCompatImageView

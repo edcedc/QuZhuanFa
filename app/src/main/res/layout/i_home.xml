@@ -24,7 +24,7 @@
     <com.yc.quzhuanfa.weight.RoundImageView
         android:id="@+id/iv_img"
         android:layout_width="@dimen/px224"
-        android:layout_height="@dimen/px158"
+        android:layout_height="@dimen/px226"
         android:scaleType="centerInside"
         android:src="@mipmap/place_holder"
         app:layout_constraintRight_toRightOf="parent" />
@@ -32,25 +32,26 @@
     <com.flyco.roundview.RoundTextView
         android:id="@+id/tv_price"
         style="@style/Tv12red"
-        android:layout_marginBottom="@dimen/px10"
         android:paddingLeft="@dimen/px10"
         android:paddingRight="@dimen/px10"
         android:textSize="@dimen/size20"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/tv_read"
         app:rv_cornerRadius="@dimen/px10"
+        android:layout_marginBottom="@dimen/px20"
         app:rv_strokeColor="@color/red_EF402C"
         app:rv_strokeWidth="@dimen/px1" />
 
-    <android.support.v7.widget.AppCompatTextView
+    <com.flyco.roundview.RoundTextView
         android:id="@+id/tv_read"
-        android:visibility="invisible"
+        app:rv_strokeColor="@color/tab_gray"
+        app:rv_strokeWidth="@dimen/px1"
+        app:rv_cornerRadius="@dimen/px10"
+        android:paddingLeft="@dimen/px10"
+        android:paddingRight="@dimen/px10"
+        android:textSize="@dimen/size20"
+        app:layout_constraintBottom_toBottomOf="@id/iv_img"
         style="@style/Tv12gray"
-        android:layout_marginLeft="@dimen/px20"
-        android:layout_marginBottom="@dimen/px10"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@id/tv_price" />
-
-
+        app:layout_constraintLeft_toLeftOf="@id/tv_price"/>
 
     <android.support.v7.widget.AppCompatImageView
         android:id="@+id/iv_delete"

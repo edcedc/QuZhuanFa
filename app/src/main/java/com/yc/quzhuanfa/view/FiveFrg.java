@@ -13,6 +13,7 @@ import com.yc.quzhuanfa.base.BaseListPresenter;
 import com.yc.quzhuanfa.base.BasePresenter;
 import com.yc.quzhuanfa.bean.DataBean;
 import com.yc.quzhuanfa.controller.CloudApi;
+import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.databinding.FFiveBinding;
 import com.yc.quzhuanfa.databinding.FOneBinding;
 
@@ -65,7 +66,7 @@ public class FiveFrg extends BaseFragment<BaseListPresenter, FFiveBinding> imple
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.iv_add:
-
+                UIHelper.startSearchVideoFrg(this);
                 break;
         }
     }
@@ -77,6 +78,7 @@ public class FiveFrg extends BaseFragment<BaseListPresenter, FFiveBinding> imple
 
     @Override
     public void setData(Object data) {
+        setSwipeBackEnable(false);
         list = (List<DataBean>) data;
         ArrayList<Fragment> mFragments = new ArrayList<>();
         String[] strings = new String[list.size()];

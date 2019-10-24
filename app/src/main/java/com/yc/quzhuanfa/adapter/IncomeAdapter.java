@@ -83,11 +83,8 @@ public class IncomeAdapter extends BaseRecyclerviewAdapter<DataBean> {
 
         viewHolder.tv_state.setText((bean.getBalanceType() == 1 ? "+" : "-") + bean.getBalance());
 
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        viewHolder.itemView.setOnClickListener(view -> {
 
-            }
         });
     }
 

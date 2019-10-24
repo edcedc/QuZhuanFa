@@ -94,12 +94,7 @@ public class LoginPresenter extends LoginContract.Presenter {
                 return;
             }
             CloudApi.login(phone, pwd)
-                    .doOnSubscribe(new Consumer<Disposable>() {
-                        @Override
-                        public void accept(Disposable disposable) throws Exception {
-                            mView.showLoading();
-                        }
-                    })
+                    .doOnSubscribe(disposable -> mView.showLoading())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<JSONObject>() {
                         @Override
@@ -110,7 +105,7 @@ public class LoginPresenter extends LoginContract.Presenter {
                         @Override
                         public void onNext(JSONObject jsonObject) {
                             if (jsonObject.optInt("code") == Code.CODE_SUCCESS) {
-                                login(jsonObject);
+                                login(jsonObject, pwd);
                             }
                             showToast(jsonObject.optString("description"));
                         }
@@ -135,12 +130,7 @@ public class LoginPresenter extends LoginContract.Presenter {
                 return;
             }
             CloudApi.register(phone, code, invitation, pwd)
-                    .doOnSubscribe(new Consumer<Disposable>() {
-                        @Override
-                        public void accept(Disposable disposable) throws Exception {
-                            mView.showLoading();
-                        }
-                    })
+                    .doOnSubscribe(disposable -> mView.showLoading())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<JSONObject>() {
                         @Override
@@ -151,7 +141,7 @@ public class LoginPresenter extends LoginContract.Presenter {
                         @Override
                         public void onNext(JSONObject jsonObject) {
                             if (jsonObject.optInt("code") == Code.CODE_SUCCESS) {
-                                login(jsonObject);
+                                login(jsonObject, pwd);
                             }
                             showToast(jsonObject.optString("description"));
                         }
@@ -172,10 +162,7 @@ public class LoginPresenter extends LoginContract.Presenter {
     @Override
     public void getAgreement() {
         CloudApi.commonQueryAPPAgreement(16)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                    }
+                .doOnSubscribe(disposable -> {
                 })
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
@@ -207,12 +194,7 @@ public class LoginPresenter extends LoginContract.Presenter {
     @Override
     public void wxLogin(String openid, String access_token) {
         CloudApi.wxLogin(openid, access_token)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        mView.showLoading();
-                    }
-                })
+                .doOnSubscribe(disposable -> mView.showLoading())
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JSONObject>() {
                     @Override
@@ -226,12 +208,7 @@ public class LoginPresenter extends LoginContract.Presenter {
                         String nickname = jsonObject.optString("nickname");
                         String headimgurl = jsonObject.optString("headimgurl");
                         CloudApi.wxlogin(openid1, nickname, headimgurl)
-                                .doOnSubscribe(new Consumer<Disposable>() {
-                                    @Override
-                                    public void accept(Disposable disposable) throws Exception {
-                                        mView.showLoading();
-                                    }
-                                })
+                                .doOnSubscribe(disposable -> mView.showLoading())
                                 .subscribeOn(AndroidSchedulers.mainThread())
                                 .subscribe(new Observer<JSONObject>() {
                                     @Override
@@ -242,7 +219,7 @@ public class LoginPresenter extends LoginContract.Presenter {
                                     @Override
                                     public void onNext(JSONObject jsonObject) {
                                         if (jsonObject.optInt("code") == Code.CODE_SUCCESS) {
-                                            login(jsonObject);
+                                            login(jsonObject, null);
                                         }
                                     }
 
@@ -270,12 +247,12 @@ public class LoginPresenter extends LoginContract.Presenter {
                 });
     }
 
-    private void login(JSONObject jsonObject) {
+    private void login(JSONObject jsonObject, String pwd) {
         JSONObject data = jsonObject.optJSONObject("result");
         JSONObject user = data.optJSONObject("user");
         ShareSessionIdCache.getInstance(act).save(data.optString("token"));
         ShareSessionIdCache.getInstance(act).saveUserId(user.optString("userId"));
-        SharedAccount.getInstance(act).save(data.optString("phoneNum"), data.optString("password"));
+        SharedAccount.getInstance(act).save(user.optString("phoneNum"), pwd);
         User.getInstance().setUserObj(user);
         User.getInstance().setLogin(true);
         UIHelper.startMainAct();

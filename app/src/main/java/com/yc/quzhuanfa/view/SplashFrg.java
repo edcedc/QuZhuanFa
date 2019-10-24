@@ -172,20 +172,12 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
                         Manifest.permission.CAMERA//拍照权限, 允许访问摄像头进行拍照
                 )
                 .rationale(new RuntimeRationale())
-                .onGranted(new Action<List<String>>() {
-                    @Override
-                    public void onAction(List<String> permissions) {
-                        setPermissionOk();
-                    }
-                })
-                .onDenied(new Action<List<String>>() {
-                    @Override
-                    public void onAction(@NonNull List<String> permissions) {
-                        if (AndPermission.hasAlwaysDeniedPermission(SplashFrg.this, permissions)) {
-                            showSettingDialog(act, permissions);
-                        } else {
-                            setPermissionCancel();
-                        }
+                .onGranted(permissions -> setPermissionOk())
+                .onDenied(permissions -> {
+                    if (AndPermission.hasAlwaysDeniedPermission(SplashFrg.this, permissions)) {
+                        showSettingDialog(act, permissions);
+                    } else {
+                        setPermissionCancel();
                     }
                 })
                 .start();
@@ -202,18 +194,8 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
                 .setCancelable(false)
                 .setTitle(R.string.title_dialog)
                 .setMessage(message)
-                .setPositiveButton(R.string.setting, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        setPermission();
-                    }
-                })
-                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        setPermissionCancel();
-                    }
-                })
+                .setPositiveButton(R.string.setting, (dialog, which) -> setPermission())
+                .setNegativeButton(R.string.cancel, (dialog, which) -> setPermissionCancel())
                 .show();
     }
 
@@ -224,12 +206,9 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
         AndPermission.with(this)
                 .runtime()
                 .setting()
-                .onComeback(new Setting.Action() {
-                    @Override
-                    public void onAction() {
-                        setHasPermission();
+                .onComeback(() -> {
+                    setHasPermission();
 //                        ToastUtils.showShort("用户从设置页面返回。");
-                    }
                 })
                 .start();
     }
@@ -251,10 +230,7 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
         String pwd = instance.getPwd();
         if (!StringUtils.isEmpty(mobile) && !StringUtils.isEmpty(pwd)) {
             CloudApi.login(mobile, pwd)
-                    .doOnSubscribe(new Consumer<Disposable>() {
-                        @Override
-                        public void accept(Disposable disposable) {
-                        }
+                    .doOnSubscribe(disposable -> {
                     })
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new Observer<JSONObject>() {
@@ -269,7 +245,7 @@ public class SplashFrg extends BaseFragment<BasePresenter, FSplashBinding> imple
                                 JSONObject user = data.optJSONObject("user");
                                 ShareSessionIdCache.getInstance(act).save(data.optString("token"));
                                 ShareSessionIdCache.getInstance(act).saveUserId(user.optString("userId"));
-                                SharedAccount.getInstance(act).save(data.optString("phoneNum"), data.optString("password"));
+//                                SharedAccount.getInstance(act).save(user.optString("phoneNum"), user.optString("password"));
                                 User.getInstance().setUserObj(user);
                                 User.getInstance().setLogin(true);
                                 UIHelper.startMainAct();

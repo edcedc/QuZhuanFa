@@ -22,8 +22,8 @@
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:focusableInTouchMode="true"
                     android:layout_height="match_parent"
+                    android:focusableInTouchMode="true"
                     android:orientation="vertical">
 
                     <com.youth.banner.Banner
@@ -35,18 +35,18 @@
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/recyclerView"
-                        app:layout_constraintTop_toBottomOf="@id/banner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:nestedScrollingEnabled="false"
-                        android:overScrollMode="never" />
+                        android:overScrollMode="never"
+                        app:layout_constraintTop_toBottomOf="@id/banner" />
 
                     <com.gongwen.marqueen.SimpleMarqueeView
                         android:id="@+id/simpleMarqueeView"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:flipInterval="2500"
                         android:background="#44000000"
+                        android:flipInterval="2500"
                         android:inAnimation="@anim/in_right"
                         android:outAnimation="@anim/out_left"
                         app:marqueeAnimDuration="2000"

@@ -5,6 +5,9 @@ import android.view.View;
 
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.base.BaseFragment;
+import com.yc.quzhuanfa.databinding.FVideoDescBinding;
+import com.yc.quzhuanfa.impl.VideoDescContract;
+import com.yc.quzhuanfa.presenter.VideoDescPresenter;
 
 /**
  * Created by Android Studio.
@@ -25,7 +28,7 @@ public class VideoDescFrg extends BaseFragment {
 
     @Override
     public void initPresenter() {
-
+        mPresenter.init(this);
     }
 
     @Override
@@ -40,6 +43,8 @@ public class VideoDescFrg extends BaseFragment {
 
     @Override
     protected void initView(View view) {
+//        setTitle(getString(R.string.details));
 
     }
+
 }

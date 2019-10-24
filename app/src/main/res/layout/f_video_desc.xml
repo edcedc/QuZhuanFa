@@ -1,6 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white_f4f4f4">
+
+                <android.support.v4.widget.NestedScrollView
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fillViewport="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp"
+                            android:background="@color/black"/>
+
+                        <com.yc.quzhuanfa.weight.GSYSampleADVideoPlayer
+                            android:id="@+id/videoPlayer"
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"/>
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:max="100"
+                            android:progress="0" />
+
+                        <com.yc.quzhuanfa.weight.X5WebView
+                            android:id="@+id/webView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/px20"
+                            android:layout_marginRight="@dimen/px20" />
+
+                        <View style="@style/divider_1" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recyclerView"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false"
+                            android:overScrollMode="never"/>
+
+                        <View style="@style/divider_1" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <android.support.v7.widget.AppCompatTextView
+                                style="@style/Tv15black"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:padding="@dimen/px30"
+                                android:text="@string/popular_comments" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/tv_comment"
+                                style="@style/Tv15black"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:padding="@dimen/px30"
+                                android:text="@string/xie_comments" />
+
+                            <android.support.v7.widget.AppCompatTextView
+                                android:id="@+id/tv_collect"
+                                style="@style/Tv15black"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:drawableRight="@mipmap/shouwei1"
+                                android:gravity="center"
+                                android:padding="@dimen/px30"
+                                android:text="@string/collect_articles" />
+
+                        </LinearLayout>
+
+                        <View style="@style/divider_1" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rv_comment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:nestedScrollingEnabled="false"
+                            android:overScrollMode="never" />
+
+                    </LinearLayout>
+
+                </android.support.v4.widget.NestedScrollView>
+
+            </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_look"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:alpha="0.5"
+                android:background="@color/bar_grey"
+                android:gravity="center"
+                android:text="分享才能查看"
+                android:textColor="@color/white"
+                android:textSize="50sp"
+                android:visibility="gone" />
+
+        </FrameLayout>
+
+        <View style="@style/divider_dropshadow" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="@dimen/px20">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/tv_forwarding"
+                style="@style/Tv15black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/px20"
+                android:text="@string/forwarding" />
+
+            <com.flyco.roundview.RoundTextView
+                android:id="@+id/tv_share"
+                style="@style/Tv15black"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="@dimen/px20"
+                android:text="@string/forwarding1"
+                android:textColor="@color/white"
+                app:rv_backgroundColor="@color/red_FF7D78"
+                app:rv_cornerRadius="@dimen/px40" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

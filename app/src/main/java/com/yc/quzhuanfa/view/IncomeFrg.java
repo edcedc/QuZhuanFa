@@ -12,7 +12,9 @@ import com.yc.quzhuanfa.base.BaseListContract;
 import com.yc.quzhuanfa.base.BaseListPresenter;
 import com.yc.quzhuanfa.bean.DataBean;
 import com.yc.quzhuanfa.controller.CloudApi;
+import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.databinding.BRecyclerBinding;
+import com.yc.quzhuanfa.databinding.FIncomeBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.List;
  * Time: 11:07
  *  收入明细
  */
-public class IncomeFrg extends BaseFragment<BaseListPresenter, BRecyclerBinding> implements BaseListContract.View {
+public class IncomeFrg extends BaseFragment<BaseListPresenter, FIncomeBinding> implements BaseListContract.View, View.OnClickListener {
 
     private List<DataBean> listBean = new ArrayList<>();
     private IncomeAdapter adapter;
@@ -41,12 +43,13 @@ public class IncomeFrg extends BaseFragment<BaseListPresenter, BRecyclerBinding>
 
     @Override
     protected int bindLayout() {
-        return R.layout.b_recycler;
+        return R.layout.f_income;
     }
 
     @Override
     protected void initView(View view) {
         setTitle(getString(R.string.income));
+        mB.tvLook.setOnClickListener(this);
         if (adapter == null) {
             adapter = new IncomeAdapter(act, listBean);
         }
@@ -92,4 +95,12 @@ public class IncomeFrg extends BaseFragment<BaseListPresenter, BRecyclerBinding>
         adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.tv_look:
+                UIHelper.startMakeMoneyAct();
+                break;
+        }
+    }
 }

@@ -63,6 +63,7 @@ public class SixFrg extends BaseFragment<SixPresenter, BRecyclerBinding> impleme
     @Override
     protected void initView(View view) {
         setTitle(getString(R.string.pyq), R.mipmap.xj1, false);
+        setSwipeBackEnable(false);
         commentBottomFrg = new CommentBottomFrg();
         if (adapter == null) {
             adapter = new PyqAdapter(act, this, listBean);

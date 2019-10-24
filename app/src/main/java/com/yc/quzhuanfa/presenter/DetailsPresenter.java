@@ -6,8 +6,10 @@ import com.yc.quzhuanfa.bean.BaseResponseBean;
 import com.yc.quzhuanfa.bean.DataBean;
 import com.yc.quzhuanfa.callback.Code;
 import com.yc.quzhuanfa.controller.CloudApi;
+import com.yc.quzhuanfa.event.CollectInEvent;
 import com.yc.quzhuanfa.impl.DetailsContract;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONObject;
 
 import java.util.List;
@@ -22,10 +24,7 @@ public class DetailsPresenter extends DetailsContract.Presenter {
     @Override
     public void onSaveForward(String id) {
         CloudApi.saveForward(id)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) {
-                    }
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean>>() {
@@ -59,10 +58,7 @@ public class DetailsPresenter extends DetailsContract.Presenter {
     @Override
     public void onShareUrl(String url) {
         CloudApi.share(url)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                    }
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JSONObject>() {
@@ -128,10 +124,7 @@ public class DetailsPresenter extends DetailsContract.Presenter {
     @Override
     public void onArticleDiscussesList(int i, String articleId) {
         CloudApi.articleGetArticleDiscussesList(i, articleId)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) {
-                    }
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean<BaseListBean<DataBean>>>>() {
@@ -190,6 +183,77 @@ public class DetailsPresenter extends DetailsContract.Presenter {
                     @Override
                     public void onComplete() {
 
+                    }
+                });
+    }
+
+    @Override
+    public void onCollect(String articleId, int isTrue, int position) {
+        if (isTrue == 0){
+            isTrue = 1;
+        }else {
+            isTrue = 0;
+        }
+        int finalIsTrue = isTrue;
+        CloudApi.articleArticleCollect(articleId, isTrue)
+                .doOnSubscribe(disposable -> {
+                    mView.showLoading();
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<Object>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<Object>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            EventBus.getDefault().post(new CollectInEvent(0, finalIsTrue, position));
+                            mView.setCollect(finalIsTrue);
+                        }
+//                        showToast(baseResponseBeanResponse.body().description);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
+                    }
+                });
+    }
+
+    @Override
+    public void onSaveHistory(String articleId) {
+        CloudApi.articleSaveHistory(1, articleId)
+                .doOnSubscribe(disposable -> {
+                    mView.showLoading();
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<Object>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        mView.addDisposable(d);
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<Object>> baseResponseBeanResponse) {
+                        if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        mView.onError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.hideLoading();
                     }
                 });
     }

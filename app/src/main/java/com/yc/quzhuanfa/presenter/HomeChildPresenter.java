@@ -30,11 +30,8 @@ public class HomeChildPresenter extends HomeChildContract.Presenter {
 
     @Override
     public void onRequest(int pagerNumber, String id) {
-        CloudApi.articleGetArticleList(pagerNumber, id)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable){
-                    }
+        CloudApi.articleGetArticleList(pagerNumber, id, null)
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean<BaseListBean<DataBean>>>>() {
@@ -77,10 +74,7 @@ public class HomeChildPresenter extends HomeChildContract.Presenter {
     @Override
     public void onGetUserCashRecordList() {
         CloudApi.list2(CloudApi.userBalanceGetUserCashRecordList)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) {
-                    }
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean<List<DataBean>>>>() {

@@ -18,6 +18,7 @@ public interface FiveChildContract {
 
         void setBanner(List<DataBean> list);
 
+        void setCollect(int position, int isTrue);
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -26,6 +27,9 @@ public interface FiveChildContract {
 
         public abstract void onRequest(int pagerNumber, String id);
 
+        public abstract void onCollectList(int pagerNumber);
+
+        public abstract void onVideoCollect(int position, String videoId, int isTrue);
     }
 
 }

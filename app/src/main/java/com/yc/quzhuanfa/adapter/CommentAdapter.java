@@ -34,11 +34,8 @@ public class CommentAdapter extends BaseRecyclerviewAdapter<DataBean> {
         GlideLoadingUtils.load(act, bean.getHead(), viewHolder.iv_head);
         viewHolder.tv_name.setText(bean.getUserNickName());
         viewHolder.tv_content.setText(bean.getContent());
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        viewHolder.itemView.setOnClickListener(view -> {
 
-            }
         });
     }
 

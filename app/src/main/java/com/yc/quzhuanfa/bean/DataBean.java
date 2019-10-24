@@ -63,7 +63,35 @@ public class DataBean implements Serializable {
     private String video;
     private String friendId;
     private String puserId;
+    private String videoId;
+    private int cType = -1;
     private int isTrue;
+    private int position;
+    private int adType;
+
+    public int getAdType() {
+        return adType;
+    }
+
+    public int getcType() {
+        return cType;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public void setIsTrue(int isTrue) {
+        this.isTrue = isTrue;
+    }
+
+    public String getVideoId() {
+        return videoId;
+    }
 
     public String getpUserNickName() {
         return pUserNickName;

@@ -56,35 +56,44 @@ public class FourPresenter extends FourContract.Presenter{
         }
         adapter = new MeAdapter(act, listStr, true);
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                switch (i){
-                    case 0:
-                        JSONObject userObj = User.getInstance().getUserObj();
-                        String phoneNum = userObj.optString("phoneNum");
-                        if (phoneNum.equals("null") || StringUtils.isEmpty(phoneNum)){
-                            UIHelper.startBindPhoneFrg(root);
-                        }else {
-                            showToast("已绑定过手机号码");
-                        }
-                        break;
-                    case 1:
-                        UIHelper.startCashFrg(root);
-                        break;
-                    case 2:
-                        UIHelper.startIncomeFrg(root);
-                        break;
-                    case 3:
-                        UIHelper.startContactFrg(root);
-                        break;
-                    case 4:
-                        UIHelper.startSetFrg(root);
-                        break;
-                    case 5:
-                        UIHelper.startActionCenterAct();
-                        break;
-                }
+        listView.setOnItemClickListener((adapterView, view, i, l) -> {
+            switch (i){
+                case 0:
+                    JSONObject userObj = User.getInstance().getUserObj();
+                    String phoneNum = userObj.optString("phoneNum");
+                    if (phoneNum.equals("null") || StringUtils.isEmpty(phoneNum)){
+                        UIHelper.startBindPhoneFrg(root);
+                    }else {
+                        showToast("已绑定过手机号码");
+                    }
+                    break;
+                case 1:
+                    UIHelper.startCashFrg(root);
+                    break;
+                case 2:
+                    UIHelper.startIncomeFrg(root);
+                    break;
+                case 3:
+                    UIHelper.startContactFrg(root);
+                    break;
+                case 4:
+                    UIHelper.startSetFrg(root);
+                    break;
+                case 5:
+                    UIHelper.startActionCenterAct();
+                    break;
+                case 6:
+                    UIHelper.startVideoCollectFrg(root);
+                    break;
+                case 7:
+                    UIHelper.startEvaluateFrg(root);
+                    break;
+                case 8:
+
+                    break;
+                case 9:
+                    UIHelper.startHistoryFrg(root);
+                    break;
             }
         });
 
@@ -93,10 +102,7 @@ public class FourPresenter extends FourContract.Presenter{
     @Override
     public void onRequest() {
         CloudApi.userInfo()
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                    }
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<JSONObject>() {

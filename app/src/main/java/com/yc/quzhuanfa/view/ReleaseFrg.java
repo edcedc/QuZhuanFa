@@ -116,8 +116,7 @@ public class ReleaseFrg extends BaseFragment<ReleasePresenter, FReleaseBinding> 
                 mPresenter.onRelease(mB.etText.getText().toString(), type, localMediaList, mB.tvAddress.getText().toString());
                 break;
             case R.id.tv_location:
-                String picker = DatePickerUtils.onAddressPicker(act);
-                mB.tvAddress.setText(picker);
+                DatePickerUtils.onAddressPicker(act, add -> mB.tvAddress.setText(add));
                 break;
         }
     }

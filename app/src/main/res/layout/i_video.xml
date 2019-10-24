@@ -68,7 +68,6 @@
         app:layout_constraintRight_toRightOf="parent"
         android:text="@string/xie_comments"
         android:drawableRight="@mipmap/pinglun1"
-        android:background="?actionBarItemBackground"
         android:drawablePadding="@dimen/px20"
         android:padding="@dimen/px30"
         style="@style/Tv12black" />
@@ -78,7 +77,6 @@
         app:layout_constraintTop_toTopOf="@id/tv_collect"
         app:layout_constraintBottom_toBottomOf="@id/tv_collect"
         app:layout_constraintRight_toRightOf="parent"
-        android:background="?actionBarItemBackground"
         android:padding="@dimen/px30"
         style="@style/Tv12gray" />
 

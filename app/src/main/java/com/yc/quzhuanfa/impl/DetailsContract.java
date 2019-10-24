@@ -2,7 +2,6 @@ package com.yc.quzhuanfa.impl;
 
 import com.yc.quzhuanfa.base.BasePresenter;
 import com.yc.quzhuanfa.base.IBaseListView;
-import com.yc.quzhuanfa.base.IBaseView;
 import com.yc.quzhuanfa.bean.DataBean;
 
 import java.util.List;
@@ -17,6 +16,7 @@ public interface DetailsContract {
 
         void setSaveDiscuss(DataBean bean);
 
+        void setCollect(int finalIsTrue);
     }
 
     abstract class Presenter extends BasePresenter<View> {
@@ -33,6 +33,9 @@ public interface DetailsContract {
 
         public abstract void onSaveDiscuss(String articleId, String content);
 
+        public abstract void onCollect(String articleId, int isTrue, int position);
+
+        public abstract void onSaveHistory(String articleId);
     }
     
 }

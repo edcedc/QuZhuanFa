@@ -51,17 +51,14 @@ public class FiveChildAdapter extends BaseRecyclerviewAdapter<DataBean> {
         final DataBean bean = listBean.get(position);
         if (holder instanceof ViewHolder){
             ViewHolder viewHolder = (ViewHolder) holder;
-            GlideLoadingUtils.loadRounded(act, CloudApi.SERVLET_IMG_URL + bean.getArticleId(), viewHolder.iv_img);
+            GlideLoadingUtils.loadRounded(act, CloudApi.SERVLET_VIDEO_URL + bean.getVideo(), viewHolder.iv_img);
             viewHolder.tv_content.setText(bean.getTitle());
             viewHolder.tv_time.setText(TimeUtil.getTimeFormatText(bean.getCreateTime()));
             viewHolder.tv_collect.setCompoundDrawablesWithIntrinsicBounds(null,
                     null, act.getResources().getDrawable(bean.getIsTrue() == 0 ? R.mipmap.weidianzan1 : R.mipmap.dianzan1, null), null);
-            viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    UIHelper.startVideoAct(bean);
-                }
-            });
+            bean.setPosition(position);
+            viewHolder.itemView.setOnClickListener(view -> UIHelper.startVideoAct(bean));
+            viewHolder.tv_collect.setOnClickListener(view -> listener.OnClickCollect(position, bean.getVideoId(), bean.getIsTrue()));
         }else if (holder instanceof AdvHolder){
             AdvHolder viewHolder = (AdvHolder) holder;
             GlideLoadingUtils.loadRounded(act, CloudApi.SERVLET_IMG_URL + bean.getAdAttachId(), viewHolder.iv_img);
@@ -76,6 +73,14 @@ public class FiveChildAdapter extends BaseRecyclerviewAdapter<DataBean> {
         }else {
             return new AdvHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.i_video_adv, parent, false));
         }
+    }
+
+    private OnClickListener listener;
+    public void setOnClickListener(OnClickListener listener){
+        this.listener = listener;
+    }
+    public interface OnClickListener{
+        void OnClickCollect(int position, String videoId, int isTrue);
     }
 
     class AdvHolder extends RecyclerView.ViewHolder{

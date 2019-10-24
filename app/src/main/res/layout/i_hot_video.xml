@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.flyco.roundview.RoundTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:textSize="@dimen/size22"
+    android:text="xxxxxx"
+    android:id="@+id/tv_text"
+    android:gravity="center"
+    android:padding="@dimen/px15"
+    app:rv_cornerRadius="@dimen/px10"
+    app:rv_backgroundColor="@color/white_f4f4f4"
+    android:layout_height="wrap_content">
+
+</com.flyco.roundview.RoundTextView>

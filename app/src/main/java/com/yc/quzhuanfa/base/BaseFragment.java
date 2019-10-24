@@ -42,6 +42,7 @@ import android.widget.TextView;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
+import com.gyf.immersionbar.ImmersionBar;
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
@@ -128,7 +129,7 @@ public abstract class BaseFragment<P extends BasePresenter, VB extends ViewDataB
         if (!isFullScreen){
 //            ImmersionBar.with(this).statusBarColor(R.color.red_FF7D78).init();
         }else {
-
+            ImmersionBar.with(this).statusBarColor(R.color.red_FF7D78).init();
         }
     }
 

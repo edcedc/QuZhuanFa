@@ -5,6 +5,10 @@ import android.support.v4.app.Fragment;
 
 import com.blankj.utilcode.util.ActivityUtils;
 import com.google.gson.Gson;
+import com.yc.quzhuanfa.view.EvaluateFrg;
+import com.yc.quzhuanfa.view.HistoryFrg;
+import com.yc.quzhuanfa.view.SearchVideoFrg;
+import com.yc.quzhuanfa.view.CollectFrg;
 import com.yc.quzhuanfa.MainActivity;
 import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.bean.DataBean;
@@ -15,15 +19,17 @@ import com.yc.quzhuanfa.view.BindPhoneFrg;
 import com.yc.quzhuanfa.view.CashFrg;
 import com.yc.quzhuanfa.view.CommentDescFrg;
 import com.yc.quzhuanfa.view.ContactFrg;
-import com.yc.quzhuanfa.view.FourFrg;
+import com.yc.quzhuanfa.view.HeadFrg;
 import com.yc.quzhuanfa.view.IncomeFrg;
 import com.yc.quzhuanfa.view.MainFrg;
+import com.yc.quzhuanfa.view.MakeMoneyChildFrg;
 import com.yc.quzhuanfa.view.PayPwdFrg;
 import com.yc.quzhuanfa.view.ReleaseFrg;
 import com.yc.quzhuanfa.view.RetrievePwdFrg;
 import com.yc.quzhuanfa.view.SetFrg;
-import com.yc.quzhuanfa.view.SixFrg;
+import com.yc.quzhuanfa.view.SexFrg;
 import com.yc.quzhuanfa.view.ThreeFrg;
+import com.yc.quzhuanfa.view.UpdateNameFrg;
 import com.yc.quzhuanfa.view.UserInfoFrg;
 import com.yc.quzhuanfa.view.WithdrawalFrg;
 import com.yc.quzhuanfa.view.ZkingFrg;
@@ -32,6 +38,7 @@ import com.yc.quzhuanfa.view.act.DetailsAct;
 import com.yc.quzhuanfa.view.act.HtmlAct;
 import com.yc.quzhuanfa.view.act.LoginAct;
 import com.yc.quzhuanfa.view.act.MakeMoneyAct;
+import com.yc.quzhuanfa.view.act.PlayVideoAct;
 import com.yc.quzhuanfa.view.act.VideoAct;
 
 
@@ -333,5 +340,118 @@ public final class UIHelper {
         } else {
             ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
         }
+    }
+
+    /**
+     *  修改头像
+     */
+    public static void startHeadFrg(BaseFragment root) {
+        HeadFrg frg = new HeadFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        root.start(frg);
+    }
+
+    /**
+     *  修改头像
+     */
+    public static void startUpdateNameFrg(BaseFragment root) {
+        UpdateNameFrg frg = new UpdateNameFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        root.start(frg);
+    }
+
+    /**
+     *  修改性别
+     */
+    public static void startSexFrg(BaseFragment root) {
+        SexFrg frg = new SexFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        root.start(frg);
+    }
+
+    /**
+     *  查看如何挣钱
+     */
+    public static void startMakeMoneyChildFrg(BaseFragment root) {
+        MakeMoneyChildFrg frg = new MakeMoneyChildFrg();
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", HtmlAct.MONEY);
+        frg.setArguments(bundle);
+        root.start(frg);
+    }
+
+    /**
+     *  收藏
+     * @param root
+     */
+    public static void startVideoCollectFrg(BaseFragment root) {
+        CollectFrg frg = new CollectFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
+    }
+
+    /**
+     *  搜索视频
+     */
+    public static void startSearchVideoFrg(BaseFragment root) {
+        SearchVideoFrg frg = new SearchVideoFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
+    }
+
+    /**
+     *  我的评价
+     */
+    public static void startEvaluateFrg(BaseFragment root) {
+        EvaluateFrg frg = new EvaluateFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
+    }
+
+    /**
+     *  历史记录
+     * @param root
+     */
+    public static void startHistoryFrg(BaseFragment root) {
+        HistoryFrg frg = new HistoryFrg();
+        Bundle bundle = new Bundle();
+        frg.setArguments(bundle);
+        Fragment fragment = root.getParentFragment();
+        if (fragment == null) {
+            root.start(frg);
+        } else {
+            ((MainFrg) root.getParentFragment()).startBrotherFragment(frg);
+        }
+    }
+
+    /**
+     *  播放视频页面
+     * @param videoUrl
+     */
+    public static void startPlayVideoAct(String videoUrl) {
+        Bundle bundle = new Bundle();
+        bundle.putString("videoUrl", videoUrl);
+        ActivityUtils.startActivity(bundle, PlayVideoAct.class);
     }
 }

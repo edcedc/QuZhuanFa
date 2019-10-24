@@ -68,10 +68,7 @@ public class BaseListPresenter extends BaseListContract.Presenter{
     @Override
     public void onRequest(String url) {
         CloudApi.list2(url)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) {
-                    }
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean<List<DataBean>>>>() {

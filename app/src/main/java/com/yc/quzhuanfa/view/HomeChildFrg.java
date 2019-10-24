@@ -14,6 +14,7 @@ import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.bean.DataBean;
 import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.databinding.FHomeBinding;
+import com.yc.quzhuanfa.event.CollectInEvent;
 import com.yc.quzhuanfa.impl.HomeChildContract;
 import com.yc.quzhuanfa.presenter.HomeChildPresenter;
 import com.yc.quzhuanfa.utils.GlideImageLoader;
@@ -21,6 +22,9 @@ import com.yc.quzhuanfa.weight.LinearDividerItemDecoration;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.transformer.DefaultTransformer;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -92,7 +96,7 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
                 mPresenter.onRequest(pagerNumber += 1, id);
             }
         });
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -112,6 +116,10 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
         if (pagerNumber == 1) {
             listBean.clear();
             mB.refreshLayout.finishRefreshing();
+
+            for (DataBean bean : list){
+
+            }
 
             DataBean bean = list.get(0);
             listBanner.clear();
@@ -140,6 +148,14 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
 
     @Override
     public void setProfitOne(DataBean result) {
+    }
+
+    @Subscribe
+    public void onCollectInEvent(CollectInEvent event){
+        if (event.type != 0)return;
+        DataBean bean = listBean.get(event.position);
+        bean.setIsTrue(event.isTrue);
+        adapter.notifyItemChanged(event.position);
     }
 
     @Override
@@ -176,4 +192,9 @@ public class HomeChildFrg extends BaseFragment<HomeChildPresenter, FHomeBinding>
         mB.banner.stopAutoPlay();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }

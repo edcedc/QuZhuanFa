@@ -33,6 +33,7 @@ public interface HomeChildContract {
          public abstract void onProfitOne();
 
          public abstract void onGetUserCashRecordList();
+
      }
 
 

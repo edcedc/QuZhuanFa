@@ -46,6 +46,8 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
     public static final int MEMBER = 64;//会员类型
     public static final int CENTER = 128;//会员类型
     public static final int ADVERTISEMENT = 99;//登录进来的弹窗
+    public static final int ADDETAILS = 111;//广告详情
+    public static final int ADDETAILSURL = 112;//广告详情  URL
 
 
     @Override
@@ -68,26 +70,35 @@ public class HtmlAct extends BaseActivity<BasePresenter, AHtmlBinding> {
         switch (type){
             case GUIDE:
                 setTitle("新手指南");
+                mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
                 break;
             case MONEY:
                 setTitle("挣钱秘笈");
+                mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
                 break;
             case REGISTER:
                 setTitle("隐私协议");
+                mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
                 break;
             case MEMBER:
                 setTitle("会员协议");
+                mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
             case CENTER:
                 setTitle("活动中心");
+                mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
                 break;
+            case ADDETAILSURL:
+                setTitle("广告");
+                mB.webView.loadUrl(url);
+                break;
+             case ADDETAILS:
+                 setTitle("广告");
+                 mB.webView.loadDataWithBaseURL(null, url, "text/html", "utf-8", null);
+                 break;
             default:
                 setTitle("详情");
+                mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
                 break;
-        }
-        if(type == ADVERTISEMENT){
-            mB.webView.loadUrl(url);
-        }else {
-            mB.webView.loadUrl(CloudApi.AGREEMENT_URL + type);
         }
         mB.webView.setWebViewClient(new WebViewClient() {
             @Override

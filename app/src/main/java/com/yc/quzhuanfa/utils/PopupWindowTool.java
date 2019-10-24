@@ -21,6 +21,8 @@ import com.blankj.utilcode.util.StringUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.jungly.gridpasswordview.GridPasswordView;
 import com.jungly.gridpasswordview.PasswordType;
+import com.lxj.xpopup.XPopup;
+import com.lxj.xpopup.interfaces.SimpleCallback;
 import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.adapter.SignAdapter;
 import com.yc.quzhuanfa.bean.DataBean;
@@ -59,12 +61,7 @@ public class PopupWindowTool {
                 }
             }
         });
-        wh.findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popupWindow.dismiss();
-            }
-        });
+        wh.findViewById(R.id.btn_cancel).setOnClickListener(view -> popupWindow.dismiss());
     }
 
     public static void showLogin(final Context act, DataBean bean){
@@ -81,51 +78,51 @@ public class PopupWindowTool {
                     bean.getLoginPrice() +
                     "元            " +
                     "未获得");
-            tv_login.setTextColor(act.getColor(R.color.orange_FFB502));
+            tv_login.setTextColor(act.getResources().getColor(R.color.orange_FFB502));
         }else {
             priceAll += bean.getLoginPrice();
             tv_login.setText("首次登陆APP          +" +
                     bean.getLoginPrice() +
                     "元            " +
                     "已获得");
-            tv_login.setTextColor(act.getColor(R.color.white));
+            tv_login.setTextColor(act.getResources().getColor(R.color.white));
         }
         if (bean.getShare() == 0){
             tv_share.setText("首次分享文章          +" +
                     bean.getSharePrice() +
                     "元           " +
                     "未获得");
-            tv_share.setTextColor(act.getColor(R.color.orange_FFB502));
+            tv_share.setTextColor(act.getResources().getColor(R.color.orange_FFB502));
         }else {
             priceAll += bean.getSharePrice();
             tv_share.setText("首次分享文章          +" +
                     bean.getSharePrice() +
                     "元           " +
                     "已获得");
-            tv_share.setTextColor(act.getColor(R.color.white));
+            tv_share.setTextColor(act.getResources().getColor(R.color.white));
         }
         if (bean.getShare() == 0){
             tv_apprentice.setText("首次收徒                  +" +
                     bean.getSharePrice() +
                     "元           " +
                     "未获得");
-            tv_apprentice.setTextColor(act.getColor(R.color.orange_FFB502));
+            tv_apprentice.setTextColor(act.getResources().getColor(R.color.orange_FFB502));
         }else {
             priceAll += bean.getApprenticePrice();
             tv_apprentice.setText("首次收徒                  +" +
                     bean.getSharePrice() +
                     "元           " +
                     "已获得");
-            tv_apprentice.setTextColor(act.getColor(R.color.white));
+            tv_apprentice.setTextColor(act.getResources().getColor(R.color.white));
         }
         String str = "恭喜您获得" +
                 priceAll +
                 "元" + "\n" + "新人红包(可提现）";
         Spannable sp = new SpannableString(str);
-        sp.setSpan(new ForegroundColorSpan(act.getColor(R.color.red_EF402C)), 5, str.length() - 10, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        sp.setSpan(new ForegroundColorSpan(act.getResources().getColor(R.color.red_EF402C)), 5, str.length() - 10, Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         sp.setSpan(new AbsoluteSizeSpan(15, true), str.length() - 11, str.length() - 9, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         sp.setSpan(new AbsoluteSizeSpan(20, true), str.length() - 5, str.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
-        sp.setSpan(new ForegroundColorSpan(act.getColor(R.color.orange_FF942F)), str.length() - 5, str.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
+        sp.setSpan(new ForegroundColorSpan(act.getResources().getColor(R.color.orange_FF942F)), str.length() - 5, str.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         tv_css.setText(sp);
         wh.findViewById(R.id.bt_submit).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,15 +199,12 @@ public class PopupWindowTool {
                 return view;
             }
         });
-        rv_flow.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-            @Override
-            public boolean onTagClick(View view, int position, FlowLayout parent) {
-                if (listener != null){
-                    listener.onClick(position);
-                    popupWindow.dismiss();
-                }
-                return false;
+        rv_flow.setOnTagClickListener((view1, position, parent) -> {
+            if (listener != null){
+                listener.onClick(position);
+                popupWindow.dismiss();
             }
+            return false;
         });
     }
 
@@ -294,8 +288,38 @@ public class PopupWindowTool {
                 popupWindow.dismiss();
             }
         });
+    }
 
+    /**
+     *  可已复用的弹窗
+     * @param act
+     */
+    public static XPopup.Builder showDialog(Context act){
+        return new XPopup.Builder(act)
+                .setPopupCallback(new SimpleCallback() {
+                    @Override
+                    public void onCreated() {
+                    }
 
+                    @Override
+                    public void beforeShow() {
+                        super.beforeShow();
+//                        Log.e("tag", "beforeShow，在每次show之前都会执行，可以用来进行多次的数据更新。");
+                    }
+
+                    @Override
+                    public void onShow() {
+                    }
+                    @Override
+                    public void onDismiss() {
+                    }
+                    //如果你自己想拦截返回按键事件，则重写这个方法，返回true即可
+                    @Override
+                    public boolean onBackPressed() {
+//                        ToastUtils.showShort("我拦截的返回按键，按返回键XPopup不会关闭了");
+                        return false;
+                    }
+                });
     }
 
 }

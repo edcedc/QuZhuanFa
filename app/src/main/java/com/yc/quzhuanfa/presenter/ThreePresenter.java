@@ -27,10 +27,7 @@ public class ThreePresenter extends ThreeContract.Presenter {
     @Override
     public void getUserList() {
         CloudApi.list2( CloudApi.userGetUserList)
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                    }
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean<List<DataBean>>>>() {

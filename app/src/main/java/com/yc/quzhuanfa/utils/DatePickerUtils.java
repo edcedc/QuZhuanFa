@@ -31,6 +31,7 @@ import cn.addapp.pickers.picker.SinglePicker;
 public class DatePickerUtils {
 
 
+
     public static void getYearMonthDayPicker(Activity act, String title, final OnYearMonthDayListener listener){
         String[] times = TimeUtils.getNowString(new SimpleDateFormat("yyyy-MM-dd")).split("-");
         Integer year = Integer.valueOf(times[0]);
@@ -141,8 +142,7 @@ public class DatePickerUtils {
         picker.show();
     }
 
-    public static String onAddressPicker(Activity act) {
-        final String[] s = new String[1];
+    public static void onAddressPicker(Activity act, onAddressPickerListener addressPickerListener) {
         AddressPickTask task = new AddressPickTask(act);
         task.setHideProvince(false);
         task.setHideCounty(false);
@@ -158,12 +158,20 @@ public class DatePickerUtils {
                 if (county == null) {
 //                    showToast(province.getAreaName() + city.getAreaName());
                 } else {
-                     s[0] = province.getAreaName() + city.getAreaName() + county.getAreaName();
+                    String address = province.getAreaName() + city.getAreaName() + county.getAreaName();
+                    if (addressPickerListener != null){
+                        addressPickerListener.onAddress(address);
+                    }
+                    LogUtils.e(address);
                 }
             }
         });
         task.execute("广东", "广州", "越秀");
-        return s[0];
+    }
+
+    private onAddressPickerListener addressPickerListener;
+    public interface onAddressPickerListener{
+        void onAddress(String add);
     }
 
 }

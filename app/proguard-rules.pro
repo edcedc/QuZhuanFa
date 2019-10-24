@@ -406,3 +406,21 @@ public void onEventMainThread(**);
 -keepattributes InnerClasses,Signature
 -keepattributes *Annotation*
 -keep class cn.addapp.pickers.entity.** { *;}
+#litepal
+-keep class org.litepal.** {
+    *;
+}
+
+-keep class * extends org.litepal.crud.DataSupport {
+    *;
+}
+
+-keep class * extends org.litepal.crud.LitePalSupport {
+    *;
+}
+#XPopup
+-dontwarn com.lxj.xpopup.widget.**
+-keep class com.lxj.xpopup.widget.**{*;}
+#bugly
+-dontwarn com.tencent.bugly.**
+-keep public class com.tencent.bugly.**{*;}

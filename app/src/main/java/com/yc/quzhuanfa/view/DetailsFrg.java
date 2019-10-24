@@ -50,8 +50,8 @@ import java.util.List;
 public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> implements DetailsContract.View, View.OnClickListener {
 
     private ShareAction shareAction;
-    private DataBean bean;
     private ShareTool instance;
+    private DataBean bean;
     private String url;
     private String articleId;
     private CommentBottomFrg commentBottomFrg;
@@ -88,20 +88,17 @@ public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> 
         setTitle(getString(R.string.details));
         setSwipeBackEnable(false);
         mB.tvComment.setOnClickListener(this);
+        mB.tvCollect.setOnClickListener(this);
         commentBottomFrg = new CommentBottomFrg();
         url = CloudApi.ARTICLE_URL  + ShareSessionIdCache.getInstance(Utils.getApp()).getUserId() +
                 "&articleId=" + bean.getArticleId() + "&realType=1";
         instance = ShareTool.getInstance(act);
-        instance.setUMListener(new ShareTool.UMListener() {
-            @Override
-            public void onResult(SHARE_MEDIA platform) {
-                mPresenter.onSaveForward(bean.getArticleId());
-            }
-        });
+        instance.setUMListener(platform -> mPresenter.onSaveForward(bean.getArticleId()));
         mB.tvForwarding.setOnClickListener(this);
         mB.tvShare.setOnClickListener(this);
         mB.webView.loadUrl(url);
         mPresenter.onRandom();
+        mPresenter.onSaveHistory(articleId);
 //        mB.webView.loadDataWithBaseURL(null, bean.getContent(), "text/html", "utf-8", null);
         mB.webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -162,6 +159,7 @@ public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> 
 
             }
         });
+        setCollect(bean.getIsTrue());
     }
 
     @Override
@@ -220,6 +218,9 @@ public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> 
             case R.id.tv_comment:
                 commentBottomFrg.show(getFragmentManager(), "");
                 break;
+            case R.id.tv_collect:
+                mPresenter.onCollect(articleId, bean.getIsTrue(), bean.getPosition());
+                break;
         }
     }
 
@@ -243,4 +244,12 @@ public class DetailsFrg extends BaseFragment<DetailsPresenter, FDetailsBinding> 
         listBean.add(0, bean);
         adapter.notifyDataSetChanged();
     }
+
+    @Override
+    public void setCollect(int finalIsTrue) {
+        bean.setIsTrue(finalIsTrue);
+        mB.tvCollect.setCompoundDrawablesWithIntrinsicBounds(null,
+                null, act.getResources().getDrawable(finalIsTrue == 0 ? R.mipmap.weidianzan1 : R.mipmap.dianzan1, null), null);
+    }
+
 }

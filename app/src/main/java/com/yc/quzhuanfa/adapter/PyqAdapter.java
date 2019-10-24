@@ -18,6 +18,7 @@ import com.yc.quzhuanfa.base.BaseFragment;
 import com.yc.quzhuanfa.base.BaseRecyclerviewAdapter;
 import com.yc.quzhuanfa.bean.DataBean;
 import com.yc.quzhuanfa.controller.CloudApi;
+import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.utils.GlideLoadingUtils;
 import com.yc.quzhuanfa.utils.TimeUtil;
 import com.yc.quzhuanfa.weight.CircleImageView;
@@ -44,6 +45,7 @@ public class PyqAdapter extends BaseRecyclerviewAdapter<DataBean> {
     protected void onBindViewHolde(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         DataBean bean = listBean.get(position);
+        GlideLoadingUtils.load(act, bean.getHead(), viewHolder.iv_head);
         viewHolder.tv_name.setText(bean.getUserNickName());
         String context = bean.getContext();
         viewHolder.tv_content.setText(context);
@@ -76,6 +78,7 @@ public class PyqAdapter extends BaseRecyclerviewAdapter<DataBean> {
             GlideLoadingUtils.loadMeasuring(act, CloudApi.SERVLET_IMG_URL + bean.getAttachId(), viewHolder.iv_img);
             viewHolder.iv_play.setVisibility(View.VISIBLE);
             viewHolder.iv_img.setVisibility(View.VISIBLE);
+            viewHolder.iv_img.setOnClickListener(view -> UIHelper.startPlayVideoAct(CloudApi.SERVLET_VIDEO_URL + bean.getVideo()));
         }else {
             viewHolder.layout_nine_grid.setVisibility(View.GONE);
             viewHolder.iv_play.setVisibility(View.GONE);

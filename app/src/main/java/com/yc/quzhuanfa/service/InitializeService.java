@@ -23,6 +23,8 @@ import com.yc.quzhuanfa.R;
 import com.yc.quzhuanfa.mar.MyApplication;
 import com.yc.quzhuanfa.utils.Constants;
 
+import org.litepal.LitePal;
+
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Locale;
@@ -66,6 +68,7 @@ public class InitializeService extends IntentService {
     private void performInit() {
         Utils.init(this);
         LogUtils.e("performInit begin:" + System.currentTimeMillis());
+        LitePal.initialize(this);
         initOkGo();
         initAutoSizeConfig();
         initQbSdk();

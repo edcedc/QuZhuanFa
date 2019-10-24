@@ -29,6 +29,7 @@
 
 
     <string name="home_search_title" translatable="false">点击查看如何赚钱</string>
+    <string name="home_search" translatable="false">点击搜索</string>
     <string name="selection_column" translatable="false">选择栏目</string>
     <string name="income" translatable="false">收入明细</string>
     <string name="forwarding" translatable="false">转发赚钱规则</string>
@@ -67,7 +68,7 @@
     <string name="withdrawal1" translatable="false">提现</string>
     <string name="withdrawal2" translatable="false">选择提现方式</string>
     <string name="yhk" translatable="false">银行卡</string>
-    <string name="zfb" translatable="false">支付宝</string>
+    <string name="zfb" trande_actionbar_sub_discussionslatable="false">支付宝</string>
     <string name="wx" translatable="false">微信</string>
     <string name="input_pay_pwd" translatable="false">请输入支付密码</string>
     <string name="balance_withdrawal" translatable="false">余额提现</string>
@@ -75,6 +76,7 @@
     <string name="privacy_protocol" translatable="false">隐私协议</string>
     <string name="reminder" translatable="false">到账提醒</string>
     <string name="clear_cache" translatable="false">清除缓存</string>
+    <string name="clear" translatable="false">清除</string>
     <string name="share_money" translatable="false">分享赚钱</string>
     <string name="share_money1" translatable="false">分享任意文章到微信群，好友或者朋友圈</string>
     <string name="share_money2" translatable="false">坐等收益</string>
@@ -115,6 +117,8 @@
     <string name="member" translatable="false">会员协议</string>
     <string name="action_center" translatable="false">活动中心</string>
     <string name="popular_comments" translatable="false">热门评论</string>
+    <string name="hot_search" translatable="false">热门搜素</string>
+    <string name="history_search" translatable="false">历史搜素</string>
     <string name="xie_comments" translatable="false">写评论</string>
     <string name="comments" translatable="false">评论</string>
     <string name="collect_articles" translatable="false">收藏文章</string>
@@ -131,7 +135,17 @@
     <string name="yy1" translatable="false">请输入内容</string>
     <string name="yy2" translatable="false">至少选择一样发布</string>
     <string name="yy3" translatable="false">看了这么多，留下你的评论在趣分享吧!!! </string>
+    <string name="yy4" translatable="false">点击查看如何赚钱</string>
     <string name="location" translatable="false">所在位置</string>
+    <string name="head" translatable="false">头像</string>
+    <string name="nick" translatable="false">名字</string>
+    <string name="sex" translatable="false">性别</string>
+    <string name="user_info" translatable="false">我的信息</string>
+    <string name="set_name" translatable="false">设置名字</string>
+    <string name="submit1" translatable="false">完成</string>
+    <string name="nan" translatable="false">男</string>
+    <string name="nv" translatable="false">女</string>
+    <string name="set_sex" translatable="false">设置性别</string>
 
 
 </resources>

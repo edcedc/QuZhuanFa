@@ -126,13 +126,10 @@ public class FourFrg extends BaseFragment<FourPresenter, FFourBinding> implement
 
     @Override
     public void onSign() {
-        PopupWindowTool.showSign(act, listBean, new PopupWindowTool.onSignClickListener() {
-            @Override
-            public void onClick(List<DataBean> list, SignAdapter adapter) {
-                listBean = list;
-                signAdapter = adapter;
-                mPresenter.signList();
-            }
+        PopupWindowTool.showSign(act, listBean, (list, adapter) -> {
+            listBean = list;
+            signAdapter = adapter;
+            mPresenter.signList();
         });
     }
 }

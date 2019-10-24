@@ -14,11 +14,17 @@ import com.yc.quzhuanfa.base.BaseListContract;
 import com.yc.quzhuanfa.base.BaseListPresenter;
 import com.yc.quzhuanfa.bean.BaseResponseBean;
 import com.yc.quzhuanfa.bean.DataBean;
+import com.yc.quzhuanfa.bean.PhoneBean;
 import com.yc.quzhuanfa.callback.Code;
 import com.yc.quzhuanfa.controller.CloudApi;
 import com.yc.quzhuanfa.controller.UIHelper;
 import com.yc.quzhuanfa.databinding.FOneBinding;
 import com.yc.quzhuanfa.utils.PopupWindowTool;
+import com.yc.quzhuanfa.utils.cache.ShareIsLoginCache;
+import com.yc.quzhuanfa.utils.cache.SharedAccount;
+
+import org.litepal.LitePal;
+
 import java.util.ArrayList;
 import java.util.List;
 import io.reactivex.Observer;
@@ -61,15 +67,53 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
         mB.ivIncome.setOnClickListener(this);
         mPresenter.onRequest(pagerNumber = 1, CloudApi.articleGetArticleClass);
 
-        onProfitOne();
+        String mobile = SharedAccount.getInstance(act).getMobile();
+        List<PhoneBean> phoneBeans = LitePal.select("phone = ?", mobile).find(PhoneBean.class);
+        if (phoneBeans != null && phoneBeans.size() == 0){
+            PhoneBean phoneBean = new PhoneBean();
+            phoneBean.setPhone(mobile);
+            phoneBean.save();
+            getUserOne();
+        }else {
+            onProfitOne();
+        }
+    }
+
+    private void getUserOne(){
+        CloudApi.getUserOne()
+                .doOnSubscribe(disposable -> {
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Response<BaseResponseBean<DataBean>>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
+                        if(baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
+                            DataBean result = baseResponseBeanResponse.body().result;
+
+                            PopupWindowTool.showLogin(act, result);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void onProfitOne() {
         CloudApi.getNewOldUser()
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable){
-                    }
+                .doOnSubscribe(disposable -> {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<Response<BaseResponseBean<List<DataBean>>>>() {
@@ -83,12 +127,7 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
                         if (baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
                             final List<DataBean> list = baseResponseBeanResponse.body().result;
                             if (list != null && list.size() != 0){
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        PopupWindowTool.showAdvertisement(act, list.get(0));
-                                    }
-                                }, 1000);
+                                new Handler().postDelayed(() -> PopupWindowTool.showAdvertisement(act, list.get(0)), 1000);
                             }
                         }
                     }
@@ -114,15 +153,11 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.ly_lock:
-                PopupWindowTool.showxMoneyRules(act);
+//                PopupWindowTool.showxMoneyRules(act);
+                                UIHelper.startSearchVideoFrg(this);
                 break;
             case R.id.iv_add:
-                PopupWindowTool.showHomeLabel(act, mB.titleBar, list, new PopupWindowTool.onPopClickListener() {
-                    @Override
-                    public void onClick(int position) {
-                        mB.viewPager.setCurrentItem(position);
-                    }
-                });
+                PopupWindowTool.showHomeLabel(act, mB.titleBar, list, position -> mB.viewPager.setCurrentItem(position));
                 break;
             case R.id.iv_income:
                 UIHelper.startIncomeFrg(this);

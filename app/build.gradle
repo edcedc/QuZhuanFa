@@ -175,6 +175,17 @@ dependencies {
     //跟上面一起选择地址要
     implementation 'com.alibaba:fastjson:1.1.56.android'
 
+    //完整版引入
+    implementation 'com.shuyu:gsyVideoPlayer-java:6.0.3'
+    //更多ijk的编码支持
+    implementation 'com.shuyu:gsyVideoPlayer-ex_so:6.0.3'
+    //数据库 litepal
+    implementation 'org.litepal.android:java:3.0.0'
+    //XPopup
+    implementation 'com.lxj:xpopup:1.8.9'
+    //bugly
+    implementation 'com.tencent.bugly:crashreport:latest.release' //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
+    implementation 'com.tencent.bugly:nativecrashreport:latest.release' //其中latest.release指代最新Bugly NDK版本号，也可以指定明确的版本号，例如3.0
 
     //微信支付
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'

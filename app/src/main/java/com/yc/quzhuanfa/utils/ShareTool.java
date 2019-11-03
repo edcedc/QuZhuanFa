@@ -214,13 +214,14 @@ public class ShareTool {
     /****************************授权***********************************/
     public void authorization(UMAuthListener listener) {
         boolean b = UMShareAPI.get(act).isAuthorize(act, SHARE_MEDIA.WEIXIN);
-        if (b) {
+        /*if (b) {
             LogUtils.e("删除授权");
             UMShareAPI.get(act).deleteOauth(act, SHARE_MEDIA.WEIXIN, listener);
         } else {
             LogUtils.e("授权");
             UMShareAPI.get(act).doOauthVerify(act, SHARE_MEDIA.WEIXIN, listener);
-        }
+        }*/
+        UMShareAPI.get(act).doOauthVerify(act, SHARE_MEDIA.WEIXIN, listener);
     }
 
     /****************************登陆***********************************/

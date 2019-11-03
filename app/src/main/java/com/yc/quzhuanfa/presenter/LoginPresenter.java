@@ -252,7 +252,11 @@ public class LoginPresenter extends LoginContract.Presenter {
         JSONObject user = data.optJSONObject("user");
         ShareSessionIdCache.getInstance(act).save(data.optString("token"));
         ShareSessionIdCache.getInstance(act).saveUserId(user.optString("userId"));
-        SharedAccount.getInstance(act).save(user.optString("phoneNum"), pwd);
+        if (!StringUtils.isEmpty(pwd)){
+            SharedAccount.getInstance(act).save(user.optString("phoneNum"), pwd);
+        }else {
+            SharedAccount.getInstance(act).remove();
+        }
         User.getInstance().setUserObj(user);
         User.getInstance().setLogin(true);
         UIHelper.startMainAct();

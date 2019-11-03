@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.View;
+
+import com.blankj.utilcode.util.StringUtils;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.gyf.immersionbar.ImmersionBar;
 import com.lzy.okgo.model.Response;
@@ -67,16 +69,17 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
         mB.ivIncome.setOnClickListener(this);
         mPresenter.onRequest(pagerNumber = 1, CloudApi.articleGetArticleClass);
 
-        String mobile = SharedAccount.getInstance(act).getMobile();
-        List<PhoneBean> phoneBeans = LitePal.select("phone = ?", mobile).find(PhoneBean.class);
-        if (phoneBeans != null && phoneBeans.size() == 0){
-            PhoneBean phoneBean = new PhoneBean();
-            phoneBean.setPhone(mobile);
-            phoneBean.save();
-            getUserOne();
-        }else {
-            onProfitOne();
-        }
+//        String mobile = SharedAccount.getInstance(act).getMobile();
+//        if (!StringUtils.isEmpty(mobile)){//第三方登录进来
+//            List<PhoneBean> phoneBeans = LitePal.select("phone = ?", mobile).find(PhoneBean.class);
+//            if (phoneBeans != null && phoneBeans.size() == 0){
+//                PhoneBean phoneBean = new PhoneBean();
+//                phoneBean.setPhone(mobile);
+//                phoneBean.save();
+//            }
+//        }
+
+        getUserOne();
     }
 
     private void getUserOne(){
@@ -94,8 +97,7 @@ public class OneFrg extends BaseFragment<BaseListPresenter, FOneBinding> impleme
                     public void onNext(Response<BaseResponseBean<DataBean>> baseResponseBeanResponse) {
                         if(baseResponseBeanResponse.body().code == Code.CODE_SUCCESS){
                             DataBean result = baseResponseBeanResponse.body().result;
-
-                            PopupWindowTool.showLogin(act, result);
+                            PopupWindowTool.showLogin(act, result, () -> onProfitOne());
                         }
                     }
 

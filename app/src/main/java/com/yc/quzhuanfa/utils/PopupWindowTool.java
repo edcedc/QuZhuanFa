@@ -64,7 +64,7 @@ public class PopupWindowTool {
         wh.findViewById(R.id.btn_cancel).setOnClickListener(view -> popupWindow.dismiss());
     }
 
-    public static void showLogin(final Context act, DataBean bean){
+    public static void showLogin(final Context act, DataBean bean, onLoginClickListener listener){
         View wh = LayoutInflater.from(act).inflate(R.layout.p_login, null);
         final WPopupWindow popupWindow = new WPopupWindow(wh);
         popupWindow.showAtLocation(wh, Gravity.CENTER, 0, 0);
@@ -124,12 +124,15 @@ public class PopupWindowTool {
         sp.setSpan(new AbsoluteSizeSpan(20, true), str.length() - 5, str.length(), Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         sp.setSpan(new ForegroundColorSpan(act.getResources().getColor(R.color.orange_FF942F)), str.length() - 5, str.length(), Spanned.SPAN_INCLUSIVE_EXCLUSIVE);
         tv_css.setText(sp);
-        wh.findViewById(R.id.bt_submit).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                popupWindow.dismiss();
-            }
+        wh.findViewById(R.id.bt_submit).setOnClickListener(view -> {
+            listener.onClick();
+            popupWindow.dismiss();
         });
+    }
+
+    private onLoginClickListener onLoginClickListener;
+    public interface onLoginClickListener{
+        void onClick();
     }
 
     public static void showSign(final Context act, final List<DataBean> listBean, final onSignClickListener listener){
